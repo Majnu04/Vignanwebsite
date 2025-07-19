@@ -1,11 +1,20 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import type { Program } from '../types';
 
-if (!process.env.API_KEY) {
-    console.warn("API_KEY environment variable not set. AI features will not work.");
-}
+// Check for API key and provide more user-friendly handling
+const API_KEY = process.env.API_KEY || '';
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY! });
+// Only create the AI client if we have an API key
+let ai: any;
+try {
+  if (!API_KEY) {
+    console.warn("API_KEY environment variable not set. AI features will be disabled.");
+  } else {
+    ai = new GoogleGenAI({ apiKey: API_KEY });
+  }
+} catch (error) {
+  console.error("Error initializing Google Genai:", error);
+}
 
 const programSchema = {
   type: Type.OBJECT,
@@ -28,6 +37,21 @@ const responseSchema = {
 };
 
 export const findPrograms = async (query: string, availablePrograms: Program[]): Promise<{ programName: string; reason: string }[]> => {
+  // If AI client is not initialized, return default recommendations
+  if (!ai) {
+    console.warn("AI client not available. Returning sample recommendations.");
+    return [
+      { 
+        programName: availablePrograms[0]?.name || "Computer Science Engineering", 
+        reason: "This is a default recommendation. Please set up the GEMINI_API_KEY in your Vercel environment variables for AI-powered recommendations." 
+      },
+      { 
+        programName: availablePrograms[1]?.name || "Electronics & Communication Engineering", 
+        reason: "This is a default recommendation. AI features are currently disabled." 
+      }
+    ];
+  }
+
   const programList = availablePrograms.map(p => `"${p.name}"`).join(', ');
 
   const prompt = `
