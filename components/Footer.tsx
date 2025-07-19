@@ -136,12 +136,12 @@ const Footer: React.FC = () => {
           ))}
         </div>
         
-        <div className="mt-16 pt-8 border-t border-white/10 grid grid-cols-1 md:grid-cols-2 gap-y-6">
-          <div className="text-blue-100/60 text-sm">
+        <div className="mt-10 sm:mt-16 pt-6 sm:pt-8 border-t border-white/10 grid grid-cols-1 md:grid-cols-2 gap-y-4 sm:gap-y-6">
+          <div className="text-blue-100/60 text-xs sm:text-sm">
             <p>&copy; {new Date().getFullYear()} Vignan College Visakhapatnam. All Rights Reserved.</p>
           </div>
           <div className="md:text-right">
-            <nav className="flex flex-wrap gap-x-6 gap-y-2 justify-start md:justify-end text-sm text-blue-100/60">
+            <nav className="flex flex-wrap gap-x-4 sm:gap-x-6 gap-y-1 sm:gap-y-2 justify-start md:justify-end text-xs sm:text-sm text-blue-100/60">
               <a href="#" className="hover:text-white hover:underline">Privacy Policy</a>
               <a href="#" className="hover:text-white hover:underline">Terms of Service</a>
               <a href="#" className="hover:text-white hover:underline">Cookie Policy</a>

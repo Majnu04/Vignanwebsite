@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from 'react';
 import { Program } from '../types';
 import { findPrograms } from '../services/geminiService';
@@ -153,66 +152,36 @@ const ProgramCard: React.FC<{ program: Program, inView: boolean, delay: string }
   const [isExpanded, setIsExpanded] = useState(false);
   
   return (
-    <div ref={cardRef} className={`card-shine bg-white rounded-2xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-500 flex flex-col ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`} style={{transitionDelay: delay}}>
-      <div className="p-6 flex-grow">
-        <div className="flex items-center mb-2">
-          <span className="inline-block px-3 py-1 text-xs font-semibold text-blue-600 bg-blue-50 rounded-full">{program.discipline}</span>
-          {program.duration && (
-            <span className="inline-block px-3 py-1 text-xs font-semibold text-gray-600 bg-gray-100 rounded-full ml-2">
-              {program.duration}
-            </span>
+    <div ref={cardRef} className={`card-shine bg-white rounded-xl sm:rounded-2xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-500 flex flex-col ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'} p-4 sm:p-6`} style={{transitionDelay: delay}}>
+      <span className="inline-block px-2 sm:px-3 py-1 text-xs sm:text-sm font-semibold text-primary-600 bg-primary-50 rounded-full">{program.discipline}</span>
+      <span className="inline-block px-2 sm:px-3 py-1 text-xs sm:text-sm font-semibold text-gray-600 bg-gray-100 rounded-full ml-2">{program.level}</span>
+      <h3 className="text-lg sm:text-xl font-bold text-primary-900 leading-tight mb-2 sm:mb-3">{program.name}</h3>
+      <p className="text-gray-600 text-xs sm:text-sm mb-2">{program.description}</p>
+      <div className={`overflow-hidden transition-all duration-300 ${isExpanded ? 'max-h-72 mt-2 sm:mt-4' : 'max-h-0'}`}>
+        <div className="grid grid-cols-1 gap-2 sm:gap-3 text-xs sm:text-sm">
+          {program.eligibility && (
+            <div>
+              <h4 className="font-semibold text-blue-900">Eligibility</h4>
+              <p className="text-gray-600">{program.eligibility}</p>
+            </div>
+          )}
+          {program.fees && (
+            <div>
+              <h4 className="font-semibold text-blue-900">Fee Structure</h4>
+              <p className="text-gray-600">{program.fees}</p>
+            </div>
+          )}
+          {program.career && (
+            <div>
+              <h4 className="font-semibold text-blue-900">Career Opportunities</h4>
+              <p className="text-gray-600">{program.career}</p>
+            </div>
           )}
         </div>
-        
-        <h3 className="text-xl font-bold text-blue-900 leading-tight mb-3">{program.name}</h3>
-        <p className="text-gray-600 text-sm">{program.description}</p>
-        
-        {/* Additional details */}
-        <div className={`overflow-hidden transition-all duration-300 ${isExpanded ? 'max-h-72 mt-4' : 'max-h-0'}`}>
-          <div className="grid grid-cols-1 gap-3 text-sm">
-            {program.eligibility && (
-              <div>
-                <h4 className="font-semibold text-blue-900">Eligibility</h4>
-                <p className="text-gray-600">{program.eligibility}</p>
-              </div>
-            )}
-            {program.fees && (
-              <div>
-                <h4 className="font-semibold text-blue-900">Fee Structure</h4>
-                <p className="text-gray-600">{program.fees}</p>
-              </div>
-            )}
-            {program.career && (
-              <div>
-                <h4 className="font-semibold text-blue-900">Career Opportunities</h4>
-                <p className="text-gray-600">{program.career}</p>
-              </div>
-            )}
-          </div>
-        </div>
       </div>
-      
-      <div className="p-4 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
-        <button 
-          onClick={() => setIsExpanded(!isExpanded)} 
-          className="text-sm text-blue-700 hover:text-blue-900 font-medium flex items-center transition-colors"
-        >
-          {isExpanded ? 'Show Less' : 'Show Details'}
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            className={`h-4 w-4 ml-1 transition-transform ${isExpanded ? 'rotate-180' : ''}`} 
-            fill="none" 
-            viewBox="0 0 24 24" 
-            stroke="currentColor"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
-        </button>
-        
-        <a href="#" className="font-semibold text-sm text-blue-800 hover:text-blue-600 transition-colors duration-300 inline-flex items-center group">
-          Apply Now <ArrowRightIcon className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-        </a>
-      </div>
+      <button className="mt-2 sm:mt-4 px-4 py-2 w-full sm:w-auto rounded-lg bg-primary-600 text-white font-semibold text-xs sm:text-sm shadow hover:bg-primary-700 transition-all duration-300">
+        Learn More
+      </button>
     </div>
   );
 };
@@ -341,7 +310,7 @@ const ProgramsSection: React.FC = () => {
         )}
 
         {filteredPrograms.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" ref={gridRef}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8" ref={gridRef}>
             {filteredPrograms.map((program, index) => (
               <ProgramCard key={program.id} program={program} inView={gridInView} delay={`${index*100}ms`} />
             ))}

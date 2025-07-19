@@ -38,20 +38,20 @@ const ExploreCampus: React.FC = () => {
     const [activeHotspot, setActiveHotspot] = useState(hotspots[0]);
 
     return (
-        <div className="bg-white py-20 sm:py-28" ref={ref}>
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className={`text-center mb-16 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
-                    <h2 className="text-4xl md:text-5xl font-bold text-blue-900 tracking-tight">
+        <div className="bg-white py-12 sm:py-20" ref={ref}>
+            <div className="container mx-auto px-3 sm:px-6 lg:px-8">
+                <div className={`text-center mb-10 sm:mb-16 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}> 
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary-700 tracking-tight">
                         Explore Our Campus
                     </h2>
-                    <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
-                        Discover the world-class facilities and vibrant environment that make Vignan a premier institution. Click on the hotspots to learn more.
+                    <p className="mt-3 sm:mt-4 text-base sm:text-lg text-gray-600 max-w-3xl mx-auto">
+                        Discover the world-class facilities and vibrant environment that make Vignan a premier institution. Tap hotspots to learn more.
                     </p>
                 </div>
 
-                <div className={`grid grid-cols-1 lg:grid-cols-5 gap-8 transition-all duration-700 delay-200 ${inView ? 'opacity-100' : 'opacity-0'}`}>
+                <div className={`grid grid-cols-1 lg:grid-cols-5 gap-4 md:gap-8 transition-all duration-700 delay-200 ${inView ? 'opacity-100' : 'opacity-0'}`}> 
                     {/* Map Section */}
-                    <div className="lg:col-span-3 h-[60vh] bg-gray-200 rounded-2xl relative overflow-hidden shadow-lg">
+                    <div className="lg:col-span-3 h-64 xs:h-80 sm:h-[50vh] lg:h-[60vh] bg-gray-200 rounded-2xl relative overflow-hidden shadow-lg">
                         <img 
                             src="https://images.unsplash.com/photo-1600585152220-0140ABC847c2?q=80&w=2070&auto=format&fit=crop"
                             alt="Vignan Campus Map"
@@ -62,31 +62,31 @@ const ExploreCampus: React.FC = () => {
                              <button
                                 key={hotspot.id}
                                 onClick={() => setActiveHotspot(hotspot)}
-                                className="absolute w-6 h-6 -translate-x-1/2 -translate-y-1/2"
+                                className="absolute w-8 h-8 xs:w-10 xs:h-10 -translate-x-1/2 -translate-y-1/2 focus:outline-none"
                                 style={hotspot.position}
                                 aria-label={`Show details for ${hotspot.name}`}
                             >
-                                <div className={`w-full h-full rounded-full bg-white/50 backdrop-blur-sm shadow-2xl transition-all duration-300 ${activeHotspot.id === hotspot.id ? 'scale-125' : 'hover:scale-125'}`}>
-                                     <div className={`pulse-dot w-full h-full rounded-full bg-blue-500`}></div>
+                                <div className={`w-full h-full rounded-full bg-white/60 backdrop-blur-sm shadow-2xl transition-all duration-300 ${activeHotspot.id === hotspot.id ? 'scale-125 ring-2 ring-primary-500' : 'hover:scale-110'}`}> 
+                                     <div className={`pulse-dot w-full h-full rounded-full bg-primary-500`}></div>
                                 </div>
                             </button>
                         ))}
                     </div>
 
                     {/* Info Section */}
-                    <div className="lg:col-span-2 flex flex-col overflow-hidden">
-                        <div key={activeHotspot.id} className="bg-white rounded-2xl shadow-lg flex flex-col flex-grow p-4 animate-slide-in">
-                            <div className="h-56 w-full rounded-xl overflow-hidden mb-4">
+                    <div className="lg:col-span-2 flex flex-col overflow-hidden mt-6 lg:mt-0">
+                        <div key={activeHotspot.id} className="bg-white rounded-2xl shadow-lg flex flex-col flex-grow p-3 sm:p-4 animate-slide-in">
+                            <div className="h-40 xs:h-56 w-full rounded-xl overflow-hidden mb-3 sm:mb-4">
                                     <img 
                                     src={activeHotspot.image} 
                                     alt={activeHotspot.name} 
                                     className="w-full h-full object-cover"
                                 />
                             </div>
-                            <div className="p-4 flex-grow flex flex-col">
-                                <h3 className="text-2xl font-bold text-blue-900">{activeHotspot.name}</h3>
-                                <p className="mt-2 text-gray-600 flex-grow">{activeHotspot.description}</p>
-                                <a href="#" className="mt-4 inline-block font-semibold text-blue-600 hover:text-blue-800 transition-colors">Learn More &rarr;</a>
+                            <div className="p-2 sm:p-4 flex-grow flex flex-col">
+                                <h3 className="text-xl sm:text-2xl font-bold text-primary-700">{activeHotspot.name}</h3>
+                                <p className="mt-1 sm:mt-2 text-gray-600 flex-grow text-sm sm:text-base">{activeHotspot.description}</p>
+                                <a href="#" className="mt-3 sm:mt-4 inline-block font-semibold text-primary-600 hover:text-primary-800 transition-colors text-sm sm:text-base">Learn More &rarr;</a>
                             </div>
                         </div>
                     </div>

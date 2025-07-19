@@ -88,16 +88,16 @@ const StatCard: React.FC<{ stat: typeof statsData[0]; inView: boolean; delay: st
     const count = useCounter(stat.value, 2000, inView, stat.decimals);
 
     return (
-        <div className={`bg-white p-6 rounded-2xl shadow-lg hover:shadow-blue-200/50 border border-gray-100 hover:border-blue-300 transition-all duration-500 transform hover:-translate-y-2 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} style={{ transitionDelay: delay }}>
-            <div className="flex items-center mb-4">
+        <div className={`bg-white p-4 sm:p-6 rounded-2xl shadow-lg hover:shadow-blue-200/50 border border-gray-100 hover:border-primary-300 transition-all duration-500 transform hover:-translate-y-2 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} style={{ transitionDelay: delay }}>
+            <div className="flex items-center mb-3 sm:mb-4">
               <StatIcon icon={stat.icon || ''} />
             </div>
             <div className="flex items-baseline gap-1">
-              <p className="text-4xl font-extrabold text-blue-600 tracking-tight">{count}</p>
-              <span className="text-xl font-bold text-blue-600">{stat.suffix}</span>
+              <p className="text-2xl sm:text-4xl font-extrabold text-primary-600 tracking-tight">{count}</p>
+              <span className="text-lg sm:text-xl font-bold text-primary-600">{stat.suffix}</span>
             </div>
-            <h3 className="text-lg font-semibold text-blue-900 mt-2">{stat.label}</h3>
-            <p className="text-sm text-gray-500 mt-1">{stat.description}</p>
+            <h3 className="text-base sm:text-lg font-semibold text-primary-700 mt-1 sm:mt-2">{stat.label}</h3>
+            <p className="text-xs sm:text-sm text-gray-500 mt-1">{stat.description}</p>
         </div>
     )
 }
@@ -106,36 +106,36 @@ const StatsSection: React.FC = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.3 });
 
   return (
-    <div className="bg-gradient-to-b from-white to-blue-50/80 py-20 sm:py-28" ref={ref}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`text-center mb-16 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
-          <div className="inline-block mb-5 px-6 py-1.5 bg-blue-100 rounded-full text-blue-800 font-medium">
+    <div className="bg-gradient-to-b from-white to-blue-50/80 py-12 sm:py-20" ref={ref}>
+      <div className="container mx-auto px-3 sm:px-6 lg:px-8">
+        <div className={`text-center mb-10 sm:mb-16 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}> 
+          <div className="inline-block mb-4 sm:mb-5 px-4 sm:px-6 py-1 bg-blue-100 rounded-full text-blue-800 font-medium text-base sm:text-lg">
             Our Achievements
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-blue-900 tracking-tight">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-primary-700 tracking-tight">
             Vignan at a Glance
           </h2>
-          <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="mt-3 sm:mt-4 text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
             Our commitment to quality education and student success is reflected in our achievements, rankings, and world-class infrastructure.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {statsData.slice(0, 4).map((stat, index) => (
             <StatCard key={index} stat={stat} inView={inView} delay={`${index * 100}ms`} />
           ))}
         </div>
         
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="mt-4 sm:mt-6 grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {statsData.slice(4).map((stat, index) => (
             <StatCard key={index + 4} stat={stat} inView={inView} delay={`${(index + 4) * 100}ms`} />
           ))}
         </div>
         
-        <div className={`mt-16 text-center transition-all duration-700 delay-500 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
+        <div className={`mt-10 sm:mt-16 text-center transition-all duration-700 delay-500 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}> 
           <a 
             href="#" 
-            className="inline-flex items-center px-8 py-3 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+            className="inline-flex items-center px-6 sm:px-8 py-2.5 sm:py-3 bg-primary-600 text-white rounded-full font-semibold hover:bg-primary-700 transition-all duration-300 transform hover:scale-105 hover:shadow-lg text-base sm:text-lg"
           >
             Download College Brochure
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">

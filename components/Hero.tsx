@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import ArrowRightIcon from './icons/ArrowRightIcon';
 
@@ -237,11 +236,11 @@ const Hero: React.FC = () => {
                     <div 
                         className={`absolute inset-0 bg-gradient-to-r ${slide.overlayColor} transition-opacity duration-2000 ${
                             index === currentSlideIndex ? 'opacity-100' : 'opacity-0'
-                        }`}
+                        } pointer-events-none z-0`}
                     ></div>
                     
                     {/* Dynamic pattern overlay */}
-                    <div className="absolute inset-0 bg-[url('/images/noise.svg')] opacity-10"></div>
+                    <div className="absolute inset-0 bg-[url('/images/noise.svg')] opacity-10 pointer-events-none z-0"></div>
                     
                     {/* Improved parallax effect layer */}
                     <div 
@@ -261,7 +260,7 @@ const Hero: React.FC = () => {
                     {/* Light rays effect */}
                     <div className={`absolute inset-0 bg-gradient-to-t from-transparent via-white/5 to-transparent opacity-50 ${
                         index === currentSlideIndex ? 'animate-pulse-custom' : ''
-                    }`}></div>
+                    } pointer-events-none z-0`}></div>
                 </div>
             ))}
             
@@ -323,48 +322,52 @@ const Hero: React.FC = () => {
                         
                         {/* Enhanced Title with gradient text and 3D effect */}
                         <div className="overflow-hidden mb-6 relative">
-                            <h1 className="text-5xl md:text-7xl font-extrabold leading-tight tracking-tight animate-slideUp relative z-10" 
-                                style={{
-                                    animationDelay: '300ms',
-                                    textShadow: '0 5px 15px rgba(0,0,0,0.3), 0 2px 5px rgba(0,0,0,0.5)'
-                                }}>
-                                {/* Text with gradient */}
-                                <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-white">
-                                    {slides[currentSlideIndex].title}
-                                </span>
-                                
-                                {/* Subtle 3D layer */}
-                                <span className="absolute -bottom-1.5 left-0.5 text-blue-900/10 z-[-1] blur-[1px] select-none">
-                                    {slides[currentSlideIndex].title}
-                                </span>
-                                
-                                {/* Shine effect overlay */}
-                                <span className="absolute inset-0 animate-shine"></span>
-                            </h1>
-                            
-                            {/* Accent line */}
-                            <div className="h-1 w-24 mt-4 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full animate-scaleUp" style={{animationDelay: '400ms'}}></div>
+                          <h1 className="text-2xl sm:text-4xl md:text-7xl font-extrabold leading-tight tracking-tight animate-slideUp relative z-10"
+                            style={{
+                              animationDelay: '300ms',
+                              textShadow: '0 5px 15px rgba(0,0,0,0.3), 0 2px 5px rgba(0,0,0,0.5)',
+                              position: 'relative',
+                              zIndex: 10
+                            }}>
+                            {/* Text with gradient */}
+                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-primary-100 to-white drop-shadow-lg">
+                              <span className="font-extrabold" style={{
+                                WebkitTextStroke: '1px #1e293b', // Tailwind slate-800
+                                textShadow: '0 4px 16px rgba(0,0,0,0.35), 0 1px 2px rgba(0,0,0,0.5)',
+                                color: '#fff',
+                              }}>{slides[currentSlideIndex].title}</span>
+                            </span>
+                            {/* Subtle 3D layer */}
+                            <span className="absolute -bottom-1.5 left-0.5 text-primary-900/10 z-[-1] blur-[1px] select-none">
+                              {slides[currentSlideIndex].title}
+                            </span>
+                            {/* Shine effect overlay */}
+                            <span className="absolute inset-0 animate-shine pointer-events-none z-0"></span>
+                          </h1>
+                          
+                          {/* Accent line */}
+                          <div className="h-1 w-16 sm:w-24 mt-4 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full animate-scaleUp" style={{animationDelay: '400ms'}}></div>
                         </div>
                         
                         {/* Enhanced Subtitle with animated background */}
-                        <div className="overflow-hidden mb-10 relative">
-                            <p className="text-lg md:text-xl text-white max-w-2xl animate-slideUp backdrop-blur-sm inline px-3 py-2 rounded-md bg-white/5" 
-                               style={{
-                                   animationDelay: '500ms',
-                                   textShadow: '0 2px 4px rgba(0,0,0,0.3)'
-                               }}>
-                                {slides[currentSlideIndex].subtitle}
-                                
-                                {/* Subtle typing cursor effect */}
-                                <span className="inline-block w-0.5 h-5 bg-white/70 ml-1 align-middle animate-pulse-custom"></span>
-                            </p>
-                            
-                            {/* Decorative dots */}
-                            <div className="absolute -left-6 top-1/2 flex space-x-1 opacity-50">
-                                <div className="w-1 h-1 rounded-full bg-white animate-pulse-custom"></div>
-                                <div className="w-1 h-1 rounded-full bg-white animate-pulse-custom" style={{animationDelay: '300ms'}}></div>
-                                <div className="w-1 h-1 rounded-full bg-white animate-pulse-custom" style={{animationDelay: '600ms'}}></div>
-                            </div>
+                        <div className="overflow-hidden mb-6 sm:mb-10 relative">
+                          <p className="text-base sm:text-lg md:text-xl text-white max-w-xs sm:max-w-2xl animate-slideUp backdrop-blur-sm inline px-2 sm:px-3 py-2 rounded-md bg-white/5"
+                             style={{
+                               animationDelay: '500ms',
+                               textShadow: '0 2px 4px rgba(0,0,0,0.3)',
+                               position: 'relative',
+                               zIndex: 10
+                             }}>
+                            {slides[currentSlideIndex].subtitle}
+                            {/* Subtle typing cursor effect */}
+                            <span className="inline-block w-0.5 h-5 bg-white/70 ml-1 align-middle animate-pulse-custom"></span>
+                          </p>
+                          {/* Decorative dots */}
+                          <div className="absolute -left-6 top-1/2 flex space-x-1 opacity-50">
+                            <div className="w-1 h-1 rounded-full bg-white animate-pulse-custom"></div>
+                            <div className="w-1 h-1 rounded-full bg-white animate-pulse-custom" style={{animationDelay: '300ms'}}></div>
+                            <div className="w-1 h-1 rounded-full bg-white animate-pulse-custom" style={{animationDelay: '600ms'}}></div>
+                          </div>
                         </div>
 
                     {/* Manual Slide Navigation - Side Buttons */}
@@ -389,58 +392,56 @@ const Hero: React.FC = () => {
                     </button>
                         
                         {/* CTA Buttons with spectacular animations */}
-                        <div className="flex flex-col sm:flex-row space-y-6 sm:space-y-0 sm:space-x-6 animate-slideUp" style={{animationDelay: '700ms'}}>
-                            {/* Primary CTA with gradient, glow and particles effect */}
-                            <a 
-                                href="#" 
-                                className="relative overflow-hidden inline-flex items-center justify-center px-8 py-4 rounded-full font-bold text-lg transform hover:scale-105 transition-all duration-500 group shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40"
-                            >
-                                {/* Animated gradient background */}
-                                <span className="absolute inset-0 animate-gradient"></span>
-                                
-                                {/* Shine overlay */}
-                                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span>
-                                
-                                {/* Glow effect */}
-                                <span className="absolute inset-0 rounded-full blur-md bg-blue-400/20 group-hover:bg-blue-400/30 transition-colors duration-500"></span>
-                                
-                                {/* Content */}
-                                <span className="relative z-10 flex items-center font-extrabold text-white tracking-wide">
-                                    {slides[currentSlideIndex].cta1_text}
-                                    <span className="relative ml-2 flex items-center justify-center w-6 h-6 rounded-full bg-white/20">
-                                        <ArrowRightIcon className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform duration-300" />
-                                    </span>
-                                </span>
-                                
-                                {/* Particle dots on hover */}
-                                <span className="absolute top-0 right-0 w-2 h-2 rounded-full bg-white/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100"></span>
-                                <span className="absolute top-1/4 right-1/4 w-1.5 h-1.5 rounded-full bg-white/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-200"></span>
-                                <span className="absolute top-2/4 right-1/3 w-1 h-1 rounded-full bg-white/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-300"></span>
-                            </a>
+                        <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 animate-slideUp" style={{animationDelay: '700ms'}}>
+                          {/* Primary CTA with gradient, glow and particles effect */}
+                          <a 
+                            href="#" 
+                            className="relative w-full sm:w-auto overflow-hidden inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-base sm:text-lg transform hover:scale-105 transition-all duration-500 group shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40"
+                          >
+                            {/* Animated gradient background */}
+                            <span className="absolute inset-0 animate-gradient"></span>
                             
-                            {/* Secondary CTA with glass effect */}
-                            <a 
-                                href="#" 
-                                className="relative inline-flex items-center justify-center bg-white/10 backdrop-blur-md text-white px-8 py-4 rounded-full font-semibold transition-all duration-500 text-lg transform hover:scale-105 border border-white/20 group overflow-hidden"
-                            >
-                                {/* Glass highlight effect */}
-                                <span className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
-                                
-                                {/* Border glow on hover */}
-                                <span className="absolute inset-0 -m-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" 
-                                      style={{
-                                          background: 'linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.3), rgba(255,255,255,0))',
-                                      }}></span>
-                                
-                                {/* Content */}
-                                <span className="relative z-10 flex items-center space-x-2">
-                                    {/* Icon */}
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
-                                    </svg>
-                                    <span>{slides[currentSlideIndex].cta2_text}</span>
-                                </span>
-                            </a>
+                            {/* Shine overlay */}
+                            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span>
+                            
+                            {/* Glow effect */}
+                            <span className="absolute inset-0 rounded-full blur-md bg-blue-400/20 group-hover:bg-blue-400/30 transition-colors duration-500"></span>
+                            
+                            {/* Content */}
+                            <span className="relative z-10 flex items-center font-extrabold text-white tracking-wide">
+                              {slides[currentSlideIndex].cta1_text}
+                              <span className="relative ml-2 flex items-center justify-center w-6 h-6 rounded-full bg-white/20">
+                                <ArrowRightIcon className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform duration-300" />
+                              </span>
+                            </span>
+                            
+                            {/* Particle dots on hover */}
+                            <span className="absolute top-0 right-0 w-2 h-2 rounded-full bg-white/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100"></span>
+                            <span className="absolute top-1/4 right-1/4 w-1.5 h-1.5 rounded-full bg-white/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-200"></span>
+                            <span className="absolute top-2/4 right-1/3 w-1 h-1 rounded-full bg-white/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-300"></span>
+                          </a>
+                          {/* Secondary CTA with glass effect */}
+                          <a 
+                            href="#" 
+                            className="relative w-full sm:w-auto inline-flex items-center justify-center bg-white/10 backdrop-blur-md text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold transition-all duration-500 text-base sm:text-lg transform hover:scale-105 border border-white/20 group overflow-hidden"
+                          >
+                            {/* Glass highlight effect */}
+                            <span className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+                            
+                            {/* Border glow on hover */}
+                            <span className="absolute inset-0 -m-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" 
+                                  style={{
+                                      background: 'linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.3), rgba(255,255,255,0))',
+                                  }}></span>
+                            {/* Content */}
+                            <span className="relative z-10 flex items-center space-x-2">
+                              {/* Icon */}
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+                              </svg>
+                              <span>{slides[currentSlideIndex].cta2_text}</span>
+                            </span>
+                          </a>
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import AnimatedLogo from './AnimatedLogo';
 
@@ -75,7 +74,7 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`flex items-center justify-between transition-all duration-300 ${isScrolled ? 'h-16' : 'h-24'}`}>
           <div className="flex-shrink-0">
-            <a href="#" className="flex items-center group">
+            <a href="#" className="flex items-center space-x-2 group">
                 <AnimatedLogo isScrolled={isScrolled} logoSize={isScrolled ? 96 : 128} />
             </a>
           </div>
@@ -175,27 +174,6 @@ const Header: React.FC = () => {
               </svg>
             </button>
             
-            {/* Enhanced Apply Now Button */}
-            <a 
-              href="#" 
-              className="relative overflow-hidden bg-gradient-to-r from-blue-600 to-blue-700 text-white px-7 py-2.5 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-blue-400/50 hover:translate-y-[-2px] active:translate-y-[1px]"
-            >
-              {/* Animated shine effect */}
-              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-shimmer"></span>
-              
-              <span className="relative flex items-center justify-center">
-                Apply Now
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  className="h-5 w-5 ml-1.5 transition-transform group-hover:translate-x-1" 
-                  fill="none" 
-                  viewBox="0 0 24 24" 
-                  stroke="currentColor"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </span>
-            </a>
           </div>
           <div className="lg:hidden">
             <button 
@@ -317,44 +295,52 @@ const Header: React.FC = () => {
       </div>
       
       {/* Mobile Menu */}
-      <div className={`lg:hidden absolute top-full left-0 w-full bg-white shadow-lg transition-all duration-300 ease-in-out origin-top overflow-auto max-h-[80vh] ${isMenuOpen ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'}`}>
-        <div className="px-4 pt-2 pb-4">
+      <div className={`lg:hidden fixed inset-0 w-full h-full bg-white shadow-lg transition-all duration-300 ease-in-out origin-top overflow-auto max-h-[100vh] ${isMenuOpen ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'} z-50`}>
+        <div className="px-4 pt-6 pb-8 relative">
+          {/* Mobile Menu Close Button */}
+          <button
+            onClick={() => setIsMenuOpen(false)}
+            className="absolute top-4 right-4 z-50 p-2 rounded-full bg-gray-100 hover:bg-red-100 text-gray-600 hover:text-red-500 shadow transition-all duration-300"
+            aria-label="Close menu"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
           {/* Enhanced Search Bar for Mobile */}
-          <div className="mb-4 pt-3">
+          <div className="mb-6 pt-3">
             <div className="relative group">
               <input
                 type="text"
                 placeholder="Search courses, faculty, events..."
-                className="w-full px-4 py-3 pl-12 pr-4 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 placeholder-gray-400 shadow-sm bg-gray-50/50"
+                className="w-full px-4 py-4 pl-12 pr-4 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 placeholder-gray-400 shadow-sm bg-gray-50/50 text-base"
               />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-blue-500 absolute left-3 top-3 transition-all duration-300 group-hover:text-blue-600 group-hover:scale-110"
+                className="h-6 w-6 text-primary-500 absolute left-3 top-4 transition-all duration-300 group-hover:text-primary-600 group-hover:scale-110"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
-              
               {/* Quick search buttons */}
-              <div className="mt-2 flex flex-wrap gap-2">
-                <button className="text-xs px-3 py-1 bg-gray-100 text-gray-600 rounded-full hover:bg-blue-50 hover:text-blue-600 transition-colors duration-300">Admissions</button>
-                <button className="text-xs px-3 py-1 bg-gray-100 text-gray-600 rounded-full hover:bg-blue-50 hover:text-blue-600 transition-colors duration-300">Programs</button>
-                <button className="text-xs px-3 py-1 bg-gray-100 text-gray-600 rounded-full hover:bg-blue-50 hover:text-blue-600 transition-colors duration-300">Campus</button>
+              <div className="mt-4 flex flex-wrap gap-3">
+                <button className="text-base px-5 py-2 bg-gray-100 text-gray-600 rounded-full hover:bg-primary-50 hover:text-primary-600 transition-colors duration-300">Admissions</button>
+                <button className="text-base px-5 py-2 bg-gray-100 text-gray-600 rounded-full hover:bg-primary-50 hover:text-primary-600 transition-colors duration-300">Programs</button>
+                <button className="text-base px-5 py-2 bg-gray-100 text-gray-600 rounded-full hover:bg-primary-50 hover:text-primary-600 transition-colors duration-300">Campus</button>
               </div>
             </div>
           </div>
-          
           {/* Mobile Menu Items */}
-          <div className="space-y-1">
+          <div className="space-y-2">
             {navLinks.map((navItem, index) => (
-              <div key={navItem.name} className="border-b border-gray-100 last:border-0 py-2">
+              <div key={navItem.name} className="border-b border-gray-100 last:border-0 py-4">
                 <button
                   onClick={() => setActiveSubmenu(activeSubmenu === index ? null : index)}
-                  className={`flex justify-between items-center w-full px-4 py-3 text-left text-base font-medium rounded-lg transition-all duration-300 ${
+                  className={`flex justify-between items-center w-full px-4 py-4 text-left text-lg font-medium rounded-lg transition-all duration-300 ${
                     activeSubmenu === index 
-                      ? 'bg-blue-50 text-blue-700' 
+                      ? 'bg-primary-50 text-primary-700' 
                       : 'text-gray-700 hover:bg-gray-50'
                   }`}
                 >
@@ -398,60 +384,24 @@ const Header: React.FC = () => {
                     </span>
                     {navItem.name}
                   </span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className={`h-5 w-5 transform transition-transform duration-300 ${activeSubmenu === index ? 'rotate-180 text-blue-600' : 'rotate-0 text-gray-400'}`}
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
+                  <span className="ml-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </span>
                 </button>
-                
-                <div 
-                  className={`mt-1 pl-4 space-y-1 overflow-hidden transition-all duration-300 ${
-                    activeSubmenu === index 
-                      ? 'max-h-96 opacity-100' 
-                      : 'max-h-0 opacity-0'
-                  }`}
-                >
-                  {navItem.submenu.map((subItem, subIndex) => (
-                    <a
-                      key={subItem}
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-all duration-200 transform hover:translate-x-1 ml-6 border-l-2 border-gray-100 hover:border-blue-500"
-                      style={{ animationDelay: `${subIndex * 50}ms` }}
-                    >
-                      {subItem}
-                    </a>
-                  ))}
-                </div>
+                {/* Submenu for mobile */}
+                {activeSubmenu === index && (
+                  <div className="pl-8 pt-2 space-y-2">
+                    {navItem.submenu.map((subItem, subIndex) => (
+                      <a key={subItem} href="#" className="block text-base py-2 px-3 rounded-lg text-gray-600 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200">
+                        {subItem}
+                      </a>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
-          </div>
-          
-          <div className="pt-4">
-            <a
-              href="#"
-              className="relative w-full text-center block bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-3 rounded-full font-semibold hover:bg-blue-700 transition-all duration-300 shadow-md hover:shadow-blue-400/50 transform hover:translate-y-[-1px] active:translate-y-[1px] overflow-hidden"
-            >
-              {/* Animated shine effect */}
-              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-shimmer"></span>
-              
-              <span className="relative flex items-center justify-center">
-                Apply Now
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  className="h-5 w-5 ml-1.5 animate-pulse" 
-                  fill="none" 
-                  viewBox="0 0 24 24" 
-                  stroke="currentColor"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </span>
-            </a>
           </div>
         </div>
       </div>
