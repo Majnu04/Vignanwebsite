@@ -75,9 +75,8 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`flex items-center justify-between transition-all duration-300 ${isScrolled ? 'h-16' : 'h-24'}`}>
           <div className="flex-shrink-0">
-            <a href="#" className="flex items-center space-x-2 group">
-                <AnimatedLogo isScrolled={isScrolled} />
-                <span className={`text-xl font-bold transition-colors duration-300 ${isScrolled ? 'text-blue-900' : 'text-white'}`}>VIGNAN</span>
+            <a href="#" className="flex items-center group">
+                <AnimatedLogo isScrolled={isScrolled} logoSize={isScrolled ? 96 : 128} />
             </a>
           </div>
           <nav className="hidden lg:flex lg:items-center lg:space-x-1">

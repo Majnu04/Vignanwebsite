@@ -8,7 +8,7 @@ const slides = [
         id: 1,
         title: "Admissions Open for 2025",
         subtitle: "Join a community of innovators and leaders. Your journey to excellence starts at Vignan.",
-        backgroundImage: "https://images.pexels.com/photos/256490/pexels-photo-256490.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        backgroundImage: "/images/SLIDE_0.jpg",
         overlayColor: "from-blue-900/80 via-blue-800/60 to-transparent",
         badge: "Admissions",
         cta1_text: "Apply Now",
@@ -18,7 +18,7 @@ const slides = [
         id: 2,
         title: "Innovision 2025",
         subtitle: "Our annual National Tech Symposium is back! Get ready for a confluence of ideas, innovation, and technology.",
-        backgroundImage: "https://images.pexels.com/photos/2982449/pexels-photo-2982449.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        backgroundImage: "/images/SLIDE_A copy.jpg",
         overlayColor: "from-indigo-900/80 via-indigo-800/60 to-transparent",
         badge: "Event",
         cta1_text: "Register Here",
@@ -28,7 +28,7 @@ const slides = [
         id: 3,
         title: "Celebrating Excellence",
         subtitle: "Ranked among the top engineering institutions by NIRF, with NAAC A+ accreditation. A testament to our commitment to quality education.",
-        backgroundImage: "https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        backgroundImage: "/images/excellence-1.svg",
         overlayColor: "from-emerald-900/80 via-emerald-800/60 to-transparent",
         badge: "Recognition",
         cta1_text: "View Rankings",
@@ -38,7 +38,7 @@ const slides = [
         id: 4,
         title: "World-Class Infrastructure",
         subtitle: "Experience learning in state-of-the-art laboratories, modern classrooms, and a sprawling green campus designed for holistic development.",
-        backgroundImage: "https://images.pexels.com/photos/207691/pexels-photo-207691.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        backgroundImage: "/images/infrastructure-1.svg",
         overlayColor: "from-purple-900/80 via-purple-800/60 to-transparent",
         badge: "Campus",
         cta1_text: "Virtual Tour",
@@ -154,30 +154,10 @@ const Hero: React.FC = () => {
     const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
     const [isChanging, setIsChanging] = useState(false);
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
-    const progressRef = useRef<HTMLDivElement>(null);
-    const [slideProgress, setSlideProgress] = useState(0);
 
     const startSlider = () => {
-        // Reset progress
-        setSlideProgress(0);
-        
-        // Create slide progress animation
-        const startTime = Date.now();
-        const duration = 7000; // 7 seconds per slide
-        
-        const updateProgress = () => {
-            const elapsed = Date.now() - startTime;
-            const progress = Math.min(elapsed / duration * 100, 100);
-            setSlideProgress(progress);
-            
-            if (progress < 100) {
-                requestAnimationFrame(updateProgress);
-            }
-        };
-        
-        requestAnimationFrame(updateProgress);
-        
         // Setup interval for changing slides
+        const duration = 7000; // 7 seconds per slide
         intervalRef.current = setInterval(() => {
             changeSlide((currentSlideIndex + 1) % slides.length);
         }, duration);
@@ -200,10 +180,7 @@ const Hero: React.FC = () => {
         };
     }, [currentSlideIndex]);
     
-    const goToSlide = (slideIndex: number) => {
-        if (intervalRef.current) clearInterval(intervalRef.current);
-        changeSlide(slideIndex);
-    };
+    // Slide navigation removed
 
 
     // Add the keyframes style to the document
@@ -219,7 +196,7 @@ const Hero: React.FC = () => {
     }, []);
 
     return (
-        <section className="relative h-[90vh] text-white flex items-center overflow-hidden">
+        <section className="relative h-screen text-white flex items-center overflow-hidden">
             {/* Particle Background Effect */}
             <div className="particle-container absolute inset-0 z-10 pointer-events-none">
                 {Array.from({ length: 20 }).map((_, i) => (
@@ -249,6 +226,9 @@ const Hero: React.FC = () => {
                     }`}
                     style={{ 
                         backgroundImage: `url('${slide.backgroundImage}')`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center center',
+                        backgroundRepeat: 'no-repeat',
                         transformOrigin: 'center',
                         transitionTimingFunction: 'cubic-bezier(0.645, 0.045, 0.355, 1.000)',
                     }}
@@ -261,17 +241,20 @@ const Hero: React.FC = () => {
                     ></div>
                     
                     {/* Dynamic pattern overlay */}
-                    <div className="absolute inset-0 bg-[url('https://assets.codepen.io/721952/noise.png')] opacity-10"></div>
+                    <div className="absolute inset-0 bg-[url('/images/noise.svg')] opacity-10"></div>
                     
-                    {/* Parallax effect layer */}
+                    {/* Improved parallax effect layer */}
                     <div 
                         className={`absolute inset-0 bg-cover bg-center scale-110 transition-transform duration-[3000ms] ease-out ${
-                            index === currentSlideIndex ? 'translate-y-[-20px]' : 'translate-y-0'
+                            index === currentSlideIndex ? 'translate-y-[-10px]' : 'translate-y-0'
                         }`} 
                         style={{ 
                             backgroundImage: `url('${slide.backgroundImage}')`,
-                            opacity: 0.15,
-                            filter: 'blur(10px)',
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center center',
+                            backgroundRepeat: 'no-repeat',
+                            opacity: 0.1,
+                            filter: 'blur(5px)',
                         }}
                     ></div>
                     
@@ -282,14 +265,7 @@ const Hero: React.FC = () => {
                 </div>
             ))}
             
-            {/* Progress bar */}
-            <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20 z-20">
-                <div 
-                    ref={progressRef}
-                    className="h-full bg-white transition-all duration-200 ease-linear"
-                    style={{ width: `${slideProgress}%` }}
-                ></div>
-            </div>
+            {/* Progress bar removed */}
             
             {/* Enhanced floating decorative elements with advanced shapes */}
             {/* Circle */}
@@ -390,6 +366,27 @@ const Hero: React.FC = () => {
                                 <div className="w-1 h-1 rounded-full bg-white animate-pulse-custom" style={{animationDelay: '600ms'}}></div>
                             </div>
                         </div>
+
+                    {/* Manual Slide Navigation - Side Buttons */}
+                    {/* Perfectly styled manual slide navigation buttons */}
+                    <button
+                      onClick={() => changeSlide((currentSlideIndex - 1 + slides.length) % slides.length)}
+                      className="absolute left-6 top-1/2 -translate-y-1/2 w-14 h-14 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md shadow-lg text-3xl text-white font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-primary-600/80 hover:scale-110 focus:outline-none"
+                      style={{transitionProperty: 'opacity'}}
+                      disabled={isChanging}
+                      aria-label="Previous Slide"
+                    >
+                      <span className="pointer-events-none select-none">&#8592;</span>
+                    </button>
+                    <button
+                      onClick={() => changeSlide((currentSlideIndex + 1) % slides.length)}
+                      className="absolute right-6 top-1/2 -translate-y-1/2 w-14 h-14 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md shadow-lg text-3xl text-white font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 hover:bg-primary-600/80 hover:scale-110 focus:outline-none"
+                      style={{transitionProperty: 'opacity'}}
+                      disabled={isChanging}
+                      aria-label="Next Slide"
+                    >
+                      <span className="pointer-events-none select-none">&#8594;</span>
+                    </button>
                         
                         {/* CTA Buttons with spectacular animations */}
                         <div className="flex flex-col sm:flex-row space-y-6 sm:space-y-0 sm:space-x-6 animate-slideUp" style={{animationDelay: '700ms'}}>
@@ -449,162 +446,7 @@ const Hero: React.FC = () => {
                 </div>
             </div>
 
-            {/* Spectacular Navigation Controls with advanced effects */}
-            <div className="absolute bottom-12 left-0 right-0 z-20">
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex items-center justify-between">
-                        {/* Enhanced Slide number indicator with futuristic design */}
-                        <div className="hidden md:flex items-center animate-slideInLeft" style={{animationDelay: '1000ms'}}>
-                            <div className="relative">
-                                {/* Background blur effect */}
-                                <div className="absolute inset-0 bg-white/5 backdrop-blur-md rounded-lg -m-1 z-0"></div>
-                                
-                                {/* Digital counter style */}
-                                <div className="relative z-10 flex items-center space-x-2 bg-gradient-to-b from-white/10 to-white/5 px-4 py-2 rounded-lg border border-white/10">
-                                    {/* Current slide */}
-                                    <div className="relative">
-                                        <span className="text-4xl font-black text-white">{String(currentSlideIndex + 1).padStart(2, '0')}</span>
-                                        <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-blue-400 animate-pulse-custom"></span>
-                                    </div>
-                                    
-                                    {/* Divider with animation */}
-                                    <div className="h-8 w-0.5 bg-white/20 mx-2 relative">
-                                        <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-b from-white/40 to-transparent animate-pulse-custom" style={{animationDelay: '500ms'}}></div>
-                                    </div>
-                                    
-                                    {/* Total slides */}
-                                    <span className="text-2xl text-white/50 font-medium">{String(slides.length).padStart(2, '0')}</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        {/* Center Controls with futuristic glass panel */}
-                        <div className="relative flex items-center space-x-3 sm:space-x-4 mx-auto md:mx-0">
-                            {/* Background blur effect */}
-                            <div className="absolute inset-0 bg-black/20 backdrop-blur-md rounded-2xl -m-2 z-0"></div>
-                            
-                            {/* Controls with relative positioning */}
-                            <div className="relative z-10 flex items-center space-x-3 sm:space-x-4 px-1">
-                                {/* Previous Button with hover effects */}
-                                <button 
-                                    onClick={() => goToSlide((currentSlideIndex - 1 + slides.length) % slides.length)}
-                                    className="relative p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/30 transition-all duration-300 group overflow-hidden shadow-lg shadow-black/10"
-                                    aria-label="Previous slide"
-                                >
-                                    {/* Glow effect on hover */}
-                                    <span className="absolute inset-0 bg-gradient-to-r from-blue-500/30 to-purple-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                                    
-                                    {/* Arrow icon */}
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white group-hover:scale-110 transition-transform relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                                    </svg>
-                                </button>
-                                
-                                {/* Advanced Slide Indicators with interactive preview */}
-                                <div className="flex items-center bg-white/10 backdrop-blur-xl rounded-xl px-4 py-2.5 border border-white/20 shadow-lg shadow-black/10">
-                                    {slides.map((slide, index) => (
-                                        <button
-                                            key={index}
-                                            onClick={() => goToSlide(index)}
-                                            className="group relative mx-1.5 sm:mx-2.5"
-                                            aria-label={`Go to slide ${index + 1}`}
-                                        >
-                                            {/* Slide indicator with enhanced animations */}
-                                            <div className="relative">
-                                                {/* Base indicator */}
-                                                <div className={`w-3 h-3 rounded-full transition-all duration-500 ${
-                                                    index === currentSlideIndex 
-                                                        ? 'bg-gradient-to-r from-blue-400 to-blue-300 scale-125 shadow-lg shadow-blue-400/30' 
-                                                        : 'bg-white/40 hover:bg-white/70'
-                                                }`}>
-                                                </div>
-                                                
-                                                {/* Active indicator animations */}
-                                                {index === currentSlideIndex && (
-                                                    <>
-                                                        {/* Pulse ring */}
-                                                        <span className="absolute -inset-2 rounded-full border border-blue-300/50 animate-ping opacity-75"></span>
-                                                        
-                                                        {/* Glow effect */}
-                                                        <span className="absolute -inset-3 rounded-full bg-blue-400/20 blur-sm animate-pulse-custom"></span>
-                                                    </>
-                                                )}
-                                            </div>
-                                            
-                                            {/* Enhanced tooltip with preview */}
-                                            <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 scale-90 group-hover:scale-100 pointer-events-none z-50 transform-gpu">
-                                                <div className="bg-black/80 backdrop-blur-md text-white text-xs rounded-lg shadow-xl overflow-hidden w-40">
-                                                    {/* Preview image */}
-                                                    <div className="h-16 bg-cover bg-center border-b border-white/10" style={{backgroundImage: `url('${slide.backgroundImage}')`}}>
-                                                        <div className={`h-full bg-gradient-to-r ${slide.overlayColor} bg-opacity-50`}></div>
-                                                    </div>
-                                                    
-                                                    {/* Title */}
-                                                    <div className="px-3 py-2">
-                                                        <p className="font-medium">{slide.title}</p>
-                                                    </div>
-                                                    
-                                                    {/* Triangle pointer */}
-                                                    <div className="absolute left-1/2 -top-1 -translate-x-1/2 w-2 h-2 bg-black/80 rotate-45"></div>
-                                                </div>
-                                            </div>
-                                        </button>
-                                    ))}
-                                </div>
-                                
-                                {/* Next Button with hover effects */}
-                                <button 
-                                    onClick={() => goToSlide((currentSlideIndex + 1) % slides.length)}
-                                    className="relative p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/30 transition-all duration-300 group overflow-hidden shadow-lg shadow-black/10"
-                                    aria-label="Next slide"
-                                >
-                                    {/* Glow effect on hover */}
-                                    <span className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-blue-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                                    
-                                    {/* Arrow icon */}
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white group-hover:scale-110 transition-transform relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        {/* Enhanced Social Links with hover animations */}
-                        <div className="hidden md:flex items-center space-x-4 animate-slideInRight" style={{animationDelay: '1000ms'}}>
-                            {[
-                                { name: 'facebook', icon: 'M18.77 7.46H14.5v-1.9c0-.9.6-1.1 1-1.1h3V.5h-4.33C10.24.5 9.5 3.44 9.5 5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4z' },
-                                { name: 'twitter', icon: 'M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723 10.054 10.054 0 01-3.127 1.184 4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z' },
-                                { name: 'instagram', icon: 'M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z' },
-                                { name: 'linkedin', icon: 'M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z' }
-                            ].map(platform => (
-                                <a 
-                                    key={platform.name} 
-                                    href="#" 
-                                    className="group text-white/60 hover:text-white transition-all duration-500 relative"
-                                    aria-label={`Follow us on ${platform.name}`}
-                                >
-                                    {/* Futuristic social icon with animated background */}
-                                    <span className="relative w-10 h-10 flex items-center justify-center rounded-full border border-white/20 group-hover:border-white/50 transition-all duration-300 overflow-hidden">
-                                        {/* Animated background on hover */}
-                                        <span className="absolute inset-0 bg-gradient-to-br from-blue-500/30 via-purple-500/30 to-blue-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
-                                        
-                                        {/* Glowing dot */}
-                                        <span className="absolute top-1 right-1 w-1 h-1 bg-blue-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                                        
-                                        {/* Icon */}
-                                        <svg className="w-5 h-5 relative z-10 group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" fill="currentColor">
-                                            <path d={platform.icon} />
-                                        </svg>
-                                    </span>
-                                    
-                                    {/* Animated dot under icon */}
-                                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-blue-400 rounded-full scale-0 group-hover:scale-100 transition-transform"></span>
-                                </a>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {/* Navigation controls removed */}
         </section>
     );
 };

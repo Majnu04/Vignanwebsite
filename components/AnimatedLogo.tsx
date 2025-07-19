@@ -43,7 +43,12 @@ const logoKeyframes = `
 }
 `;
 
-const AnimatedLogo: React.FC<{ isScrolled: boolean }> = ({ isScrolled }) => {
+interface AnimatedLogoProps {
+  isScrolled: boolean;
+  logoSize?: number;
+}
+
+const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ isScrolled, logoSize }) => {
   useEffect(() => {
     // Add the keyframes to the document head
     const style = document.createElement('style');
@@ -57,58 +62,16 @@ const AnimatedLogo: React.FC<{ isScrolled: boolean }> = ({ isScrolled }) => {
 
   return (
     <div className={`logo-float transition-all duration-300 ${!isScrolled && 'logo-pulse'}`}>
-      <svg
-        width={isScrolled ? "38" : "48"}
-        height={isScrolled ? "38" : "48"}
-        viewBox="0 0 52 52"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
+      <img 
+        src="/images/LOGO_AAA copy.png" 
+        alt="Vignan College Logo"
+        width={logoSize ? logoSize : (isScrolled ? 40 : 56)} 
+        height={logoSize ? logoSize : (isScrolled ? 40 : 56)}
         className="logo-rotate-in transition-all duration-500"
-      >
-        {/* Background Circle */}
-        <circle 
-          cx="26" 
-          cy="26" 
-          r="26" 
-          className={`transition-all duration-500 ${
-            isScrolled ? 'fill-blue-800' : 'fill-white'
-          }`}
-        />
-        
-        {/* Inner Circle (Glowing Effect) */}
-        <circle 
-          cx="26" 
-          cy="26" 
-          r="22" 
-          strokeWidth="1"
-          className={`transition-all duration-500 ${
-            isScrolled 
-              ? 'stroke-blue-400/30 fill-blue-800' 
-              : 'stroke-white/60 fill-white'
-          }`}
-        />
-        
-        {/* V Letter */}
-        <path
-          d="M15 19L26 35L37 19"
-          strokeWidth="4.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className={`logo-path transition-colors duration-500 ${
-            isScrolled ? 'stroke-white' : 'stroke-blue-800'
-          }`}
-        />
-        
-        {/* Decorative Dot */}
-        <circle 
-          cx="26" 
-          cy="16" 
-          r="2.5" 
-          className={`transition-all duration-500 ${
-            isScrolled ? 'fill-white' : 'fill-blue-800'
-          }`}
-        />
-      </svg>
+        style={{
+          filter: !isScrolled ? "drop-shadow(0 0 4px rgba(255, 255, 255, 0.7))" : "none"
+        }}
+      />
     </div>
   );
 };
