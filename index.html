@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vignan College Vizag | Premier Education & Research</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        --glow-color: rgba(59, 130, 246, 0.1);
+      }
+      .hide-for-anim {
+        opacity: 0;
+      }
+      .animated-v-path {
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+        animation: draw-in 2s ease-out forwards;
+      }
+      @keyframes draw-in {
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+      
+      @keyframes aurora {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      .aurora-bg {
+        background: linear-gradient(-45deg, #0f172a, #1e3a8a, #0f172a, #1d4ed8);
+        background-size: 400% 400%;
+        animation: aurora 15s ease infinite;
+      }
+      .card-shine {
+        position: relative;
+        overflow: hidden;
+      }
+      .card-shine::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: radial-gradient(circle at var(--x) var(--y), var(--glow-color), transparent 150px);
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+      }
+      .card-shine:hover::before {
+        opacity: 1;
+      }
+      .marquee {
+        display: flex;
+        overflow: hidden;
+        user-select: none;
+        mask-image: linear-gradient(to right, hsl(0 0% 0% / 0), hsl(0 0% 0% / 1) 20%, hsl(0 0% 0% / 1) 80%, hsl(0 0% 0% / 0));
+      }
+      .marquee__content {
+        flex-shrink: 0;
+        display: flex;
+        justify-content: space-around;
+        min-width: 100%;
+        animation: scroll 30s linear infinite;
+      }
+      @keyframes scroll {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(calc(-100% - 2.5rem)); /* item width + gap */
+        }
+      }
+      @keyframes pulse-dot {
+        0%, 100% {
+          transform: scale(1);
+          opacity: 0.8;
+        }
+        50% {
+          transform: scale(1.6);
+          opacity: 1;
+        }
+      }
+      .pulse-dot {
+        animation: pulse-dot 2.5s infinite ease-in-out;
+      }
+      
+      /* New Reveal Animation */
+      @keyframes reveal {
+        from {
+          transform: translateY(100%);
+        }
+        to {
+          transform: translateY(0);
+        }
+      }
+      .animate-reveal {
+        animation: reveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+
+      /* New Slide-in Animation */
+      @keyframes slide-in-from-right {
+        from {
+          opacity: 0;
+          transform: translateX(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      .animate-slide-in {
+        animation: slide-in-from-right 0.5s ease-out forwards;
+      }
+
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.10.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "react": "https://esm.sh/react@^19.1.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="hide-for-anim transition-opacity duration-500 bg-white">
+    <div id="root"></div>
+    <script>
+      // Remove the hiding class after the initial render to allow animations
+      window.addEventListener('load', () => {
+        document.body.classList.remove('hide-for-anim');
+      });
+    </script>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
