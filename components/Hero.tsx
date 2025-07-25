@@ -5,7 +5,7 @@ const slides = [
     { id: 1, backgroundImage: "/images/SLIDE_0.jpg" },
     { id: 2, backgroundImage: "/images/SLIDE_A copy.jpg" },
     { id: 3, backgroundImage: "/images/excellence-1.svg" },
-    { id: 4, backgroundImage: "/images/infrastructure-1.svg" },
+    { id: 4, backgroundImage: "/images/SLIDE_C[1].jpg" },
 ];
 
 // Reusable Arrow Icon for buttons
