@@ -1,412 +1,393 @@
 import React, { useState, useEffect } from 'react';
-import AnimatedLogo from './AnimatedLogo';
 
-const MenuIcon: React.FC<{ className?: string }> = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-  </svg>
-);
-
-const CloseIcon: React.FC<{ className?: string }> = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-  </svg>
-);
+// Assuming AnimatedLogo component exists and works as intended
+import AnimatedLogo from '../components/AnimatedLogo.tsx';
 
 
-const Header: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSubmenu, setActiveSubmenu] = useState<number | null>(null);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const searchRef = React.useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    
-    const handleClickOutside = (event: MouseEvent) => {
-      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
-        setIsSearchOpen(false);
-      }
-    };
-    
-    window.addEventListener('scroll', handleScroll);
-    document.addEventListener('mousedown', handleClickOutside);
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  const navLinks = [
+// --- *** THE 100% CORRECTED AND FINALIZED NAVIGATION DATA (VERSION 4) *** ---
+const navItems = [
+    // --- ABOUT US: Unchanged ---
     { 
-      name: "About Us", 
-      submenu: ["Our Vision", "Leadership", "Campus Tour", "Rankings & Accreditations", "Infrastructure"] 
+        name: 'About Us', 
+        link: '/about-us', 
+        isMegaWithImage: true, 
+        defaultImage: '/images/about-us-default.jpg', 
+        sub: [
+            { 
+                name: "Our Identity", 
+                sub: [
+                    { name: 'Vission & Mission', link: '/vision-mission', image: '/images/vision.jpg' },
+                    { 
+                        name: 'Messages', 
+                        link: '#', 
+                        image: '/images/leadership.jpg', 
+                        sub: [
+                            { name: 'Chairman', link: '/messages/chairman' },
+                            { name: 'CEO', link: '/messages/ceo' },
+                            { name: 'Rector', link: '/messages/rector' },
+                            { name: 'Principal', link: '/messages/principal' }
+                        ] 
+                    },
+                    { name: 'Administration', link: '/administration', image: '/images/admin.jpg' },
+                    { name: 'Policies', link: '/policies', image: '/images/policies.jpg' },
+                    { name: 'Best Practice', link: '/best-practice', image: '/images/best-practice.jpg' },
+                    { name: 'Empowering Strategies', link: '/empowering-strategies', image: '/images/strategies.jpg' }
+                ] 
+            }
+        ] 
+    },
+    { name: 'ECAP', link: '/ecap' },
+    // --- ACCREDITATION: Unchanged ---
+    { 
+        name: 'Accreditation', 
+        link: '/accreditations', 
+        isMegaWithImage: true, 
+        defaultImage: '/images/accreditation-default.jpg',
+        sub: [
+            { 
+                name: "Quality & Recognition", 
+                sub: [
+                    { name: 'Accreditations', link: '/accreditations-main', image: '/images/accreditations-main.jpg' },
+                    { name: 'Strategy Approvals', link: '/strategy-approvals', image: '/images/strategy.jpg' },
+                    { name: 'Centre of Excellence', link: '/centre-of-excellence', image: '/images/excellence.jpg' },
+                    { name: 'Ranking and Certifications', link: '/rankings', image: '/images/rankings.jpg' },
+                    { name: 'Awards and Accolades', link: '/awards', image: '/images/awards.jpg' }
+                ] 
+            }
+        ] 
+    },
+    // --- ACADEMICS: MODIFIED - Added 'opensDown' to Admissions and TLP ---
+    { 
+        name: 'Academics', 
+        link: '/academics', 
+        isMegaWithImage: true,
+        defaultImage: '/images/academics-default.jpg',
+        sub: [
+            { 
+                name: "Academic Programs", 
+                image: '/images/academic-programs.jpg',
+                sub: [
+                    { 
+                        name: 'Admissions', 
+                        link: '#',
+                        opensDown: true, // <-- Make this sub-menu open downwards
+                        sub: [
+                            { name: 'Courses Offered', link: '/admissions/courses' },
+                            { name: 'Admissions Procedure', link: '/admissions/procedure' },
+                            { name: 'Admission Lists', link: '/admissions/lists' },
+                            { name: 'Course Outcomes', link: '/admissions/outcomes' }
+                        ] 
+                    },
+                    { name: 'Academics Calendars', link: '/academics/calendars' },
+                    { 
+                        name: 'Teaching Learning Process', 
+                        link: '#',
+                        opensDown: true, // <-- Make this sub-menu open downwards
+                        sub: [
+                            { name: 'Teaching Methodologies', link: '/tlp/methodologies' },
+                            { name: 'OBE Practices', link: '/tlp/obe' },
+                            { name: 'Special Programs - Student Diversity', link: '/tlp/special-programs' },
+                            { name: 'Mentor - Mentee System', link: '/tlp/mentor-mentee' }
+                        ] 
+                    }
+                ] 
+            },
+            { 
+                name: "Student & Curriculum", 
+                image: '/images/student-curriculum.jpg',
+                sub: [
+                    { name: 'Internship Manual', link: '/academics/internship-manual' },
+                    { name: 'Exit Students Feedback', link: '/academics/feedback' },
+                    { name: 'MoUs- Academics', link: '/academics/mous' },
+                    { name: 'Extra Curricular Activities', link: '/academics/extra-curricular' },
+                    { name: 'POSs, PEOs and PSOs', link: '/academics/pos-peos' },
+                    { name: 'Curriculum Design Process', link: '/academics/curriculum-design' },
+                    { name: 'Internship Projects and Research Projects', link: '/academics/projects' },
+                    { name: 'Strategic Plan', link: '/academics/strategic-plan' }
+                ] 
+            }
+        ] 
+    },
+    // --- PLACEMENTS: Unchanged ---
+    { 
+        name: 'Placements', 
+        link: '/placements', 
+        isMegaWithImage: true, 
+        defaultImage: '/images/placements-default.jpg',
+        sub: [
+            { 
+                name: "Career Services", 
+                sub: [
+                    { name: 'About T&P', link: '/placements/about', image: '/images/about-tp.jpg' },
+                    { name: 'Placement Details', link: '/placements/details', image: '/images/placement-details.jpg' },
+                    { name: 'Training Process', link: '/placements/training', image: '/images/training-process.jpg' },
+                    { name: 'Contact', link: '/placements/contact', image: '/images/contact-placements.jpg' }
+                ] 
+            }
+        ] 
+    },
+    // --- GOVERNANCE: Unchanged ---
+    { 
+        name: 'Governance', 
+        link: '/governance', 
+        isMegaWithImage: true, 
+        defaultImage: '/images/governance-default.jpg',
+        sub: [
+            { 
+                name: "Core Structure",
+                image: '/images/core-structure.jpg',
+                sub: [
+                    { name: 'Organizational Structure', link: '/governance/org-structure' },
+                    { name: 'Governing Body', link: '/governance/governing-body' },
+                    { name: 'Academic Council', link: '/governance/academic-council' },
+                    { name: 'Finance Committee', link: '/governance/finance-committee' }
+                ] 
+            },
+            {
+                name: "Committees",
+                image: '/images/committees-default.jpg',
+                sub: [
+                    {
+                        name: "Non Statutory Committees",
+                        link: '#',
+                        opensDown: true,
+                        isScrollable: true,
+                        sub: [
+                            { name: 'Planning and Monitoring committee (PMC)', link: '/committees/pmc' },
+                            { name: 'Academic Planning and Monitoring committee (APMC)', link: '/committees/apmc' },
+                            { name: 'Admission Advisory committee (AAC)', link: '/committees/aac' },
+                            { name: 'Research & Development Advisory committee (R&D AC)', link: '/committees/rnd-ac' },
+                            { name: 'Examination Evaluation Committee (EEC)', link: '/committees/eec' },
+                            { name: 'Training and Placement Committee (T&PC)', link: '/committees/tpc' },
+                            { name: 'Code of Conduct Monitoring Committee (CCMC)', link: '/committees/ccmc' },
+                            { name: 'Grievance Redressal Committee (GRC)', link: '/committees/grc' },
+                            { name: 'Internal Complaints Committee (ICC)', link: '/committees/icc' },
+                            { name: 'Purchase Committee (PC)', link: '/committees/pc' },
+                            { name: 'Library Advisory Committee (LAC)', link: '/committees/lac' },
+                            { name: 'Hostel Management Committee (HMC)', link: '/committees/hmc' },
+                            { name: 'Research Ethics Committee (REC)', link: '/committees/rec' },
+                            { name: 'SC & ST Committee (SC&ST C)', link: '/committees/sc-st' },
+                            { name: 'Student Activity Committee (SAC)', link: '/committees/sac' },
+                            { name: 'Student Welfare Committee (SWC)', link: '/committees/swc' },
+                            { name: 'Anti Ragging Committee (ARC)', link: '/committees/arc' },
+                            { name: 'Academic and Administrative Audit Committee (AAAC)', link: '/committees/aaac' },
+                            { name: 'Department Development Committee (DDC)', link: '/committees/ddc' }
+                        ]
+                    }
+                ]
+            }
+        ] 
+    },
+    // --- EXAMINATIONS & CELLS: Unchanged ---
+    { 
+        name: 'Examinations', 
+        link: '/examinations', 
+        isMegaWithImage: true, 
+        defaultImage: '/images/exams-default.jpg',
+        sub: [
+            { 
+                name: "Exam Cell & Resources", 
+                sub: [
+                    { name: 'About ExamCell', link: '/exams/about', image: '/images/exam-cell.jpg' },
+                    { name: 'Results', link: '/exams/results', image: '/images/results.jpg' },
+                    { name: 'Time Tables', link: '/exams/timetables', image: '/images/timetables.jpg' },
+                    { name: 'Notifications', link: '/exams/notifications', image: '/images/notifications.jpg' },
+                    { name: 'IT Reforms', link: '/exams/it-reforms', image: '/images/it-reforms.jpg' },
+                    { name: 'Examination Manual', link: '/exams/manual', image: '/images/exam-manual.jpg' }
+                ] 
+            }
+        ] 
     },
     { 
-      name: "Academics", 
-      submenu: ["Schools & Departments", "Programs Offered", "Academic Calendar", "Faculty Directory", "Syllabus"] 
+        name: 'Cells', 
+        link: '#', 
+        isMegaWithImage: true, 
+        defaultImage: '/images/cells-default.jpg',
+        sub: [
+            { 
+                name: 'Innovation & Development', 
+                sub: [
+                    { name: 'Discipline Cell', link: '/cells/discipline', image: '/images/cell-discipline.jpg' },
+                    { name: 'ED Cell', link: '/cells/edc', image: '/images/cell-edc.jpg' },
+                    { name: 'Idea Lab', link: '/cells/idea-lab', image: '/images/cell-idealab.jpg' },
+                    { name: 'IIC Cell', link: '/cells/iic', image: '/images/cell-iic.jpg' },
+                    { name: 'IPR Cell', link: '/cells/ipr', image: '/images/cell-ipr.jpg' },
+                    { name: 'Research Cell', link: '/cells/research', image: '/images/cell-research.jpg' },
+                    { name: 'Skill Development Lab', link: '/cells/skill-dev', image: '/images/cell-skilldev.jpg' }
+                ] 
+            },
+            { 
+                name: 'Student & Community', 
+                sub: [
+                    { name: 'Green Club', link: '/cells/green-club', image: '/images/cell-green.jpg' },
+                    { name: 'International Student Cell', link: '/cells/international', image: '/images/cell-international.jpg' },
+                    { name: 'IEEE Chapter', link: '/cells/ieee', image: '/images/cell-ieee.jpg' },
+                    { name: 'Media Cell', link: '/cells/media', image: '/images/cell-media.jpg' },
+                    { name: 'NSS Unit', link: '/cells/nss', image: '/images/cell-nss.jpg' },
+                    { name: 'Student Activity Council', link: '/cells/sac', image: '/images/cell-sac.jpg' },
+                    { name: 'WEP Cell', link: '/cells/wep', image: '/images/cell-wep.jpg' }
+                ] 
+            }
+        ] 
     },
-    { 
-      name: "Admissions", 
-      submenu: ["Admission Process", "Eligibility Criteria", "Fee Structure", "Scholarships", "International Admissions"] 
-    },
-    { 
-      name: "Research", 
-      submenu: ["Research Centers", "Publications", "Patents", "Funded Projects", "Collaborations"] 
-    },
-    { 
-      name: "Placements", 
-      submenu: ["Placement Statistics", "Our Recruiters", "Success Stories", "Training Programs", "Industry Connect"] 
-    },
-    { 
-      name: "Campus Life", 
-      submenu: ["Student Clubs", "Events", "Sports", "Hostel", "Facilities"] 
-    }
-  ];
+];
 
-  return (
-    <header className={`fixed top-0 w-full z-50 transition-all duration-300 ease-in-out ${isScrolled ? 'bg-white/80 backdrop-blur-lg shadow-md' : 'bg-transparent'}`}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`flex items-center justify-between transition-all duration-300 ${isScrolled ? 'h-16' : 'h-24'}`}>
-          <div className="flex-shrink-0">
-            <a href="#" className="flex items-center space-x-2 group">
-                <AnimatedLogo isScrolled={isScrolled} logoSize={isScrolled ? 96 : 128} />
-            </a>
-          </div>
-          <nav className="hidden lg:flex lg:items-center lg:space-x-1">
-            {navLinks.map((link, index) => (
-              <div key={link.name} className="relative group">
-                <button 
-                  className={`flex items-center px-4 py-2 font-medium transition-all duration-300 rounded-md ${
-                    isScrolled 
-                      ? 'text-gray-600 hover:text-blue-600' 
-                      : 'text-white/90 hover:text-white'
-                  }`}
-                  onMouseEnter={() => setActiveSubmenu(index)}
-                  onMouseLeave={() => setActiveSubmenu(null)}
-                >
-                  {/* Animated Hover Indicator */}
-                  <span className={`absolute inset-0 rounded-md opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 ${
-                    isScrolled 
-                      ? 'bg-gray-100' 
-                      : 'bg-white/10'
-                  }`}></span>
-                  
-                  {/* Text and Icon Container */}
-                  <span className="relative z-10 flex items-center space-x-1">
-                    <span className="relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-current after:transition-all after:duration-300 group-hover:after:w-full">
-                      {link.name}
-                    </span>
-                    
-                    {/* Animated Dropdown Icon */}
-                    <svg 
-                      xmlns="http://www.w3.org/2000/svg" 
-                      className="h-4 w-4 transition-transform duration-300 group-hover:rotate-180" 
-                      viewBox="0 0 20 20" 
-                      fill="currentColor"
-                    >
-                      <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                    </svg>
-                  </span>
-                </button>
-                
-                {/* Enhanced Dropdown Menu with Animations */}
-                <div className="absolute left-0 mt-1 w-64 origin-top-left transition-all duration-300 transform translate-y-2 opacity-0 invisible group-hover:translate-y-0 group-hover:opacity-100 group-hover:visible z-50">
-                  <div className="py-3 px-2 bg-white rounded-xl shadow-xl border border-gray-100 backdrop-blur-sm">
-                    {/* Triangle indicator */}
-                    <div className="absolute top-0 left-6 w-3 h-3 bg-white transform rotate-45 -mt-1.5 border-t border-l border-gray-100"></div>
-                    
-                    <div className="relative z-10">
-                      {link.submenu.map((subItem, subIndex) => (
-                        <a 
-                          key={subItem} 
-                          href="#" 
-                          className="block px-4 py-2.5 my-0.5 text-sm font-medium text-gray-700 hover:bg-blue-50 rounded-md hover:text-blue-700 transition-all duration-200 transform hover:translate-x-1"
-                          style={{
-                            transitionDelay: `${subIndex * 50}ms`,
-                            animation: "fadeInUp 0.3s ease-out both",
-                            animationDelay: `${subIndex * 50}ms`
-                          }}
-                        >
-                          {/* Icon based on submenu item */}
-                          <div className="flex items-center space-x-2">
-                            <span className="w-5 h-5 flex items-center justify-center text-blue-500">
-                              {subIndex % 5 === 0 && <span className="text-xs">📝</span>}
-                              {subIndex % 5 === 1 && <span className="text-xs">🎓</span>}
-                              {subIndex % 5 === 2 && <span className="text-xs">📚</span>}
-                              {subIndex % 5 === 3 && <span className="text-xs">🔍</span>}
-                              {subIndex % 5 === 4 && <span className="text-xs">📊</span>}
-                            </span>
-                            <span>{subItem}</span>
-                          </div>
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </nav>
-          
-          <div className="hidden lg:flex items-center space-x-4">
-            {/* Search Button with Animation */}
-            <button 
-              onClick={() => setIsSearchOpen(!isSearchOpen)} 
-              className={`p-2 rounded-full transition-all duration-300 group ${
-                isScrolled 
-                  ? 'text-gray-500 hover:text-blue-600 hover:bg-blue-50' 
-                  : 'text-white/90 hover:text-white hover:bg-white/10'
-              }`}
-            >
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" 
-                fill="none" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </button>
-            
-          </div>
-          <div className="lg:hidden">
-            <button 
-              onClick={() => setIsMenuOpen(!isMenuOpen)} 
-              className={`${isScrolled ? 'text-gray-700' : 'text-white'} hover:text-blue-600 focus:outline-none relative overflow-hidden p-1.5 rounded-full transition-all duration-300 ${isMenuOpen ? 'bg-red-50 text-red-500' : isScrolled ? 'hover:bg-blue-50' : 'hover:bg-white/10'}`}
-              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-            >
-              {isMenuOpen ? 
-                <CloseIcon className="w-6 h-6 transform animate-wiggle" /> : 
-                <MenuIcon className="w-6 h-6 transform transition-transform hover:scale-110" />
-              }
-              <span className={`absolute inset-0 rounded-full ${isMenuOpen ? 'animate-pulse-light bg-red-100/50' : 'bg-transparent'}`}></span>
-            </button>
-          </div>
-        </div>
-      </div>
-      
-      {/* Desktop Search Popup */}
-      <div 
-        ref={searchRef}
-        className={`fixed inset-0 w-full h-full flex items-start justify-center z-50 transition-all duration-300 ${
-          isSearchOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
-        style={{ background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(5px)' }}
-      >
-        <div 
-          className={`w-full max-w-3xl bg-white rounded-2xl shadow-2xl mt-20 transform transition-all duration-300 ${
-            isSearchOpen ? 'translate-y-0' : '-translate-y-20'
-          }`}
+// --- Sub-menu Item Component (Unchanged) ---
+const SubMenuItem = ({ item, onHover }) => {
+    const [isSubOpen, setIsSubOpen] = useState(false);
+    const hasNestedSubmenu = item.sub && item.sub.length > 0;
+    const opensDown = item.opensDown === true;
+
+    return (
+        <li
+            className={`group/submenu-item relative rounded-lg transition-colors duration-200 hover:bg-blue-100/60 ${isSubOpen ? 'z-30' : 'z-auto'}`}
+            onMouseEnter={() => { onHover(); if (hasNestedSubmenu) setIsSubOpen(true); }}
+            onMouseLeave={() => { if (hasNestedSubmenu) setIsSubOpen(false); }}
         >
-          <div className="p-6">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-bold text-gray-800">Search Vignan University</h3>
-              <button 
-                onClick={() => setIsSearchOpen(false)}
-                className="text-gray-500 hover:text-red-500 transition-colors"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-            
-            <div className="relative mb-6">
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Type to search for courses, programs, faculty..."
-                className="w-full px-5 py-4 pl-12 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
-                autoFocus
-              />
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-blue-500 absolute left-4 top-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </div>
-            
-            <div className="mb-4">
-              <h4 className="text-sm font-semibold text-gray-500 uppercase mb-2">Popular Searches</h4>
-              <div className="flex flex-wrap gap-2">
-                <button 
-                  onClick={() => setSearchQuery('B.Tech Computer Science')}
-                  className="px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-all"
-                >B.Tech Computer Science</button>
-                <button 
-                  onClick={() => setSearchQuery('Admissions 2023')}
-                  className="px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-all"
-                >Admissions 2023</button>
-                <button 
-                  onClick={() => setSearchQuery('Campus Map')}
-                  className="px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-all"
-                >Campus Map</button>
-                <button 
-                  onClick={() => setSearchQuery('Research')}
-                  className="px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-all"
-                >Research</button>
-                <button 
-                  onClick={() => setSearchQuery('Scholarships')}
-                  className="px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-all"
-                >Scholarships</button>
-              </div>
-            </div>
-            
-            <div className="mb-6">
-              <h4 className="text-sm font-semibold text-gray-500 uppercase mb-2">Quick Links</h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                <a href="#" className="p-4 border border-gray-100 rounded-lg hover:bg-blue-50 transition-colors flex items-center space-x-3">
-                  <div className="p-2 bg-blue-100 rounded-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h5 className="font-medium">Academic Programs</h5>
-                    <p className="text-sm text-gray-500">Explore our range of courses</p>
-                  </div>
-                </a>
-                <a href="#" className="p-4 border border-gray-100 rounded-lg hover:bg-blue-50 transition-colors flex items-center space-x-3">
-                  <div className="p-2 bg-green-100 rounded-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h5 className="font-medium">Campus Life</h5>
-                    <p className="text-sm text-gray-500">Experience student life</p>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      {/* Mobile Menu */}
-      <div className={`lg:hidden fixed inset-0 w-full h-full bg-white shadow-lg transition-all duration-300 ease-in-out origin-top overflow-auto max-h-[100vh] ${isMenuOpen ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'} z-50`}>
-        <div className="px-4 pt-6 pb-8 relative">
-          {/* Mobile Menu Close Button */}
-          <button
-            onClick={() => setIsMenuOpen(false)}
-            className="absolute top-4 right-4 z-50 p-2 rounded-full bg-gray-100 hover:bg-red-100 text-gray-600 hover:text-red-500 shadow transition-all duration-300"
-            aria-label="Close menu"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-          {/* Enhanced Search Bar for Mobile */}
-          <div className="mb-6 pt-3">
-            <div className="relative group">
-              <input
-                type="text"
-                placeholder="Search courses, faculty, events..."
-                className="w-full px-4 py-4 pl-12 pr-4 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 placeholder-gray-400 shadow-sm bg-gray-50/50 text-base"
-              />
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-primary-500 absolute left-3 top-4 transition-all duration-300 group-hover:text-primary-600 group-hover:scale-110"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-              {/* Quick search buttons */}
-              <div className="mt-4 flex flex-wrap gap-3">
-                <button className="text-base px-5 py-2 bg-gray-100 text-gray-600 rounded-full hover:bg-primary-50 hover:text-primary-600 transition-colors duration-300">Admissions</button>
-                <button className="text-base px-5 py-2 bg-gray-100 text-gray-600 rounded-full hover:bg-primary-50 hover:text-primary-600 transition-colors duration-300">Programs</button>
-                <button className="text-base px-5 py-2 bg-gray-100 text-gray-600 rounded-full hover:bg-primary-50 hover:text-primary-600 transition-colors duration-300">Campus</button>
-              </div>
-            </div>
-          </div>
-          {/* Mobile Menu Items */}
-          <div className="space-y-2">
-            {navLinks.map((navItem, index) => (
-              <div key={navItem.name} className="border-b border-gray-100 last:border-0 py-4">
-                <button
-                  onClick={() => setActiveSubmenu(activeSubmenu === index ? null : index)}
-                  className={`flex justify-between items-center w-full px-4 py-4 text-left text-lg font-medium rounded-lg transition-all duration-300 ${
-                    activeSubmenu === index 
-                      ? 'bg-primary-50 text-primary-700' 
-                      : 'text-gray-700 hover:bg-gray-50'
-                  }`}
+            <a href={item.link} className="flex w-full items-center justify-between p-3 text-sm">
+                <span className="absolute -left-3 top-1/2 h-2/3 w-1 rounded-full bg-blue-500 transition-all duration-300 ease-in-out transform -translate-y-1/2 scale-y-0 group-hover/submenu-item:scale-y-100"></span>
+                <span className="font-medium text-slate-700 group-hover/submenu-item:text-blue-700">{item.name}</span>
+                {hasNestedSubmenu && <svg className="h-4 w-4 text-slate-400" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d={opensDown ? "M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" : "M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"} clipRule="evenodd" /></svg>}
+            </a>
+            {hasNestedSubmenu && (
+                <div className={`absolute w-auto min-w-[250px] transition-all duration-300 ease-in-out transform-gpu
+                    ${opensDown
+                        ? `top-full left-0 mt-2 ${isSubOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-2'}`
+                        : `-top-2.5 left-full ml-2 ${isSubOpen ? 'opacity-100 visible translate-x-0' : 'opacity-0 invisible -translate-x-2'}`
+                    }`}
                 >
-                  <span className="flex items-center">
-                    {/* Menu item icon based on index */}
-                    <span className="w-8 h-8 flex items-center justify-center rounded-full mr-3 transition-all duration-300 bg-opacity-20" style={{
-                      backgroundColor: activeSubmenu === index 
-                        ? 'rgba(59, 130, 246, 0.2)' 
-                        : 'rgba(229, 231, 235, 0.5)'
-                    }}>
-                      {index === 0 && (
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                      )}
-                      {index === 1 && (
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                        </svg>
-                      )}
-                      {index === 2 && (
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                      )}
-                      {index === 3 && (
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                        </svg>
-                      )}
-                      {index === 4 && (
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                        </svg>
-                      )}
-                      {index === 5 && (
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                        </svg>
-                      )}
-                    </span>
-                    {navItem.name}
-                  </span>
-                  <span className="ml-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </span>
-                </button>
-                {/* Submenu for mobile */}
-                {activeSubmenu === index && (
-                  <div className="pl-8 pt-2 space-y-2">
-                    {navItem.submenu.map((subItem, subIndex) => (
-                      <a key={subItem} href="#" className="block text-base py-2 px-3 rounded-lg text-gray-600 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200">
-                        {subItem}
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </header>
-  );
+                    <ul 
+                        className={`bg-gradient-to-br from-white to-slate-100 rounded-xl shadow-2xl shadow-slate-800/20 border border-slate-200/60 p-2 space-y-1 ${item.isScrollable ? 'custom-scrollbar' : ''}`}
+                        style={item.isScrollable ? { maxHeight: 'calc(50vh - 100px)', overflowY: 'auto' } : {}}
+                    >
+                        {item.sub.map((nestedItem) => <SubMenuItem key={nestedItem.name} item={nestedItem} onHover={() => {}} />)}
+                    </ul>
+                </div>
+            )}
+        </li>
+    );
+};
+
+// --- Main Header Component (Unchanged) ---
+const Header = () => {
+    const [isScrolled, setIsScrolled] = useState(false);
+    const [activeMenu, setActiveMenu] = useState(null);
+    const [activeImage, setActiveImage] = useState(null);
+    const [prevImage, setPrevImage] = useState(null);
+    let menuTimeout;
+
+    const handleMouseEnter = (item) => {
+        clearTimeout(menuTimeout);
+        if (item.sub) {
+            setActiveMenu(item);
+            if (item.isMegaWithImage) {
+                setActiveImage(item.defaultImage);
+                setPrevImage(item.defaultImage);
+            }
+        } else {
+            handleMouseLeave();
+        }
+    };
+    
+    const handleMouseLeave = () => { 
+        menuTimeout = setTimeout(() => { 
+            setActiveMenu(null); 
+            setActiveImage(null); 
+        }, 200); 
+    };
+    
+    const handleMenuContainerEnter = () => clearTimeout(menuTimeout);
+    
+    const handleLinkHover = (image) => {
+        if (image && image !== activeImage) {
+            setPrevImage(activeImage);
+            setActiveImage(image);
+        }
+    };
+
+    useEffect(() => {
+        const handleScroll = () => setIsScrolled(window.scrollY > 20);
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+    
+    return (
+        <>
+            <style>{`
+                @keyframes elegantCascade { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } } 
+                .custom-scrollbar::-webkit-scrollbar { width: 6px; } 
+                .custom-scrollbar::-webkit-scrollbar-track { background: transparent; } 
+                .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 20px; } 
+                .custom-scrollbar::-webkit-scrollbar-thumb:hover { background-color: #94a3b8; }
+                .aspect-w-4 { position: relative; padding-bottom: 75%; }
+                .aspect-h-3 { }
+                .aspect-w-4 > * { position: absolute; height: 100%; width: 100%; top: 0; right: 0; bottom: 0; left: 0; }
+            `}</style>
+            <header className="fixed top-0 w-full z-50 transition-all duration-300 ease-in-out" onMouseLeave={handleMouseLeave}>
+                <div className="absolute top-0 left-0 right-0 h-full transition-all duration-300" style={{ background: isScrolled ? 'rgba(255, 255, 255, 0.9)' : 'transparent', backdropFilter: isScrolled ? 'blur(10px)' : 'none', boxShadow: isScrolled ? '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)' : 'none' }}></div>
+                <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className={`flex items-center justify-between transition-all duration-300 ${isScrolled ? 'h-16' : 'h-24'}`}>
+                        <div className="flex-shrink-0"><a href="/" aria-label="Home"><AnimatedLogo isScrolled={isScrolled} logoSize={isScrolled ? 96 : 128} /></a></div>
+                        <nav className="hidden lg:flex lg:items-center lg:h-full lg:space-x-1">
+                            {navItems.map((item) => (
+                                <div key={item.name} className="h-full flex items-center transition-transform duration-300 hover:-translate-y-0.5" onMouseEnter={() => handleMouseEnter(item)}>
+                                    <a href={item.link} className={`relative flex items-center px-4 py-2 font-medium rounded-lg whitespace-nowrap font-['Georgia',_serif] transition-all duration-300 ${activeMenu?.name === item.name && item.sub ? (isScrolled ? 'bg-slate-200 text-blue-600' : 'bg-white/20 text-white') : (isScrolled ? "text-slate-700 hover:bg-slate-200 hover:text-blue-600" : "text-white/90 hover:text-white hover:bg-white/10")}`}>
+                                        <span style={{ textShadow: !isScrolled ? '0 1px 3px rgba(0,0,0,0.3)' : 'none' }}>{item.name}</span>
+                                        {item.sub && <svg className={`h-4 w-4 ml-1.5 transition-transform duration-300 ${activeMenu?.name === item.name ? 'rotate-180' : ''}`} viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" /></svg>}
+                                    </a>
+                                </div>
+                            ))}
+                        </nav>
+                        <div className="flex items-center space-x-2"></div>
+                    </div>
+                </div>
+
+                <div onMouseEnter={handleMenuContainerEnter} className={`absolute top-full left-0 right-0 z-10 transition-all duration-300 ease-in-out transform-gpu ${activeMenu ? 'opacity-100 visible translate-y-0 scale-100' : 'opacity-0 invisible -translate-y-3 scale-98'}`}>
+                    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="bg-gradient-to-br from-white to-slate-100 rounded-b-2xl shadow-2xl shadow-slate-800/20 border-t border-slate-200/60 overflow-hidden">
+                            {activeMenu && (
+                                <div className="flex">
+                                    <div className={`flex flex-1 gap-x-8 p-10 justify-start`}>
+                                        {activeMenu.sub.map((column, index) => (
+                                            <div 
+                                                key={column.name} 
+                                                className="px-5 border-l border-slate-200/80 first:border-l-0" 
+                                                style={{ animation: `elegantCascade 0.6s ${index * 0.08}s cubic-bezier(0.16, 1, 0.3, 1) forwards`, opacity: 0 }}
+                                                onMouseEnter={() => handleLinkHover(column.image || null)}
+                                            >
+                                                <h3 className="text-base font-semibold text-slate-600 mb-5 font-['Georgia',_serif]">{column.name}</h3>
+                                                <ul className="space-y-1">
+                                                     {column.sub.map((link) => (
+                                                        <SubMenuItem 
+                                                            key={link.name} 
+                                                            item={link} 
+                                                            onHover={() => handleLinkHover(link.image || column.image || activeMenu.defaultImage)}
+                                                        />
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    
+                                    {activeMenu.isMegaWithImage && (
+                                        <div 
+                                            className="w-2/5 relative p-10 pl-0" 
+                                            style={{ animation: `elegantCascade 0.6s 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards`, opacity: 0 }}
+                                        >
+                                            <div className="aspect-w-4 aspect-h-3 rounded-xl overflow-hidden shadow-lg w-full h-full">
+                                                {prevImage && <img src={prevImage} alt="" className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${activeImage === prevImage ? 'opacity-100' : 'opacity-0'}`} />}
+                                                {activeImage && <img src={activeImage} alt="" className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${activeImage !== prevImage ? 'opacity-100' : 'opacity-0'}`} />}
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </>
+    );
 };
 
 export default Header;
