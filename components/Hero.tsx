@@ -42,12 +42,12 @@ const Hero: React.FC = () => {
     }, []); // Empty dependency array means this effect runs only once on mount
 
     return (
-        <section className="relative h-screen w-full overflow-hidden group">
+        <section className="relative h-[90vh] mt-[10vh] w-full overflow-hidden group">
             {/* Background Image Container */}
             {slides.map((slide, index) => (
                 <div
                     key={slide.id}
-                    className="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-1000 ease-in-out"
+                    className="absolute inset-0 w-full h-full bg-[length:100%_100%] bg-center transition-opacity duration-1000 ease-in-out"
                     style={{
                         backgroundImage: `url('${slide.backgroundImage}')`,
                         opacity: index === currentSlideIndex ? 1 : 0, // Fade in/out effect

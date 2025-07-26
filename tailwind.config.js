@@ -27,7 +27,27 @@ module.exports = {
           '0%': { backgroundPosition: '-100%' },
           '100%': { backgroundPosition: '200%' },
         },
+        'marquee-full': {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-100%)' }, // Scrolls the entire width of one set of items
+        },
+        blob: {
+          '0%': { transform: 'translate(0px, 0px) scale(1)' },
+          '33%': { transform: 'translate(30px, -50px) scale(1.2)' },
+          '66%': { transform: 'translate(-20px, 20px) scale(0.8)' },
+          '100%': { transform: 'translate(0px, 0px) scale(1)' },
+        },
+        aurora: {
+          '0%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+          '100%': { backgroundPosition: '0% 50%' },
+        },
       },
+      animation:{
+        blob: 'blob 5s infinite ease-in-out',
+        aurora: 'aurora 15s ease infinite',
+        'marquee-full': 'marquee-full 60s linear infinite',
+      }
     },
   },
   plugins: [],
