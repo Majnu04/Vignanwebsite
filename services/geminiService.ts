@@ -4,17 +4,24 @@ import type { Program } from '../types';
 // Check for API key and provide more user-friendly handling
 const API_KEY = process.env.API_KEY || '';
 
-// Only create the AI client if we have an API key
-let ai: any;
-try {
-  if (!API_KEY) {
-    console.warn("API_KEY environment variable not set. AI features will be disabled.");
-  } else {
-    ai = new GoogleGenAI({ apiKey: API_KEY });
+// Lazy initialize the AI client only when needed
+let ai: any = null;
+const getAIClient = () => {
+  if (ai === null) {
+    try {
+      if (API_KEY) {
+        ai = new GoogleGenAI({ apiKey: API_KEY });
+      } else {
+        console.warn("API_KEY environment variable not set. AI features will be disabled.");
+        ai = false;
+      }
+    } catch (error) {
+      console.error("Error initializing Google Genai:", error);
+      ai = false;
+    }
   }
-} catch (error) {
-  console.error("Error initializing Google Genai:", error);
-}
+  return ai;
+};
 
 const programSchema = {
   type: Type.OBJECT,
