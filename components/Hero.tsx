@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import AnimatedLogo from './AnimatedLogo';
 
 // Simplified slide data - only background images are needed now.
 const slides = [
@@ -60,6 +61,7 @@ const Hero: React.FC = () => {
                 </div>
             ))}
 
+           
             {/* Manual Navigation Buttons */}
             {/* These buttons will appear only on hover of the entire hero section */}
             <div className="absolute inset-0 z-10 flex items-center justify-between px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">

@@ -294,8 +294,10 @@ const Header: React.FC = () => {
         if (item.sub) {
             setActiveMenu(item);
             if (item.isMegaWithImage) {
-                setActiveImage(item.defaultImage || null);
-                setPrevImage(item.defaultImage || null);
+                // Ensure we always have an image by using a default fallback if needed
+                const defaultImage = item.defaultImage || '/images/fallbacks/general-default.jpg';
+                setActiveImage(defaultImage);
+                setPrevImage(defaultImage);
             }
         } else {
             handleMouseLeave();
@@ -316,9 +318,11 @@ const Header: React.FC = () => {
     };
     
     const handleLinkHover = (image: string | null) => {
-        if (image && image !== activeImage) {
+        // Always set an image, using a fallback if needed
+        const imageToUse = image || activeMenu?.defaultImage || '/images/fallbacks/general-default.jpg';
+        if (imageToUse !== activeImage) {
             setPrevImage(activeImage);
-            setActiveImage(image);
+            setActiveImage(imageToUse);
         }
     };
 
@@ -432,8 +436,36 @@ const Header: React.FC = () => {
                                             style={{ animation: `elegantCascade 0.6s 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards`, opacity: 0 }}
                                         >
                                             <div className="aspect-w-4 aspect-h-3 rounded-xl overflow-hidden shadow-lg w-full h-full">
-                                                {prevImage && <img src={prevImage} alt="" className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${activeImage === prevImage ? 'opacity-100' : 'opacity-0'}`} />}
-                                                {activeImage && <img src={activeImage} alt="" className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${activeImage !== prevImage ? 'opacity-100' : 'opacity-0'}`} />}
+                                                {prevImage && (
+                                                    <img 
+                                                        src={prevImage} 
+                                                        alt="Menu category image"
+                                                        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${activeImage === prevImage ? 'opacity-100' : 'opacity-0'}`}
+                                                        onError={(e) => {
+                                                            // Replace with default image on error
+                                                            e.currentTarget.src = '/images/campus-default.jpg';
+                                                        }}
+                                                    />
+                                                )}
+                                                {activeImage && (
+                                                    <img 
+                                                        src={activeImage} 
+                                                        alt="Menu category image"
+                                                        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${activeImage !== prevImage ? 'opacity-100' : 'opacity-0'}`} 
+                                                        onError={(e) => {
+                                                            // Replace with default image on error
+                                                            e.currentTarget.src = '/images/campus-default.jpg';
+                                                        }}
+                                                    />
+                                                )}
+                                                {/* Always have a fallback image */}
+                                                {!activeImage && !prevImage && (
+                                                    <img 
+                                                        src="/images/campus-default.jpg" 
+                                                        alt="Vignan Campus" 
+                                                        className="absolute inset-0 w-full h-full object-cover"
+                                                    />
+                                                )}
                                             </div>
                                         </div>
                                     )}

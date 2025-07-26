@@ -1,54 +1,47 @@
 
 import React, { useEffect } from 'react';
 
-// Custom animation keyframes
+// Custom animation keyframes for hero page shine effect
 const logoKeyframes = `
-@keyframes pulse-glow {
-  0%, 100% { filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.7)); }
-  50% { filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.9)); }
+@keyframes hero-shine {
+  0% {
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.6)) brightness(1);
+  }
+  25% {
+    filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.8)) brightness(1.15);
+  }
+  50% {
+    filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.9)) brightness(1.2);
+  }
+  75% {
+    filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.8)) brightness(1.15);
+  }
+  100% {
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.6)) brightness(1);
+  }
 }
 
-@keyframes draw-path {
-  0% { stroke-dashoffset: 100; }
-  100% { stroke-dashoffset: 0; }
+.logo-hero-shine {
+  animation: hero-shine 5s ease-in-out infinite;
 }
 
-@keyframes rotate-in {
-  0% { transform: rotate(-90deg) scale(0.5); opacity: 0; }
-  100% { transform: rotate(0) scale(1); opacity: 1; }
+.logo-standard {
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.2));
+  transition: transform 0.5s ease-out;
 }
 
-@keyframes float-subtle {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
-}
-
-.logo-float {
-  animation: float-subtle 3s ease-in-out infinite;
-}
-
-.logo-pulse {
-  animation: pulse-glow 3s ease-in-out infinite;
-}
-
-.logo-path {
-  stroke-dasharray: 100;
-  stroke-dashoffset: 100;
-  animation: draw-path 1.5s ease-out forwards;
-}
-
-.logo-rotate-in {
-  animation: rotate-in 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  transform-origin: center;
+.logo-standard:hover {
+  transform: scale(1.03);
 }
 `;
 
 interface AnimatedLogoProps {
   isScrolled: boolean;
   logoSize?: number;
+  isHero?: boolean;
 }
 
-const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ isScrolled, logoSize }) => {
+const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ isScrolled, logoSize, isHero = false }) => {
   useEffect(() => {
     // Add the keyframes to the document head
     const style = document.createElement('style');
@@ -60,16 +53,23 @@ const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ isScrolled, logoSize }) => 
     };
   }, []);
 
+  // Determine logo size based on context
+  const finalLogoSize = logoSize ? logoSize : (isHero ? 180 : (isScrolled ? 80 : 120));
+  
   return (
-    <div className={`logo-float transition-all duration-300 ${!isScrolled && 'logo-pulse'}`}>
+    <div className={`transition-all duration-300 ${isHero ? 'transform-gpu' : ''}`}>
       <img 
         src="/images/LOGO_AAA copy.png" 
         alt="Vignan College Logo"
-        width={logoSize ? logoSize : (isScrolled ? 40 : 56)} 
-        height={logoSize ? logoSize : (isScrolled ? 40 : 56)}
-        className="logo-rotate-in transition-all duration-500"
+        width={finalLogoSize} 
+        height={finalLogoSize}
+        className={`
+          transition-all duration-500
+          ${isHero ? 'logo-hero-shine' : 'logo-standard'}
+        `}
         style={{
-          filter: !isScrolled ? "drop-shadow(0 0 4px rgba(255, 255, 255, 0.7))" : "none"
+          objectFit: "contain",
+          maxWidth: "100%"
         }}
       />
     </div>
