@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ChevronDown } from 'lucide-react';
 
-// Assuming AnimatedLogo component exists and works as intended
-import AnimatedLogo from '../components/AnimatedLogo.tsx';
+// Import components
+import AnimatedLogo from './AnimatedLogo';
+import MobileMenuItem from './MobileMenuItem';
 
+// Import type definitions
+import { NavItem, NavSubItem, NavColumn } from '../types/navigation';
 
 // --- *** THE 100% CORRECTED AND FINALIZED NAVIGATION DATA (VERSION 4) *** ---
-const navItems = [
+
+const navItems: NavItem[] = [
     // --- ABOUT US: Unchanged ---
     { 
         name: 'About Us', 
@@ -233,7 +238,12 @@ const navItems = [
 ];
 
 // --- Sub-menu Item Component (Unchanged) ---
-const SubMenuItem = ({ item, onHover }) => {
+interface SubMenuItemProps {
+    item: NavSubItem;
+    onHover: () => void;
+}
+
+const SubMenuItem: React.FC<SubMenuItemProps> = ({ item, onHover }) => {
     const [isSubOpen, setIsSubOpen] = useState(false);
     const hasNestedSubmenu = item.sub && item.sub.length > 0;
     const opensDown = item.opensDown === true;
@@ -260,7 +270,7 @@ const SubMenuItem = ({ item, onHover }) => {
                         className={`bg-gradient-to-br from-white to-slate-100 rounded-xl shadow-2xl shadow-slate-800/20 border border-slate-200/60 p-2 space-y-1 ${item.isScrollable ? 'custom-scrollbar' : ''}`}
                         style={item.isScrollable ? { maxHeight: 'calc(50vh - 100px)', overflowY: 'auto' } : {}}
                     >
-                        {item.sub.map((nestedItem) => <SubMenuItem key={nestedItem.name} item={nestedItem} onHover={() => {}} />)}
+                        {item.sub?.map((nestedItem) => <SubMenuItem key={nestedItem.name} item={nestedItem} onHover={() => {}} />)}
                     </ul>
                 </div>
             )}
@@ -269,20 +279,23 @@ const SubMenuItem = ({ item, onHover }) => {
 };
 
 // --- Main Header Component (Unchanged) ---
-const Header = () => {
+const Header: React.FC = () => {
     const [isScrolled, setIsScrolled] = useState(false);
-    const [activeMenu, setActiveMenu] = useState(null);
-    const [activeImage, setActiveImage] = useState(null);
-    const [prevImage, setPrevImage] = useState(null);
-    let menuTimeout;
+    const [activeMenu, setActiveMenu] = useState<NavItem | null>(null);
+    const [activeImage, setActiveImage] = useState<string | null>(null);
+    const [prevImage, setPrevImage] = useState<string | null>(null);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const menuTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-    const handleMouseEnter = (item) => {
-        clearTimeout(menuTimeout);
+    const handleMouseEnter = (item: NavItem) => {
+        if (menuTimeoutRef.current) {
+            clearTimeout(menuTimeoutRef.current);
+        }
         if (item.sub) {
             setActiveMenu(item);
             if (item.isMegaWithImage) {
-                setActiveImage(item.defaultImage);
-                setPrevImage(item.defaultImage);
+                setActiveImage(item.defaultImage || null);
+                setPrevImage(item.defaultImage || null);
             }
         } else {
             handleMouseLeave();
@@ -290,15 +303,19 @@ const Header = () => {
     };
     
     const handleMouseLeave = () => { 
-        menuTimeout = setTimeout(() => { 
+        menuTimeoutRef.current = setTimeout(() => { 
             setActiveMenu(null); 
             setActiveImage(null); 
         }, 200); 
     };
     
-    const handleMenuContainerEnter = () => clearTimeout(menuTimeout);
+    const handleMenuContainerEnter = () => {
+        if (menuTimeoutRef.current) {
+            clearTimeout(menuTimeoutRef.current);
+        }
+    };
     
-    const handleLinkHover = (image) => {
+    const handleLinkHover = (image: string | null) => {
         if (image && image !== activeImage) {
             setPrevImage(activeImage);
             setActiveImage(image);
@@ -315,6 +332,7 @@ const Header = () => {
         <>
             <style>{`
                 @keyframes elegantCascade { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } } 
+                @keyframes slideIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
                 .custom-scrollbar::-webkit-scrollbar { width: 6px; } 
                 .custom-scrollbar::-webkit-scrollbar-track { background: transparent; } 
                 .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 20px; } 
@@ -322,31 +340,69 @@ const Header = () => {
                 .aspect-w-4 { position: relative; padding-bottom: 75%; }
                 .aspect-h-3 { }
                 .aspect-w-4 > * { position: absolute; height: 100%; width: 100%; top: 0; right: 0; bottom: 0; left: 0; }
+                
+                /* Mobile menu animation classes */
+                .mobile-menu-item { animation: slideIn 0.5s forwards; }
+                .mobile-menu-item:nth-child(1) { animation-delay: 0.1s; }
+                .mobile-menu-item:nth-child(2) { animation-delay: 0.15s; }
+                .mobile-menu-item:nth-child(3) { animation-delay: 0.2s; }
+                .mobile-menu-item:nth-child(4) { animation-delay: 0.25s; }
+                .mobile-menu-item:nth-child(5) { animation-delay: 0.3s; }
+                .mobile-menu-item:nth-child(6) { animation-delay: 0.35s; }
+                .mobile-menu-item:nth-child(7) { animation-delay: 0.4s; }
+                .mobile-menu-item:nth-child(8) { animation-delay: 0.45s; }
+                .mobile-menu-item:nth-child(9) { animation-delay: 0.5s; }
+                .mobile-menu-item:nth-child(10) { animation-delay: 0.55s; }
             `}</style>
             <header className="fixed top-0 w-full z-50 transition-all duration-300 ease-in-out" onMouseLeave={handleMouseLeave}>
                 <div className="absolute top-0 left-0 right-0 h-full transition-all duration-300" style={{ background: isScrolled ? 'rgba(255, 255, 255, 0.9)' : 'transparent', backdropFilter: isScrolled ? 'blur(10px)' : 'blur(10px)', boxShadow: isScrolled ? '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)' : 'none' }}></div>
                 <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className={`flex items-center justify-between transition-all duration-300 ${isScrolled ? 'h-16' : 'h-16'}`}>
                         <div className="flex-shrink-0"><a href="/" aria-label="Home"><AnimatedLogo isScrolled={isScrolled} logoSize={isScrolled ? 96 : 128} /></a></div>
+                        {/* Desktop Navigation */}
                         <nav className="hidden lg:flex lg:items-center lg:h-full lg:space-x-1">
                             {navItems.map((item) => (
                                 <div key={item.name} className="h-full flex items-center justify-center transition-transform duration-300 hover:-translate-y-0.5" onMouseEnter={() => handleMouseEnter(item)}>
                                     <a href={item.link} className={`relative flex items-center px-4 py-2 font-medium rounded-lg whitespace-nowrap font-['Georgia',_serif] transition-all duration-300 text-blue-600 hover:text-blue ${activeMenu?.name === item.name && item.sub ? (isScrolled ? 'bg-slate-200 text-red-600' : 'bg-slate-200 text-blue-600') : (isScrolled ? "text-slate-700 hover:bg-slate-200 hover:text-blue-600" : "text-slate-700 hover:bg-slate-200 hover:text-blue-600 ")}`}>
-                                    {/* <a href={item.link} className={`relative flex items-center px-4 py-2 font-medium rounded-lg whitespace-nowrap font-['Georgia',_serif] transition-all duration-300 ${activeMenu?.name === item.name && item.sub ? (isScrolled ? 'bg-slate-200 text-blue-600' : 'bg-white/20 text-white') : (isScrolled ? "text-slate-700 hover:bg-slate-200 hover:text-blue-600" : "text-white/90 hover:text-white hover:bg-white/10")}`}> */}
                                         <span style={{ textShadow: !isScrolled ? '0 1px 3px rgba(0,0,0,0.3)' : 'none' }}>{item.name}</span>
                                         {item.sub && <svg className={`h-4 w-4 ml-1.5 transition-transform duration-300 ${activeMenu?.name === item.name ? 'rotate-180' : ''}`} viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" /></svg>}
                                     </a>
                                 </div>
                             ))}
                         </nav>
-                        <div className="flex items-center space-x-2"></div>
+                        
+                        {/* Mobile Navigation */}
+                        <div className="flex items-center lg:hidden">
+                            <button 
+                                className={`p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 ${isMobileMenuOpen ? 'bg-blue-50' : 'hover:bg-slate-100'}`}
+                                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                                aria-expanded={isMobileMenuOpen}
+                                aria-label="Toggle navigation menu"
+                            >
+                                <span className="sr-only">Open main menu</span>
+                                <div className="w-6 h-6 flex flex-col items-center justify-center relative">
+                                    <span 
+                                        className={`block w-5 h-0.5 bg-slate-700 transition-all duration-300 ease-out ${isMobileMenuOpen ? 'absolute rotate-45 bg-blue-600' : ''}`} 
+                                        style={{ transformOrigin: '50% 50%' }}
+                                    ></span>
+                                    <span 
+                                        className={`block w-5 h-0.5 transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0 translate-x-8' : 'bg-slate-700'}`} 
+                                        style={{ marginTop: '6px', marginBottom: '6px' }}
+                                    ></span>
+                                    <span 
+                                        className={`block w-5 h-0.5 bg-slate-700 transition-all duration-300 ease-out ${isMobileMenuOpen ? 'absolute -rotate-45 bg-blue-600' : ''}`} 
+                                        style={{ transformOrigin: '50% 50%' }}
+                                    ></span>
+                                </div>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 <div onMouseEnter={handleMenuContainerEnter} className={`absolute top-full left-0 right-0 z-10 transition-all duration-300 ease-in-out transform-gpu ${activeMenu ? 'opacity-100 visible translate-y-0 scale-100' : 'opacity-0 invisible -translate-y-3 scale-98'}`}>
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="bg-gradient-to-br from-white to-slate-100 rounded-b-2xl shadow-2xl shadow-slate-800/20 border-t border-slate-200/60 overflow-hidden">
-                            {activeMenu && (
+                            {activeMenu && activeMenu.sub && (
                                 <div className="flex">
                                     <div className={`flex flex-1 gap-x-8 p-10 justify-start`}>
                                         {activeMenu.sub.map((column, index) => (
@@ -362,7 +418,7 @@ const Header = () => {
                                                         <SubMenuItem 
                                                             key={link.name} 
                                                             item={link} 
-                                                            onHover={() => handleLinkHover(link.image || column.image || activeMenu.defaultImage)}
+                                                            onHover={() => handleLinkHover(link.image || column.image || (activeMenu.defaultImage || null))}
                                                         />
                                                     ))}
                                                 </ul>
@@ -384,6 +440,124 @@ const Header = () => {
                                 </div>
                             )}
                         </div>
+                    </div>
+                </div>
+
+                {/* Mobile Menu Backdrop */}
+                <div 
+                    className={`fixed inset-0 z-40 lg:hidden transition-opacity duration-500 ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                    style={{ backgroundColor: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)' }}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                ></div>
+                
+                {/* Mobile Menu Panel */}
+                <div 
+                    className={`fixed top-0 right-0 bottom-0 z-50 w-[85%] max-w-sm bg-white shadow-2xl overflow-hidden transition-transform duration-500 ease-in-out lg:hidden ${isMobileMenuOpen ? 'transform-none' : 'translate-x-full'}`}
+                >
+                    {/* Mobile Menu Header */}
+                    <div className="flex items-center justify-between p-4 border-b border-slate-200 bg-slate-50">
+                        <div className="flex items-center">
+                            <a href="/" className="block w-36">
+                                <AnimatedLogo isScrolled={true} logoSize={64} />
+                            </a>
+                        </div>
+                        <button 
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className="p-2 rounded-full hover:bg-slate-200 transition-colors"
+                            aria-label="Close menu"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    {/* Mobile Menu Content */}
+                    <div className="h-[calc(100vh-70px)] overflow-y-auto">
+                        <nav className="p-4">
+                            {/* Search Bar */}
+                            <div className="relative mb-6">
+                                <input 
+                                    type="text" 
+                                    placeholder="Search..." 
+                                    className="w-full py-2 pl-10 pr-4 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                />
+                                <svg xmlns="http://www.w3.org/2000/svg" className="absolute left-3 top-2.5 h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </div>
+                            
+                            {/* Navigation Items */}
+                            <ul className="space-y-2">
+                                {navItems.map((item, index) => (
+                                    <li key={item.name} className="mobile-menu-item opacity-0" style={{ animationDelay: `${0.1 + index * 0.05}s` }}>
+                                        <MobileMenuItem 
+                                            item={item}
+                                        />
+                                    </li>
+                                ))}
+                            </ul>
+                            
+                            {/* Quick Links */}
+                            <div className="mt-8 pt-6 border-t border-slate-200">
+                                <h3 className="text-xs font-semibold uppercase text-slate-500 mb-4 tracking-wider">Quick Links</h3>
+                                <div className="grid grid-cols-2 gap-3">
+                                    <a href="/login" className="flex items-center justify-center py-3 px-4 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors shadow-sm">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                                        </svg>
+                                        Login
+                                    </a>
+                                    <a href="/contact" className="flex items-center justify-center py-3 px-4 rounded-lg border border-slate-300 text-slate-700 font-medium hover:bg-slate-100 transition-colors shadow-sm">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                        </svg>
+                                        Contact
+                                    </a>
+                                    <a href="/admissions/procedure" className="flex items-center justify-center py-3 px-4 rounded-lg bg-green-600 text-white font-medium hover:bg-green-700 transition-colors shadow-sm">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
+                                        </svg>
+                                        Apply Now
+                                    </a>
+                                    <a href="/campus-map" className="flex items-center justify-center py-3 px-4 rounded-lg border border-slate-300 text-slate-700 font-medium hover:bg-slate-100 transition-colors shadow-sm">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                        Campus Map
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            {/* Social Media Links */}
+                            <div className="mt-6 flex justify-center space-x-4 py-4">
+                                <a href="#" className="text-slate-600 hover:text-blue-600 transition-colors">
+                                    <span className="sr-only">Facebook</span>
+                                    <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
+                                    </svg>
+                                </a>
+                                <a href="#" className="text-slate-600 hover:text-purple-600 transition-colors">
+                                    <span className="sr-only">Instagram</span>
+                                    <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path fillRule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clipRule="evenodd" />
+                                    </svg>
+                                </a>
+                                <a href="#" className="text-slate-600 hover:text-blue-400 transition-colors">
+                                    <span className="sr-only">Twitter</span>
+                                    <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+                                    </svg>
+                                </a>
+                                <a href="#" className="text-slate-600 hover:text-red-600 transition-colors">
+                                    <span className="sr-only">YouTube</span>
+                                    <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path fillRule="evenodd" d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z" clipRule="evenodd" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </nav>
                     </div>
                 </div>
             </header>

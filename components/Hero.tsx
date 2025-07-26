@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 // Simplified slide data - only background images are needed now.
 const slides = [
     { id: 1, backgroundImage: "/images/SLIDE_0.jpg" },
-    { id: 2, backgroundImage: "/images/SLIDE_A copy.jpg" },
+    { id: 2, backgroundImage: "/images/03 copy.jpg" },
     { id: 3, backgroundImage: "/images/SLIDE_A copy.jpg" },
     { id: 4, backgroundImage: "/images/SLIDE_C[1].jpg" },
 ];
