@@ -1,6 +1,10 @@
 
 import React, { useState } from 'react';
 import { useInView } from '../hooks/useInView';
+import ImageWithFallback from './ImageWithFallback';
+import PulsingDot from './icons/PulsingDot';
+import ColorfulArrow from './icons/ColorfulArrow';
+import GradientHeaderBg from './icons/GradientHeaderBg';
 
 const hotspots = [
     {
@@ -33,6 +37,9 @@ const hotspots = [
     },
 ];
 
+// Local campus image for reliable fallback
+const LOCAL_CAMPUS_MAP = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZTBmMmZlIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIzNiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiMwMzY5YTEiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPlZpZ25hbiBDYW1wdXMgTWFwPC90ZXh0Pjwvc3ZnPg==';
+
 const ExploreCampus: React.FC = () => {
     const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
     const [activeHotspot, setActiveHotspot] = useState(hotspots[0]);
@@ -41,9 +48,11 @@ const ExploreCampus: React.FC = () => {
         <div className="bg-white py-12 sm:py-20" ref={ref}>
             <div className="container mx-auto px-3 sm:px-6 lg:px-8">
                 <div className={`text-center mb-10 sm:mb-16 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}> 
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary-700 tracking-tight">
-                        Explore Our Campus
-                    </h2>
+                    <GradientHeaderBg theme="blue">
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary-700 tracking-tight">
+                            Explore Our Campus
+                        </h2>
+                    </GradientHeaderBg>
                     <p className="mt-3 sm:mt-4 text-base sm:text-lg text-gray-600 max-w-3xl mx-auto">
                         Discover the world-class facilities and vibrant environment that make Vignan a premier institution. Tap hotspots to learn more.
                     </p>
@@ -52,22 +61,29 @@ const ExploreCampus: React.FC = () => {
                 <div className={`grid grid-cols-1 lg:grid-cols-5 gap-4 md:gap-8 transition-all duration-700 delay-200 ${inView ? 'opacity-100' : 'opacity-0'}`}> 
                     {/* Map Section */}
                     <div className="lg:col-span-3 h-64 xs:h-80 sm:h-[50vh] lg:h-[60vh] bg-gray-200 rounded-2xl relative overflow-hidden shadow-lg">
-                        <img 
-                            src="https://images.unsplash.com/photo-1600585152220-0140ABC847c2?q=80&w=2070&auto=format&fit=crop"
+                        <ImageWithFallback 
+                            src="/images/SLIDE_B.jpg"
                             alt="Vignan Campus Map"
-                            className="w-full h-full object-cover"
+                            fallbackSrc={LOCAL_CAMPUS_MAP}
+                            fallbackCategory="campus"
+                            className="w-full h-full"
+                            objectFit="cover"
                         />
                         <div className="absolute inset-0 bg-black/10"></div>
                         {hotspots.map(hotspot => (
                              <button
                                 key={hotspot.id}
                                 onClick={() => setActiveHotspot(hotspot)}
-                                className="absolute w-8 h-8 xs:w-10 xs:h-10 -translate-x-1/2 -translate-y-1/2 focus:outline-none"
+                                className="absolute w-8 h-8 xs:w-10 xs:h-10 -translate-x-1/2 -translate-y-1/2 focus:outline-none flex items-center justify-center"
                                 style={hotspot.position}
                                 aria-label={`Show details for ${hotspot.name}`}
                             >
-                                <div className={`w-full h-full rounded-full bg-white/60 backdrop-blur-sm shadow-2xl transition-all duration-300 ${activeHotspot.id === hotspot.id ? 'scale-125 ring-2 ring-primary-500' : 'hover:scale-110'}`}> 
-                                     <div className={`pulse-dot w-full h-full rounded-full bg-primary-500`}></div>
+                                <div className={`w-full h-full rounded-full bg-white/60 backdrop-blur-sm shadow-2xl transition-all duration-300 ${activeHotspot.id === hotspot.id ? 'scale-125 ring-2 ring-primary-500' : 'hover:scale-110'} flex items-center justify-center`}>
+                                    <PulsingDot 
+                                        size={activeHotspot.id === hotspot.id ? 20 : 16} 
+                                        color="#3b82f6"
+                                        active={activeHotspot.id === hotspot.id}
+                                    />
                                 </div>
                             </button>
                         ))}
@@ -77,16 +93,23 @@ const ExploreCampus: React.FC = () => {
                     <div className="lg:col-span-2 flex flex-col overflow-hidden mt-6 lg:mt-0">
                         <div key={activeHotspot.id} className="bg-white rounded-2xl shadow-lg flex flex-col flex-grow p-3 sm:p-4 animate-slide-in">
                             <div className="h-40 xs:h-56 w-full rounded-xl overflow-hidden mb-3 sm:mb-4">
-                                    <img 
+                                <ImageWithFallback 
                                     src={activeHotspot.image} 
                                     alt={activeHotspot.name} 
-                                    className="w-full h-full object-cover"
+                                    fallbackCategory="facilities"
+                                    className="w-full h-full"
+                                    objectFit="cover"
                                 />
                             </div>
                             <div className="p-2 sm:p-4 flex-grow flex flex-col">
                                 <h3 className="text-xl sm:text-2xl font-bold text-primary-700">{activeHotspot.name}</h3>
                                 <p className="mt-1 sm:mt-2 text-gray-600 flex-grow text-sm sm:text-base">{activeHotspot.description}</p>
-                                <a href="#" className="mt-3 sm:mt-4 inline-block font-semibold text-primary-600 hover:text-primary-800 transition-colors text-sm sm:text-base">Learn More &rarr;</a>
+                                <a href="#" className="mt-3 sm:mt-4 inline-flex items-center font-semibold text-primary-600 hover:text-primary-800 transition-colors text-sm sm:text-base group">
+                                    Learn More 
+                                    <span className="ml-1 group-hover:translate-x-1 transition-transform duration-300">
+                                        <ColorfulArrow size={18} />
+                                    </span>
+                                </a>
                             </div>
                         </div>
                     </div>

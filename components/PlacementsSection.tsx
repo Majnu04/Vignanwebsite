@@ -7,17 +7,41 @@ import { useCounter } from '../hooks/useCounter';
 
 // --- DATA ---
 const highlights = [
-  { student: 'Souradeep Dash', company: 'Microsoft', package: 'Summer Internship', image: '/images/placements/highlight-1.jpg', companyLogo: '/images/logos/microsoft.svg' },
-  { student: 'Ankit Sharma', company: 'LinkedIn', package: '42 LPA', image: '/images/placements/highlight-2.jpg', companyLogo: '/images/logos/linkedin.svg' },
-  { student: 'K. Rishitha', company: 'ServiceNow', package: '42.93 LPA', image: '/images/placements/highlight-3.jpg', companyLogo: '/images/logos/servicenow.svg' },
-  { student: 'B. Karunakar', company: 'Amazon', package: '26 LPA', image: '/images/placements/highlight-4.jpg', companyLogo: '/images/logos/amazon.svg' },
-  { student: 'Alla Pooja', company: 'SAP Labs', package: '18 LPA', image: '/images/placements/highlight-5.jpg', companyLogo: '/images/logos/sap-labs.svg' },
-];
-
-const recruiters = [
-  { name: 'Microsoft', logo: '/images/logos/microsoft.svg' },
-  { name: 'Amazon', logo: '/images/logos/amazon.svg' },
-  // ... rest of your recruiters
+  { 
+    student: 'Souradeep Dash', 
+    company: 'Microsoft', 
+    package: 'Summer Internship', 
+    image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cHJvZmVzc2lvbmFsJTIwbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=80', 
+    companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg' 
+  },
+  { 
+    student: 'Ankit Sharma', 
+    company: 'LinkedIn', 
+    package: '42 LPA', 
+    image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHByb2Zlc3Npb25hbCUyMG1hbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=80', 
+    companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo.svg' 
+  },
+  { 
+    student: 'K. Rishitha', 
+    company: 'ServiceNow', 
+    package: '42.93 LPA', 
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmVzc2lvbmFsJTIwd29tYW58ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=80', 
+    companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/5/57/ServiceNow_logo.svg' 
+  },
+  { 
+    student: 'B. Karunakar', 
+    company: 'Amazon', 
+    package: '26 LPA', 
+    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHByb2Zlc3Npb25hbCUyMG1hbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=80', 
+    companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg' 
+  },
+  { 
+    student: 'Alla Pooja', 
+    company: 'SAP Labs', 
+    package: '18 LPA', 
+    image: 'https://images.unsplash.com/photo-1573497019707-1c04de26e58c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHByb2Zlc3Npb25hbCUyMHdvbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=80', 
+    companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/5/59/SAP_2011_logo.svg' 
+  },
 ];
 
 // --- SUB-COMPONENTS (No changes needed here) ---
@@ -143,9 +167,128 @@ const PlacementsSection: React.FC = () => {
           </button>
         </div>
 
-        {/* Recruiter Section remains the same */}
+        {/* Recruiter Section with scrolling logos */}
         <div className="mt-28 text-center">
-          {/* ... recruiter grid code ... */}
+          <h3 className="text-3xl font-bold mb-10">Top Recruiters</h3>
+          
+          <style>{`
+            @keyframes scroll {
+              0% { transform: translateX(0); }
+              100% { transform: translateX(-50%); }
+            }
+            
+            .logos {
+              overflow: hidden;
+              padding: 20px 0;
+              background: rgba(30, 50, 100, 0.2);
+              white-space: nowrap;
+              position: relative;
+              border-radius: 8px;
+            }
+            
+            .logos:before,
+            .logos:after {
+              position: absolute;
+              top: 0;
+              width: 100px;
+              height: 100%;
+              content: "";
+              z-index: 2;
+            }
+            
+            .logos:before {
+              left: 0;
+              background: linear-gradient(to right, #1a2b4f, transparent);
+            }
+            
+            .logos:after {
+              right: 0;
+              background: linear-gradient(to left, #1a2b4f, transparent);
+            }
+            
+            .logos-slide {
+              display: inline-block;
+              animation: scroll 15s linear infinite;
+              white-space: nowrap;
+            }
+            
+            .logos:hover .logos-slide {
+              animation-play-state: paused;
+            }
+            
+            .logo {
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              height: 80px;
+              width: 180px;
+              margin: 0 20px;
+              background: rgba(255, 255, 255, 0.1);
+              backdrop-filter: blur(5px);
+              border-radius: 10px;
+              padding: 15px;
+              transition: all 0.3s ease;
+            }
+            
+            .logo:hover {
+              transform: translateY(-5px);
+              box-shadow: 0 10px 25px rgba(0, 150, 255, 0.3);
+              background: rgba(255, 255, 255, 0.2);
+            }
+            
+            .dark-logo {
+              filter: brightness(0) invert(1);
+            }
+          `}</style>
+          
+          <div className="logos">
+            <div className="logos-slide">
+              <div className="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft" className="h-10" />
+              </div>
+              <div className="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS" className="h-10" />
+              </div>
+              <div className="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" className="h-10" />
+              </div>
+              <div className="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix" className="h-8" />
+              </div>
+              <div className="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo.svg" alt="LinkedIn" className="h-8" />
+              </div>
+              <div className="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" className="h-8 dark-logo" />
+              </div>
+              <div className="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Wipro_Primary_Logo_Color_RGB.svg" alt="Wipro" className="h-8 dark-logo" />
+              </div>
+              
+              {/* Duplicate set for seamless infinite scrolling */}
+              <div className="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft" className="h-10" />
+              </div>
+              <div className="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS" className="h-10" />
+              </div>
+              <div className="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" className="h-10" />
+              </div>
+              <div className="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix" className="h-8" />
+              </div>
+              <div className="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo.svg" alt="LinkedIn" className="h-8" />
+              </div>
+              <div className="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" className="h-8 dark-logo" />
+              </div>
+              <div className="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Wipro_Primary_Logo_Color_RGB.svg" alt="Wipro" className="h-8 dark-logo" />
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>

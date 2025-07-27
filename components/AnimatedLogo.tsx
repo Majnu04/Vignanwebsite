@@ -39,9 +39,10 @@ interface AnimatedLogoProps {
   isScrolled: boolean;
   logoSize?: number;
   isHero?: boolean;
+  onClick?: () => void;
 }
 
-const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ isScrolled, logoSize, isHero = false }) => {
+const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ isScrolled, logoSize, isHero = false, onClick }) => {
   useEffect(() => {
     // Add the keyframes to the document head
     const style = document.createElement('style');
@@ -57,7 +58,10 @@ const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ isScrolled, logoSize, isHer
   const finalLogoSize = logoSize ? logoSize : (isHero ? 180 : (isScrolled ? 80 : 120));
   
   return (
-    <div className={`transition-all duration-300 ${isHero ? 'transform-gpu' : ''}`}>
+    <div 
+      className={`transition-all duration-300 ${isHero ? 'transform-gpu' : ''} ${onClick ? 'cursor-pointer' : ''}`} 
+      onClick={onClick}
+    >
       <img 
         src="/images/LOGO_AAA copy.png" 
         alt="Vignan College Logo"

@@ -1,9 +1,11 @@
 
 import React, {useRef} from 'react';
 import type { NewsItem } from '../types';
-import ArrowRightIcon from './icons/ArrowRightIcon';
 import { useInView } from '../hooks/useInView';
 import { useShine } from '../hooks/useShine';
+import ColorfulArrow from './icons/ColorfulArrow';
+import GradientHeaderBg from './icons/GradientHeaderBg';
+import ImageWithFallback from './ImageWithFallback';
 
 const newsItems: NewsItem[] = [
   { id: 1, title: 'AI in Wireless Tech Workshop', date: 'Upcoming', imageUrl: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=2070&auto=format&fit=crop', category: 'Workshop' },
@@ -18,7 +20,12 @@ const NewsCard: React.FC<{ item: NewsItem, inView: boolean, delay: string }> = (
     return (
     <div ref={cardRef} className={`card-shine bg-white rounded-2xl overflow-hidden shadow-lg group transform hover:-translate-y-2 transition-all duration-500 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`} style={{ transitionDelay: delay }}>
         <div className="overflow-hidden h-56">
-            <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out" />
+            <ImageWithFallback 
+                src={item.imageUrl}
+                alt={item.title}
+                fallbackCategory="general"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out" 
+            />
         </div>
         <div className="p-6">
             <p className="text-sm font-medium text-blue-600">{item.category}</p>
@@ -40,16 +47,20 @@ const NewsAndEvents: React.FC = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`flex flex-col md:flex-row justify-between items-start md:items-center mb-12 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
             <div className="max-w-xl">
-                 <h2 className="text-4xl md:text-5xl font-bold text-blue-900 tracking-tight">
-                    News & Events
-                </h2>
+                <GradientHeaderBg theme="blue">
+                    <h2 className="text-4xl md:text-5xl font-bold text-blue-900 tracking-tight">
+                        News & Events
+                    </h2>
+                </GradientHeaderBg>
                 <p className="mt-4 text-lg text-gray-600">
                     Stay updated with the latest happenings, workshops, and events at Vignan.
                 </p>
             </div>
             <a href="#" className="mt-4 md:mt-0 whitespace-nowrap inline-flex items-center text-blue-600 font-semibold hover:text-blue-800 transition-colors duration-300 group text-lg">
                 View All Events
-                <ArrowRightIcon className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                <span className="ml-2 group-hover:translate-x-1 transition-transform duration-300">
+                    <ColorfulArrow size={20} />
+                </span>
             </a>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

@@ -279,7 +279,11 @@ const SubMenuItem: React.FC<SubMenuItemProps> = ({ item, onHover }) => {
 };
 
 // --- Main Header Component (Unchanged) ---
-const Header: React.FC = () => {
+interface HeaderProps {
+    onLogoClick?: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ onLogoClick }) => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [activeMenu, setActiveMenu] = useState<NavItem | null>(null);
     const [activeImage, setActiveImage] = useState<string | null>(null);
@@ -358,7 +362,19 @@ const Header: React.FC = () => {
                 <div className="absolute top-0 left-0 right-0 h-full transition-all duration-300" style={{ background: isScrolled ? 'rgba(255, 255, 255, 0.9)' : 'transparent', backdropFilter: isScrolled ? 'blur(10px)' : 'blur(10px)', boxShadow: isScrolled ? '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)' : 'none' }}></div>
                 <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className={`flex items-center justify-between transition-all duration-300 ${isScrolled ? 'h-16' : 'h-16'}`}>
-                        <div className="flex-shrink-0"><a href="/" aria-label="Home"><AnimatedLogo isScrolled={isScrolled} logoSize={isScrolled ? 96 : 128} /></a></div>
+                        <div className="flex-shrink-0">
+                            {onLogoClick ? (
+                                <AnimatedLogo 
+                                    isScrolled={isScrolled} 
+                                    logoSize={isScrolled ? 96 : 128}
+                                    onClick={onLogoClick} 
+                                />
+                            ) : (
+                                <a href="/" aria-label="Home">
+                                    <AnimatedLogo isScrolled={isScrolled} logoSize={isScrolled ? 96 : 128} />
+                                </a>
+                            )}
+                        </div>
                         {/* Desktop Navigation */}
                         <nav className="hidden lg:flex lg:items-center lg:h-full lg:space-x-1">
                             {navItems.map((item) => (

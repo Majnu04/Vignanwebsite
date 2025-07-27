@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import AnimatedLogo from './AnimatedLogo'; // Make sure this path is correct
 
-const Pagenav: React.FC = () => {
+interface PagenavProps {
+  onLogoClick?: () => void;
+}
+
+const Pagenav: React.FC<PagenavProps> = ({ onLogoClick }) => {
   const [activeSection, setActiveSection] = useState<string>('');
 
   const handleScroll = (e: React.MouseEvent, sectionId: string) => {
@@ -62,7 +66,11 @@ const Pagenav: React.FC = () => {
       <div className="max-w-[1440px] mx-auto flex items-center justify-between px-4 md:px-10 py-2">
         {/* Left Logo */}
         <div className="flex-shrink-0">
-          <AnimatedLogo isScrolled={true} logoSize={130} />
+          <AnimatedLogo 
+            isScrolled={true} 
+            logoSize={130}
+            onClick={onLogoClick} 
+          />
         </div>
 
         {/* Centered Links */}

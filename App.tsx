@@ -12,10 +12,27 @@ import NewsAndEvents from './components/NewsAndEvents';
 import ExploreCampus from './components/ExploreCampus';
 import Footer from './components/Footer';
 import ScrollToTopButton from './components/ScrollToTopButton';
+import VideoOverlay from './components/VideoOverlay';
+import { VideoProvider } from './contexts/VideoContext';
 
 const App: React.FC = () => {
   const [showPagenav, setShowPagenav] = useState(false);
+  const [showIntroVideo, setShowIntroVideo] = useState(true);
+  const [showVideoOverlay, setShowVideoOverlay] = useState(false);
   const heroRef = useRef<HTMLElement | null>(null);
+
+  // Handle intro video on page load - don't auto-close, let video play to completion
+  useEffect(() => {
+    // Set body overflow to hidden when intro video is playing to prevent scrolling
+    if (showIntroVideo) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [showIntroVideo]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -78,16 +95,23 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="bg-white text-gray-800">
-      {/* Keep original header visible initially */}
-      {!showPagenav && <Header />}
+    <VideoProvider>
+      <div className="bg-white text-gray-800">
+        {/* Initial intro video */}
+        <VideoOverlay isOpen={showIntroVideo} onClose={() => setShowIntroVideo(false)} autoplay={true} />
+        
+        {/* Video overlay for logo click */}
+        <VideoOverlay isOpen={showVideoOverlay} onClose={() => setShowVideoOverlay(false)} autoplay={false} />
+        
+        {/* Keep original header visible initially */}
+        {!showPagenav && <Header onLogoClick={() => setShowVideoOverlay(true)} />}
 
-      {/* PageNav replaces Header only AFTER hero scroll */}
-      {showPagenav && (
-        <div className="fixed top-0 w-full z-50 bg-white shadow-md transition-all duration-300">
-          <Pagenav />
-        </div>
-      )}
+        {/* PageNav replaces Header only AFTER hero scroll */}
+        {showPagenav && (
+          <div className="fixed top-0 w-full z-50 bg-white shadow-md transition-all duration-300">
+            <Pagenav onLogoClick={() => setShowVideoOverlay(true)} />
+          </div>
+        )}
 
       <main>
         <section id="Hero" ref={heroRef}>
@@ -106,6 +130,7 @@ const App: React.FC = () => {
 
       <ScrollToTopButton />
     </div>
+    </VideoProvider>
   );
 };
 

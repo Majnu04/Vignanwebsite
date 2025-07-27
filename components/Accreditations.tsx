@@ -7,7 +7,7 @@ import ImageWithFallback from './ImageWithFallback';
 // All logos standardized to the same dimensions for visual consistency
 const accreditationLogos = [
   { name: 'VIGNAN\'s Institute of Information Technology', src: '/images/Vignan_logo.png', alt: 'Vignan Logo', width: 100, height: 90, fallback: '/images/LOGO_AAA copy.png' },
-  { name: 'NAAC A+ Grade', src: '/images/2.jpg', alt: 'NAAC A+ Grade', width: 160, height: 120, fallback: 'https://i.imgur.com/5c9iY3a.png' },
+  { name: 'NAAC A+ Grade', src: '/images/2.jpg', alt: 'NAAC A+ Grade', width: 180, height: 140, fallback: 'https://i.imgur.com/5c9iY3a.png' },
   { name: 'NBA Accredited', src: '/images/3.jpg', alt: 'NBA Accreditation Logo', width: 160, height: 120, fallback: 'https://i.imgur.com/k2j425V.png' },
   { name: 'UGC Autonomous', src: '/images/4.jpg', alt: 'UGC Autonomous Logo', width: 160, height: 120, fallback: 'https://i.imgur.com/S33r5mX.png' },
   { name: 'NIRF Innovation Ranking', src: '/images/5.jpg', alt: 'NIRF Ranking Logo', width: 160, height: 120, fallback: 'https://i.imgur.com/rOHn6jP.png' },
