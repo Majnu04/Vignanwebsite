@@ -1,4 +1,5 @@
 import React from 'react';
+import ImageWithFallback from './ImageWithFallback';
 
 const FirstRowCellsData = [
   {
@@ -15,7 +16,7 @@ const FirstRowCellsData = [
   },
   {
     name: 'Idea Lab',
-    image: 'https://source.unsplash.com/featured/800x600/?innovation,ideas,workspace'
+    image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=60'
   },
   {
     name: 'IIC Cell',
@@ -27,7 +28,7 @@ const FirstRowCellsData = [
   },
   {
     name: 'Intl. Student Cell',
-    image: 'https://source.unsplash.com/featured/800x600/?students,group'
+    image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=60'
   },
   {
     name: 'IEEE Chapter',
@@ -63,10 +64,12 @@ const FirstRowCellsData = [
 
 const CellCard: React.FC<{ cell: { name: string; image: string } }> = ({ cell }) => (
   <div className="relative w-64 h-80 rounded-2xl overflow-hidden flex-shrink-0 shadow-lg group cursor-pointer">
-    <img
+    <ImageWithFallback
       src={cell.image}
       alt={cell.name}
+      fallbackCategory="cells"
       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+      objectFit="cover"
     />
     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
     <div className="absolute bottom-0 left-0 p-6">

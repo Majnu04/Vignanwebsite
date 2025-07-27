@@ -48,6 +48,7 @@ const MobileMenuItem: React.FC<MobileMenuItemProps> = ({
       >
         <a 
           href={item.link} 
+          target={item.target}
           className="flex-1 flex items-center"
           onClick={(e) => hasSubItems && e.preventDefault()}
         >

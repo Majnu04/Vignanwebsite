@@ -41,7 +41,7 @@ const navItems: NavItem[] = [
             }
         ] 
     },
-    { name: 'ECAP', link: '/ecap' },
+    { name: 'ECAP', link: 'https://webprosindia.com/vignanit/', target: '_blank' },
     // --- ACCREDITATION: Unchanged ---
     { 
         name: 'Accreditation', 
@@ -254,7 +254,7 @@ const SubMenuItem: React.FC<SubMenuItemProps> = ({ item, onHover }) => {
             onMouseEnter={() => { onHover(); if (hasNestedSubmenu) setIsSubOpen(true); }}
             onMouseLeave={() => { if (hasNestedSubmenu) setIsSubOpen(false); }}
         >
-            <a href={item.link} className="flex w-full items-center justify-between p-3 text-sm">
+            <a href={item.link} target={item.target} className="flex w-full items-center justify-between p-3 text-sm">
                 <span className="absolute -left-3 top-1/2 h-2/3 w-1 rounded-full bg-blue-500 transition-all duration-300 ease-in-out transform -translate-y-1/2 scale-y-0 group-hover/submenu-item:scale-y-100"></span>
                 <span className="font-medium text-slate-700 group-hover/submenu-item:text-blue-700">{item.name}</span>
                 {hasNestedSubmenu && <svg className="h-4 w-4 text-slate-400" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d={opensDown ? "M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" : "M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"} clipRule="evenodd" /></svg>}
@@ -294,10 +294,8 @@ const Header: React.FC = () => {
         if (item.sub) {
             setActiveMenu(item);
             if (item.isMegaWithImage) {
-                // Ensure we always have an image by using a default fallback if needed
-                const defaultImage = item.defaultImage || '/images/fallbacks/general-default.jpg';
-                setActiveImage(defaultImage);
-                setPrevImage(defaultImage);
+                setActiveImage(item.defaultImage || null);
+                setPrevImage(item.defaultImage || null);
             }
         } else {
             handleMouseLeave();
@@ -318,11 +316,9 @@ const Header: React.FC = () => {
     };
     
     const handleLinkHover = (image: string | null) => {
-        // Always set an image, using a fallback if needed
-        const imageToUse = image || activeMenu?.defaultImage || '/images/fallbacks/general-default.jpg';
-        if (imageToUse !== activeImage) {
+        if (image && image !== activeImage) {
             setPrevImage(activeImage);
-            setActiveImage(imageToUse);
+            setActiveImage(image);
         }
     };
 
@@ -367,7 +363,7 @@ const Header: React.FC = () => {
                         <nav className="hidden lg:flex lg:items-center lg:h-full lg:space-x-1">
                             {navItems.map((item) => (
                                 <div key={item.name} className="h-full flex items-center justify-center transition-transform duration-300 hover:-translate-y-0.5" onMouseEnter={() => handleMouseEnter(item)}>
-                                    <a href={item.link} className={`relative flex items-center px-4 py-2 font-medium rounded-lg whitespace-nowrap font-['Georgia',_serif] transition-all duration-300 text-blue-600 hover:text-blue ${activeMenu?.name === item.name && item.sub ? (isScrolled ? 'bg-slate-200 text-red-600' : 'bg-slate-200 text-blue-600') : (isScrolled ? "text-slate-700 hover:bg-slate-200 hover:text-blue-600" : "text-slate-700 hover:bg-slate-200 hover:text-blue-600 ")}`}>
+                                    <a href={item.link} target={item.target} className={`relative flex items-center px-4 py-2 font-medium rounded-lg whitespace-nowrap font-['Georgia',_serif] transition-all duration-300 text-blue-600 hover:text-blue ${activeMenu?.name === item.name && item.sub ? (isScrolled ? 'bg-slate-200 text-red-600' : 'bg-slate-200 text-blue-600') : (isScrolled ? "text-slate-700 hover:bg-slate-200 hover:text-blue-600" : "text-slate-700 hover:bg-slate-200 hover:text-blue-600 ")}`}>
                                         <span style={{ textShadow: !isScrolled ? '0 1px 3px rgba(0,0,0,0.3)' : 'none' }}>{item.name}</span>
                                         {item.sub && <svg className={`h-4 w-4 ml-1.5 transition-transform duration-300 ${activeMenu?.name === item.name ? 'rotate-180' : ''}`} viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" /></svg>}
                                     </a>
@@ -436,36 +432,8 @@ const Header: React.FC = () => {
                                             style={{ animation: `elegantCascade 0.6s 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards`, opacity: 0 }}
                                         >
                                             <div className="aspect-w-4 aspect-h-3 rounded-xl overflow-hidden shadow-lg w-full h-full">
-                                                {prevImage && (
-                                                    <img 
-                                                        src={prevImage} 
-                                                        alt="Menu category image"
-                                                        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${activeImage === prevImage ? 'opacity-100' : 'opacity-0'}`}
-                                                        onError={(e) => {
-                                                            // Replace with default image on error
-                                                            e.currentTarget.src = '/images/campus-default.jpg';
-                                                        }}
-                                                    />
-                                                )}
-                                                {activeImage && (
-                                                    <img 
-                                                        src={activeImage} 
-                                                        alt="Menu category image"
-                                                        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${activeImage !== prevImage ? 'opacity-100' : 'opacity-0'}`} 
-                                                        onError={(e) => {
-                                                            // Replace with default image on error
-                                                            e.currentTarget.src = '/images/campus-default.jpg';
-                                                        }}
-                                                    />
-                                                )}
-                                                {/* Always have a fallback image */}
-                                                {!activeImage && !prevImage && (
-                                                    <img 
-                                                        src="/images/campus-default.jpg" 
-                                                        alt="Vignan Campus" 
-                                                        className="absolute inset-0 w-full h-full object-cover"
-                                                    />
-                                                )}
+                                                {prevImage && <img src={prevImage} alt="" className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${activeImage === prevImage ? 'opacity-100' : 'opacity-0'}`} />}
+                                                {activeImage && <img src={activeImage} alt="" className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${activeImage !== prevImage ? 'opacity-100' : 'opacity-0'}`} />}
                                             </div>
                                         </div>
                                     )}
