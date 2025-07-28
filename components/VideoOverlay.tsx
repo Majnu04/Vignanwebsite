@@ -34,7 +34,7 @@ const VideoOverlay: React.FC<VideoOverlayProps> = ({ isOpen, onClose, autoplay =
     // Ensure video plays as soon as it's rendered
     if (isOpen && videoRef.current) {
       videoRef.current.currentTime = 0;
-      videoRef.current.playbackRate = 4.0; // Maximum speed for both mobile and desktop
+      videoRef.current.playbackRate = isMobile ? 6.0 : 4.0; // Higher speed for mobile, 4.0x for desktop
       
       // Prevent body scrolling when overlay is open
       document.body.style.overflow = 'hidden';
