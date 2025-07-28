@@ -1,47 +1,43 @@
-// src/components/ProgramsSection.tsx
-
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import CsePage from './CsePage';
+import {Assets} from '../Assets/Assets.tsx';
+
+
+
+
 
 // --- DATA ---
 const programsData = {
   UG: [
-    { name: 'Artificial Intelligence & Data Science', desc: 'Master machine learning, big data, and neural networks.', career: 'AI Engineer, Data Scientist' },
+    { name: 'Artificial Intelligence & Data Science', desc: 'Master machine learning, big data, and neural networks.', career: 'AI Engineer, Data Scientist' , pageId:'aids'},
     { name: 'Computer Science & Engineering', desc: 'Core principles of computing, algorithms, and software development.', career: 'Software Engineer, DevOps', pageId: 'cse' }, // <-- Added pageId to make it clickable
-    { name: 'Advanced CSE (AI, Cyber Security, Data Science)', desc: 'Specialized tracks in AI, ethical hacking, and data modeling.', career: 'AI Specialist, Security Analyst, Data Engineer' },
-    { name: 'Civil Engineering', desc: 'Design and build infrastructure like bridges, buildings, and transport systems.', career: 'Structural Engineer, Project Manager' },
-    { name: 'Electrical & Electronics Engineering', desc: 'Explore circuits, power systems, and control systems.', career: 'Power Engineer, Controls Engineer' },
-    { name: 'Electronics & Computer Engineering', desc: 'A blend of hardware and software, from microprocessors to OS.', career: 'Hardware Engineer, IoT Specialist' },
-    { name: 'Electronics & Communication Engineering', desc: 'Focus on signal processing, telecommunications, and embedded systems.', career: 'Telecom Engineer, VLSI Designer' },
-    { name: 'Information Technology', desc: 'Manage and implement enterprise-level IT infrastructure and solutions.', career: 'IT Manager, Systems Administrator' },
-    { name: 'Mechanical Engineering', desc: 'Principles of mechanics, thermodynamics, and material science.', career: 'Design Engineer, Manufacturing Head' },
-    { name: 'Basic Science & Humanities', desc: 'Foundational studies in physics, chemistry, mathematics, and communication skills.', career: 'Research, Academia, Technical Writing' },
+    { name: 'Advanced CSE (AI, Cyber Security, Data Science)', desc: 'Specialized tracks in AI, ethical hacking, and data modeling.', career: 'AI Specialist, Security Analyst, Data Engineer' , pageId:'cses'},
+    { name: 'Civil Engineering', desc: 'Design and build infrastructure like bridges, buildings, and transport systems.', career: 'Structural Engineer, Project Manager', pageId:'civil' },
+    { name: 'Electrical & Electronics Engineering', desc: 'Explore circuits, power systems, and control systems.', career: 'Power Engineer, Controls Engineer', pageId:'eee' },
+    { name: 'Electronics & Computer Engineering', desc: 'A blend of hardware and software, from microprocessors to OS.', career: 'Hardware Engineer, IoT Specialist', pageId:'ece' },
+    { name: 'Electronics & Communication Engineering', desc: 'Focus on signal processing, telecommunications, and embedded systems.', career: 'Telecom Engineer, VLSI Designer' , pageId:'ecm'},
+    { name: 'Information Technology', desc: 'Manage and implement enterprise-level IT infrastructure and solutions.', career: 'IT Manager, Systems Administrator', pageId:'it' },
+    { name: 'Mechanical Engineering', desc: 'Principles of mechanics, thermodynamics, and material science.', career: 'Design Engineer, Manufacturing Head', pageId:'me' },
+    { name: 'Basic Science & Humanities', desc: 'Foundational studies in physics, chemistry, mathematics, and communication skills.', career: 'Research, Academia, Technical Writing' , pageId:'basic'},
   ],
   PG: [
-    { name: 'AI & Machine Learning', desc: 'Advanced studies in machine learning algorithms and applications.', career: 'ML Architect, Research Scientist' },
-    { name: 'Computer Science & Engineering', desc: 'Postgraduate research and development in advanced computing.', career: 'Senior Software Architect' },
-    { name: 'Digital Electronics & Comm. Systems', desc: 'Focus on advanced digital systems and communication protocols.', career: 'Communications Engineer' },
-    { name: 'Master of Business Administration', desc: 'Develop leadership and strategic management skills for the corporate world.', career: 'Business Leader, Manager' },
-    { name: 'Master of Computer Applications', desc: 'Advanced application development and software engineering skills.', career: 'Lead Application Developer' },
+    { name: 'AI & Machine Learning', desc: 'Advanced studies in machine learning algorithms and applications.', career: 'ML Architect, Research Scientist',pageId:'aiml' },
+    { name: 'Computer Science & Engineering', desc: 'Postgraduate research and development in advanced computing.', career: 'Senior Software Architect' ,pageId:'cse'},
+    { name: 'Digital Electronics & Comm. Systems', desc: 'Focus on advanced digital systems and communication protocols.', career: 'Communications Engineer',pageId:'digi' },
+    { name: 'Master of Business Administration', desc: 'Develop leadership and strategic management skills for the corporate world.', career: 'Business Leader, Manager', pageId:'mba' },
+    { name: 'Master of Computer Applications', desc: 'Advanced application development and software engineering skills.', career: 'Lead Application Developer', pageId: 'mca'},
   ],
 };
 
 // --- SUB-COMPONENTS ---
 
-type ProgramType = {
-  name: string;
-  desc: string;
-  career: string;
-  pageId?: string;
-};
-
-const ProgramTileDesktop: React.FC<{ program: ProgramType; onMouseEnter: () => void; isHovered: boolean; onClick: () => void; }> = ({ program, onMouseEnter, isHovered, onClick }) => {
+const ProgramTileDesktop: React.FC<{ program: any; onMouseEnter: () => void; isHovered: boolean; onClick: () => void; }> = ({ program, onMouseEnter, isHovered, onClick }) => {
   const isClickable = !!program.pageId;
   return (
     <div
       onMouseEnter={onMouseEnter}
       onClick={isClickable ? onClick : undefined}
-      className={`relative p-6 rounded-xl h-48 flex flex-col justify-center transition-all duration-500 ease-out ${isClickable ? 'cursor-pointer hover:bg-blue-900/20' : 'cursor-default'}`}
+      className={`relative p-6 rounded-xl h-48 flex flex-col justify-center transition-all duration-500 ease-out ${isClickable ? 'cursor-pointer' : 'cursor-default'}`}
       style={{
         backgroundColor: isHovered ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.05)',
         transform: isHovered ? 'scale(1.05)' : 'scale(1)',
@@ -60,7 +56,7 @@ const ProgramTileDesktop: React.FC<{ program: ProgramType; onMouseEnter: () => v
   );
 };
 
-const ProgramTileMobile: React.FC<{ program: ProgramType; isActive: boolean; onClick: () => void; onProgramClick: () => void; }> = ({ program, isActive, onClick, onProgramClick }) => {
+const ProgramTileMobile: React.FC<{ program: any; isActive: boolean; onClick: () => void; onProgramClick: () => void; }> = ({ program, isActive, onClick, onProgramClick }) => {
   const isClickable = !!program.pageId;
   return (
     <div className="border-b border-white/10">
@@ -92,15 +88,20 @@ const ProgramTileMobile: React.FC<{ program: ProgramType; isActive: boolean; onC
 
 // --- MAIN COMPONENT ---
 
-
-const ProgramsSection: React.FC<{ onProgramClick?: (pageId: string) => void; }> = ({ onProgramClick }) => {
+const ProgramsSection: React.FC= () => {
   const [activeFilter, setActiveFilter] = useState<'UG' | 'PG'>('UG');
   const [hoveredTile, setHoveredTile] = useState<string | null>(null);
   const [activeMobileTile, setActiveMobileTile] = useState<string | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
 
-  const programsToShow: ProgramType[] = activeFilter === 'UG' ? programsData.UG : programsData.PG;
+  const programsToShow = activeFilter === 'UG' ? programsData.UG : programsData.PG;
+
+  const [selectedPageId, setSelectedPageId] = useState<string | null>(null);
+
+const handleProgramClick = (pageId: string) => {
+  setSelectedPageId(pageId);
+  console.log(pageId);
+};
 
   useEffect(() => {
     const grid = gridRef.current;
@@ -118,17 +119,6 @@ const ProgramsSection: React.FC<{ onProgramClick?: (pageId: string) => void; }> 
 
   const handleMobileTileClick = (name: string) => {
     setActiveMobileTile(activeMobileTile === name ? null : name);
-  };
-
-  // Custom handler for CSE navigation
-  const handleProgramClick = (pageId: string) => {
-    console.log("Program clicked:", pageId);
-    if (pageId === 'cse') {
-      console.log("Navigating to CSE department");
-      navigate('/departments/cse');
-    } else if (onProgramClick) {
-      onProgramClick(pageId);
-    }
   };
 
   return (
@@ -160,12 +150,12 @@ const ProgramsSection: React.FC<{ onProgramClick?: (pageId: string) => void; }> 
         <div
           ref={gridRef}
           onMouseLeave={() => setHoveredTile(null)}
-          className="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 relative group"
+          className="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 relative group"
           style={{ '--mouse-x': '50%', '--mouse-y': '50%' } as React.CSSProperties}
         >
           <div
-            className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-            style={{ background: 'radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), rgba(0, 255, 255, 0.10), transparent 80%)' }}
+            className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+            style={{ background: 'radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), rgba(0, 255, 255, 0.15), transparent 80%)' }}
           ></div>
           {programsToShow.map((program) => (
             <ProgramTileDesktop
@@ -173,7 +163,7 @@ const ProgramsSection: React.FC<{ onProgramClick?: (pageId: string) => void; }> 
               program={program}
               isHovered={hoveredTile === program.name}
               onMouseEnter={() => setHoveredTile(program.name)}
-              onClick={() => program.pageId && handleProgramClick(program.pageId)}
+                onClick={() => program.pageId && handleProgramClick(program.pageId)}
             />
           ))}
         </div>
@@ -185,11 +175,26 @@ const ProgramsSection: React.FC<{ onProgramClick?: (pageId: string) => void; }> 
               key={program.name}
               program={program}
               isActive={activeMobileTile === program.name}
-              onClick={() => handleMobileTileClick(program.name)}
-              onProgramClick={() => program.pageId && handleProgramClick(program.pageId)}
+              // onClick={() => handleMobileTileClick(program.name)}
+              onClick={() => program.pageId && handleProgramClick(program.pageId)}
             />
           ))}
         </div>
+
+        {selectedPageId === 'cse' && <CsePage data={Assets.DepartmentData.cse} onBack={() => setSelectedPageId(false)} />}
+        {selectedPageId === 'aids' && <CsePage data={Assets.DepartmentData.aids} onBack={() => setSelectedPageId(false)} />}
+        {selectedPageId === 'cses' && <CsePage data={Assets.DepartmentData.cses} onBack={() => setSelectedPageId(false)} />}
+        {selectedPageId === 'civil' && <CsePage data={Assets.DepartmentData.civil} onBack={() => setSelectedPageId(false)} />}
+        {selectedPageId === 'eee' && <CsePage data={Assets.DepartmentData.eee} onBack={() => setSelectedPageId(false)} />}
+        {selectedPageId === 'ece' && <CsePage data={Assets.DepartmentData.ece} onBack={() => setSelectedPageId(false)} />}
+        {selectedPageId === 'ecm' && <CsePage data={Assets.DepartmentData.ecm} onBack={() => setSelectedPageId(false)} />}
+        {selectedPageId === 'it' && <CsePage data={Assets.DepartmentData.it} onBack={() => setSelectedPageId(false)} />}
+        {selectedPageId === 'me' && <CsePage data={Assets.DepartmentData.me} onBack={() => setSelectedPageId(false)} />}
+        {selectedPageId === 'basic' && <CsePage data={Assets.DepartmentData.basic} onBack={() => setSelectedPageId(false)} />}
+        {selectedPageId === 'aiml' && <CsePage data={Assets.DepartmentData.aiml} onBack={() => setSelectedPageId(false)} />}
+        {selectedPageId === 'pcse' && <CsePage data={Assets.DepartmentData.pcse} onBack={() => setSelectedPageId(false)} />}
+        {selectedPageId === 'mba' && <CsePage data={Assets.DepartmentData.mba} onBack={() => setSelectedPageId(false)} />}
+        {selectedPageId === 'mca' && <CsePage data={Assets.DepartmentData.mca} onBack={() => setSelectedPageId(false)} />}
       </div>
     </section>
   );

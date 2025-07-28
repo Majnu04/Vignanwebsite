@@ -123,10 +123,10 @@ const navItems: NavItem[] = [
             { 
                 name: "Career Services", 
                 sub: [
-                    { name: 'About T&P', link: '/placements/about', image: '/images/about-tp.jpg' },
-                    { name: 'Placement Details', link: '/placements/details', image: '/images/placement-details.jpg' },
-                    { name: 'Training Process', link: '/placements/training', image: '/images/training-process.jpg' },
-                    { name: 'Contact', link: '/placements/contact', image: '/images/contact-placements.jpg' }
+                    { name: 'About T&P', link: '/placements/about-t', image: '/images/about-tp.jpg' },
+                    { name: 'Placement Details', link: '/placements/PlacementDetails', image: '/images/placement-details.jpg' },
+                    { name: 'Training Process', link: '/placements/TrainingProcess', image: '/images/training-process.jpg' },
+                    { name: 'Contact', link: '/placements/Contact', image: '/images/contact-placements.jpg' }
                 ] 
             }
         ] 
