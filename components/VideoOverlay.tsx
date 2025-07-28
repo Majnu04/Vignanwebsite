@@ -14,12 +14,21 @@ const VideoOverlay: React.FC<VideoOverlayProps> = ({ isOpen, onClose, autoplay =
   
   // Handle video playback when overlay opens
   useEffect(() => {
+    // Ensure video plays as soon as it's rendered
     if (isOpen && videoRef.current) {
       videoRef.current.currentTime = 0;
-      videoRef.current.playbackRate = 2.0; // Increased speed
-      videoRef.current.play().catch(error => {
-        console.error('Video play failed:', error);
-      });
+      videoRef.current.playbackRate = 1.8; // Normal speed for intro video
+      
+      // Attempt to play with retry mechanism
+      const playVideo = () => {
+        videoRef.current?.play().catch(error => {
+          console.error('Video play failed:', error);
+          // Retry play after a short delay (handles autoplay restrictions)
+          setTimeout(playVideo, 1000);
+        });
+      };
+      
+      playVideo();
     }
   }, [isOpen]);
 
@@ -44,7 +53,18 @@ const VideoOverlay: React.FC<VideoOverlayProps> = ({ isOpen, onClose, autoplay =
     <div 
       ref={overlayRef}
       className={`video-animation-container ${isClosing ? 'animate-fade-out' : 'animate-fade-in'}`}
-      style={{ backgroundColor: 'black' }}
+      style={{ 
+        backgroundColor: 'black',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        zIndex: 9999, // Ensure it's above everything else
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}
     >
       <video 
         ref={videoRef}
@@ -65,6 +85,7 @@ const VideoOverlay: React.FC<VideoOverlayProps> = ({ isOpen, onClose, autoplay =
           bottom: 0
         }}
       />
+      {/* Close button removed as requested */}
     </div>
   );
 };

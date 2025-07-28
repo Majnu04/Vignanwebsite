@@ -1,12 +1,14 @@
 .video-animation-container {
   position: fixed;
   inset: 0;
-  z-index: 1000;
+  z-index: 9999; /* Higher z-index to ensure it's on top */
   overflow: hidden;
-  background-color: rgba(0, 0, 0, 0.9); /* Simple dark overlay */
+  background-color: black; /* Full black for better video display */
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100vw;
+  height: 100vh;
 }
 
 .video-animation {
@@ -14,11 +16,13 @@
   height: 100%;
   max-width: 100vw;
   max-height: 100vh;
-  object-fit: cover; /* Changed from contain to cover */
+  object-fit: cover;
   z-index: 0;
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 @media (max-width: 640px) {

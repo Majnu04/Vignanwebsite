@@ -10,19 +10,18 @@ import { VideoProvider } from './contexts/VideoContext';
 import Header from './components/Header';
 
 const App: React.FC = () => {
-  const [showVideoOverlay, setShowVideoOverlay] = useState(false);
+  const [showVideoOverlay, setShowVideoOverlay] = useState(true); // Start with video visible
 
   return (
     <Router>
       <VideoProvider>
       <div className="App bg-white">
-        {/* Video Overlay - conditionally rendered */}
-        {showVideoOverlay && (
-          <VideoOverlay 
-            videoUrl="https://www.youtube.com/embed/PpDIdcV1jKw" 
-            onClose={() => setShowVideoOverlay(false)} 
-          />
-        )}
+        {/* Video Overlay - shown by default when site loads */}
+        <VideoOverlay 
+          isOpen={showVideoOverlay}
+          onClose={() => setShowVideoOverlay(false)} 
+          autoplay={true}
+        />
         
         <Routes>
           <Route path="/" element={<Home />} />
