@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import CsePage from './CsePage';
-import {Assets} from '../Assets/Assets.tsx';
 
 
 
