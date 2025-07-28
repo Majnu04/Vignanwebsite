@@ -51,10 +51,10 @@ const AnimatedStat: React.FC<{ value: number; decimals?: number; suffix: string;
   const count = useCounter(value, 2000, inView, decimals);
   return (
     <div ref={ref} className="text-center">
-      <p className="text-5xl md:text-6xl font-bold text-white drop-shadow-lg">
-        {count}<span className="text-cyan-400">{suffix}</span>
+      <p className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-800">
+        {count}<span className="text-blue-600">{suffix}</span>
       </p>
-      <p className="text-base text-gray-300 mt-2">{label}</p>
+      <p className="text-xs sm:text-sm md:text-base text-slate-600 mt-1 sm:mt-2">{label}</p>
     </div>
   );
 };
@@ -88,24 +88,20 @@ const PlacementsSection: React.FC = () => {
   };
 
   return (
-    <section ref={ref} className="relative text-white py-20 sm:py-28 overflow-hidden" style={{ backgroundColor: '#1a2b4f' }}>
-      <div className="absolute inset-0 z-0 opacity-20">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500 rounded-full mix-blend-screen filter blur-3xl animate-blob"></div>
-        <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500 rounded-full mix-blend-screen filter blur-3xl animate-blob animation-delay-2000"></div>
-        <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-pink-500 rounded-full mix-blend-screen filter blur-3xl animate-blob animation-delay-4000"></div>
-      </div>
+    <section ref={ref} className="relative py-12 sm:py-16 md:py-20 lg:py-28 overflow-hidden bg-white">
+      {/* Background blobs removed */}
 
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 container mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
         {/* Header and Stats Dashboard */}
-        <div className={`text-center mb-16 transition-opacity duration-1000 ${inView ? 'opacity-100' : 'opacity-0'}`}>
-          <h2 className="text-5xl md:text-6xl font-extrabold tracking-tight drop-shadow-lg" style={{ fontFamily: 'Georgia, serif' }}>
+        <div className={`text-center mb-10 sm:mb-16 transition-opacity duration-1000 ${inView ? 'opacity-100' : 'opacity-0'}`}>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-800" style={{ fontFamily: 'Georgia, serif' }}>
             A Legacy of Placement Excellence
           </h2>
-          <p className="mt-4 text-lg text-gray-300 max-w-3xl mx-auto">
+          <p className="mt-2 sm:mt-4 text-sm sm:text-base md:text-lg text-slate-600 max-w-3xl mx-auto px-4">
             Our graduates are catalysts for change, leading innovation at the world's most respected companies.
           </p>
         </div>
-        <div className={`grid grid-cols-2 lg:grid-cols-4 gap-8 mb-24 transition-opacity duration-1000 delay-200 ${inView ? 'opacity-100' : 'opacity-0'}`}>
+        <div className={`grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mb-16 sm:mb-20 md:mb-24 transition-opacity duration-1000 delay-200 ${inView ? 'opacity-100' : 'opacity-0'}`}>
           <AnimatedStat value={45} suffix=" LPA" label="Highest Package" />
           <AnimatedStat value={8.5} decimals={1} suffix=" LPA" label="Average Package" />
           <AnimatedStat value={1250} suffix="+" label="Total Offers (2024)" />
@@ -113,8 +109,8 @@ const PlacementsSection: React.FC = () => {
         </div>
 
         {/* 3D Interactive CIRCULAR Carousel */}
-        <div className="relative h-[450px] w-full flex items-center justify-center [perspective:1000px]">
-          <div className="relative w-72 h-96 [transform-style:preserve-3d]">
+        <div className="relative h-[350px] sm:h-[400px] md:h-[450px] w-full flex items-center justify-center [perspective:1000px]">
+          <div className="relative w-64 sm:w-68 md:w-72 h-80 sm:h-88 md:h-96 [transform-style:preserve-3d]">
             {highlights.map((highlight, index) => {
               // --- CORE LOGIC FOR CIRCULAR CAROUSEL ---
               const modIndex = (currentIndex % totalHighlights + totalHighlights) % totalHighlights;
@@ -141,16 +137,16 @@ const PlacementsSection: React.FC = () => {
                 >
                   <Tilt
                     className="w-full h-full rounded-2xl overflow-hidden"
-                    perspective={1000} glareEnable={true} glareMaxOpacity={0.2} glareColor="#ffffff" glarePosition="all"
+                    perspective={1000} glareEnable={true} glareMaxOpacity={0.2} glareColor="#4299e1" glarePosition="all"
                     tiltMaxAngleX={8} tiltMaxAngleY={8} transitionSpeed={1000}
                   >
-                    <div className="relative w-full h-full bg-slate-800 border border-blue-400/40 shadow-2xl">
-                      <img src={highlight.image} alt={highlight.student} className="w-full h-full object-cover opacity-30" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/30"></div>
-                      <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
+                    <div className="relative w-full h-full bg-white border border-slate-200 shadow-xl">
+                      <img src={highlight.image} alt={highlight.student} className="w-full h-full object-cover opacity-70" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-white/50 to-white/30"></div>
+                      <div className="absolute inset-0 flex flex-col justify-end p-6 text-slate-800">
                         <img src={highlight.companyLogo} alt={`${highlight.company} logo`} className="w-24 h-auto mb-4" />
                         <p className="text-xl font-bold">{highlight.student}</p>
-                        <p className="text-2xl font-extrabold text-cyan-300">{highlight.package}</p>
+                        <p className="text-2xl font-extrabold text-blue-600">{highlight.package}</p>
                       </div>
                     </div>
                   </Tilt>
@@ -159,17 +155,17 @@ const PlacementsSection: React.FC = () => {
             })}
           </div>
           {/* Carousel Controls */}
-          <button onClick={goToPrev} className="absolute left-0 top-1/2 -translate-y-1/2 p-3 bg-white/10 backdrop-blur-sm rounded-full hover:bg-white/20 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+          <button onClick={goToPrev} className="absolute left-1 sm:left-2 top-1/2 -translate-y-1/2 p-2 sm:p-3 bg-blue-500 bg-opacity-20 backdrop-blur-sm rounded-full hover:bg-blue-500 hover:bg-opacity-30 transition-colors shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
           </button>
-          <button onClick={goToNext} className="absolute right-0 top-1/2 -translate-y-1/2 p-3 bg-white/10 backdrop-blur-sm rounded-full hover:bg-white/20 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+          <button onClick={goToNext} className="absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 p-2 sm:p-3 bg-blue-500 bg-opacity-20 backdrop-blur-sm rounded-full hover:bg-blue-500 hover:bg-opacity-30 transition-colors shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
           </button>
         </div>
 
         {/* Recruiter Section with scrolling logos */}
         <div className="mt-28 text-center">
-          <h3 className="text-3xl font-bold mb-10">Top Recruiters</h3>
+          <h3 className="text-3xl font-bold mb-10 text-slate-800">Top Recruiters</h3>
           
           <style>{`
             @keyframes scroll {
@@ -180,17 +176,18 @@ const PlacementsSection: React.FC = () => {
             .logos {
               overflow: hidden;
               padding: 20px 0;
-              background: rgba(30, 50, 100, 0.2);
+              background: rgba(226, 232, 240, 0.4);
               white-space: nowrap;
               position: relative;
               border-radius: 8px;
+              border: 1px solid rgba(226, 232, 240, 0.8);
             }
             
             .logos:before,
             .logos:after {
               position: absolute;
               top: 0;
-              width: 100px;
+              width: 60px;
               height: 100%;
               content: "";
               z-index: 2;
@@ -198,17 +195,17 @@ const PlacementsSection: React.FC = () => {
             
             .logos:before {
               left: 0;
-              background: linear-gradient(to right, #1a2b4f, transparent);
+              background: linear-gradient(to right, white, transparent);
             }
             
             .logos:after {
               right: 0;
-              background: linear-gradient(to left, #1a2b4f, transparent);
+              background: linear-gradient(to left, white, transparent);
             }
             
             .logos-slide {
               display: inline-block;
-              animation: scroll 15s linear infinite;
+              animation: scroll 10s linear infinite;
               white-space: nowrap;
             }
             
@@ -220,24 +217,38 @@ const PlacementsSection: React.FC = () => {
               display: inline-flex;
               align-items: center;
               justify-content: center;
-              height: 80px;
-              width: 180px;
-              margin: 0 20px;
-              background: rgba(255, 255, 255, 0.1);
-              backdrop-filter: blur(5px);
+              height: 70px;
+              width: 140px;
+              margin: 0 12px;
+              background: white;
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
               border-radius: 10px;
-              padding: 15px;
+              padding: 12px;
               transition: all 0.3s ease;
+            }
+            
+            @media (max-width: 640px) {
+              .logo {
+                height: 60px;
+                width: 110px;
+                margin: 0 8px;
+                padding: 8px;
+              }
+              
+              .logos:before,
+              .logos:after {
+                width: 40px;
+              }
             }
             
             .logo:hover {
               transform: translateY(-5px);
-              box-shadow: 0 10px 25px rgba(0, 150, 255, 0.3);
-              background: rgba(255, 255, 255, 0.2);
+              box-shadow: 0 10px 25px rgba(66, 153, 225, 0.3);
+              background: white;
             }
             
             .dark-logo {
-              filter: brightness(0) invert(1);
+              filter: none;
             }
           `}</style>
           

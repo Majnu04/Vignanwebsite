@@ -4,11 +4,64 @@
   z-index: 1000;
   overflow: hidden;
   background-color: rgba(0, 0, 0, 0.9); /* Simple dark overlay */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .video-animation {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  max-width: 100vw;
+  max-height: 100vh;
+  object-fit: cover; /* Changed from contain to cover */
   z-index: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@media (max-width: 640px) {
+  .video-animation {
+    width: 100%;
+    height: 100%; /* Changed from auto to 100% */
+    max-height: 100vh; /* Changed from 80vh to 100vh */
+  }
+}
+
+/* Animation classes */
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+.animate-fade-out {
+  animation: fadeOut 0.5s ease-in-out forwards;
+}
+
+.animate-zoom-in {
+  animation: zoomIn 0.8s ease-out forwards;
+}
+
+.animate-zoom-out {
+  animation: zoomOut 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes zoomOut {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(1.05); opacity: 0; }
 }

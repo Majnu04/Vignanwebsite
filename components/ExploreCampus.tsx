@@ -58,9 +58,9 @@ const ExploreCampus: React.FC = () => {
                     </p>
                 </div>
 
-                <div className={`grid grid-cols-1 lg:grid-cols-5 gap-4 md:gap-8 transition-all duration-700 delay-200 ${inView ? 'opacity-100' : 'opacity-0'}`}> 
+                <div className={`grid grid-cols-1 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-8 transition-all duration-700 delay-200 ${inView ? 'opacity-100' : 'opacity-0'}`}> 
                     {/* Map Section */}
-                    <div className="lg:col-span-3 h-64 xs:h-80 sm:h-[50vh] lg:h-[60vh] bg-gray-200 rounded-2xl relative overflow-hidden shadow-lg">
+                    <div className="lg:col-span-3 h-56 xs:h-64 sm:h-72 md:h-[50vh] lg:h-[60vh] bg-gray-200 rounded-xl sm:rounded-2xl relative overflow-hidden shadow-lg">
                         <ImageWithFallback 
                             src="/images/SLIDE_B.jpg"
                             alt="Vignan Campus Map"
@@ -74,13 +74,15 @@ const ExploreCampus: React.FC = () => {
                              <button
                                 key={hotspot.id}
                                 onClick={() => setActiveHotspot(hotspot)}
-                                className="absolute w-8 h-8 xs:w-10 xs:h-10 -translate-x-1/2 -translate-y-1/2 focus:outline-none flex items-center justify-center"
+                                className="absolute w-6 h-6 xs:w-8 xs:h-8 sm:w-10 sm:h-10 -translate-x-1/2 -translate-y-1/2 focus:outline-none flex items-center justify-center"
                                 style={hotspot.position}
                                 aria-label={`Show details for ${hotspot.name}`}
                             >
-                                <div className={`w-full h-full rounded-full bg-white/60 backdrop-blur-sm shadow-2xl transition-all duration-300 ${activeHotspot.id === hotspot.id ? 'scale-125 ring-2 ring-primary-500' : 'hover:scale-110'} flex items-center justify-center`}>
+                                <div className={`w-full h-full rounded-full bg-white/70 backdrop-blur-sm shadow-2xl transition-all duration-300 
+                                      ${activeHotspot.id === hotspot.id ? 'scale-125 ring-2 ring-primary-500 animate-pulse' : 'hover:scale-110'} 
+                                      flex items-center justify-center`}>
                                     <PulsingDot 
-                                        size={activeHotspot.id === hotspot.id ? 20 : 16} 
+                                        size={activeHotspot.id === hotspot.id ? (window.innerWidth < 640 ? 16 : 20) : (window.innerWidth < 640 ? 12 : 16)} 
                                         color="#3b82f6"
                                         active={activeHotspot.id === hotspot.id}
                                     />
@@ -90,9 +92,9 @@ const ExploreCampus: React.FC = () => {
                     </div>
 
                     {/* Info Section */}
-                    <div className="lg:col-span-2 flex flex-col overflow-hidden mt-6 lg:mt-0">
-                        <div key={activeHotspot.id} className="bg-white rounded-2xl shadow-lg flex flex-col flex-grow p-3 sm:p-4 animate-slide-in">
-                            <div className="h-40 xs:h-56 w-full rounded-xl overflow-hidden mb-3 sm:mb-4">
+                    <div className="lg:col-span-2 flex flex-col overflow-hidden mt-4 sm:mt-5 lg:mt-0">
+                        <div key={activeHotspot.id} className="bg-white rounded-xl sm:rounded-2xl shadow-lg flex flex-col flex-grow p-2 sm:p-3 md:p-4 animate-slide-in">
+                            <div className="h-32 xs:h-40 sm:h-48 md:h-56 w-full rounded-lg sm:rounded-xl overflow-hidden mb-2 sm:mb-3 md:mb-4">
                                 <ImageWithFallback 
                                     src={activeHotspot.image} 
                                     alt={activeHotspot.name} 
@@ -101,13 +103,13 @@ const ExploreCampus: React.FC = () => {
                                     objectFit="cover"
                                 />
                             </div>
-                            <div className="p-2 sm:p-4 flex-grow flex flex-col">
-                                <h3 className="text-xl sm:text-2xl font-bold text-primary-700">{activeHotspot.name}</h3>
-                                <p className="mt-1 sm:mt-2 text-gray-600 flex-grow text-sm sm:text-base">{activeHotspot.description}</p>
-                                <a href="#" className="mt-3 sm:mt-4 inline-flex items-center font-semibold text-primary-600 hover:text-primary-800 transition-colors text-sm sm:text-base group">
+                            <div className="p-1 sm:p-2 md:p-4 flex-grow flex flex-col">
+                                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-primary-700">{activeHotspot.name}</h3>
+                                <p className="mt-1 sm:mt-2 text-gray-600 flex-grow text-xs sm:text-sm md:text-base line-clamp-3 sm:line-clamp-none">{activeHotspot.description}</p>
+                                <a href="#" className="mt-2 sm:mt-3 md:mt-4 inline-flex items-center font-semibold text-primary-600 hover:text-primary-800 transition-colors text-xs sm:text-sm md:text-base group">
                                     Learn More 
                                     <span className="ml-1 group-hover:translate-x-1 transition-transform duration-300">
-                                        <ColorfulArrow size={18} />
+                                        <ColorfulArrow size={window.innerWidth < 640 ? 14 : 18} />
                                     </span>
                                 </a>
                             </div>

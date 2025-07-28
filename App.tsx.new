@@ -15,7 +15,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <VideoProvider>
-      <div className="App bg-white">
+      <div className="App bg-slate-900">
         {/* Video Overlay - conditionally rendered */}
         {showVideoOverlay && (
           <VideoOverlay 
@@ -29,11 +29,9 @@ const App: React.FC = () => {
           
           {/* Routes for specific pages */}
           <Route path="/messages/chairman" element={
-            <div className="pb-16">
+            <div className="pt-16 pb-16">
               <Header />
-              <div className="pt-16">
-                <Chairman />
-              </div>
+              <Chairman />
               <Footer />
             </div>
           } />

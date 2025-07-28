@@ -15,13 +15,8 @@ const VideoOverlay: React.FC<VideoOverlayProps> = ({ isOpen, onClose, autoplay =
   // Handle video playback when overlay opens
   useEffect(() => {
     if (isOpen && videoRef.current) {
-      // Reset video to beginning
       videoRef.current.currentTime = 0;
-      
-      // Set playback speed to 1.5x (adjust as needed)
-      videoRef.current.playbackRate = 1.8;
-      
-      // Play video
+      videoRef.current.playbackRate = 2.0; // Increased speed
       videoRef.current.play().catch(error => {
         console.error('Video play failed:', error);
       });
@@ -49,7 +44,7 @@ const VideoOverlay: React.FC<VideoOverlayProps> = ({ isOpen, onClose, autoplay =
     <div 
       ref={overlayRef}
       className={`video-animation-container ${isClosing ? 'animate-fade-out' : 'animate-fade-in'}`}
-      onClick={handleClose}
+      style={{ backgroundColor: 'black' }}
     >
       <video 
         ref={videoRef}
@@ -59,19 +54,17 @@ const VideoOverlay: React.FC<VideoOverlayProps> = ({ isOpen, onClose, autoplay =
         muted
         playsInline
         onEnded={handleVideoEnd}
-      />
-      
-      {/* Optional skip button */}
-      <button 
-        className="absolute bottom-6 right-6 z-10 bg-white/10 hover:bg-white/20 text-white rounded-md px-4 py-2 text-sm transition-colors"
-        onClick={e => {
-          e.stopPropagation();
-          handleClose();
+        style={{ 
+          width: '100%', 
+          height: '100%', 
+          objectFit: 'cover',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0
         }}
-        aria-label="Skip animation"
-      >
-        Skip
-      </button>
+      />
     </div>
   );
 };
