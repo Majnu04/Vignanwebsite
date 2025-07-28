@@ -14,8 +14,8 @@ const announcements = [
 
 const About: React.FC = () => {
   return (
-    <section className="bg-gray-50 py-16 sm:py-24">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="bg-gray-50 pt-16 sm:pt-24 pb-0 sm:pb-0 mb-0">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-0 pb-0">
         {/* Main Flexbox container for the two columns */}
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
           

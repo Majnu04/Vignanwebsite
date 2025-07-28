@@ -6,25 +6,25 @@ const AboutT = () => {
   const navigate = useNavigate();
   return (
     <div className="bg-gray-50 text-gray-800 font-sans">
-      <div className="max-w-7xl mx-auto px-4 pt-8">
+      <div className="max-w-7xl mx-auto px-4 pt-2">
         <button
           onClick={() => navigate(-1)}
-          className="mb-6 px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition-colors"
+          className="mb-2 px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition-colors"
         >
           ← Back
         </button>
       </div>
-      <section className="py-12 px-4 sm:px-6 lg:px-8">
+      <section className="py-4 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
           <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight">
             Career Guidance, Training & Placement Cell (CGTPC)
           </h1>
-          <p className="mt-4 text-lg text-gray-600">
+          <p className="mt-2 text-lg text-gray-600">
             Fostering Futures, Building Careers
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mt-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mt-4">
           
           <div className="order-2 lg:order-1 text-center">
             <img
@@ -33,16 +33,16 @@ const AboutT = () => {
               className="max-w-lg mx-auto h-auto rounded-lg shadow-xl object-cover"
             />
             
-            <div className="mt-4">
+            <div className="mt-2">
               <h4 className="text-2xl font-semibold">Dr. B. Prasad</h4>
-              <p className="mt-2 text-gray-600 text-lg">Dean – Training and Placements</p>
+              <p className="mt-1 text-gray-600 text-lg">Dean – Training and Placements</p>
             </div>
           </div>
           
           <div className="order-1 lg:order-2">
             <div className="bg-white p-8 rounded-xl shadow-md">
-              <h2 className="text-3xl font-bold mb-4">Welcome to CGTPC</h2>
-              <p className="mb-4 leading-relaxed">
+              <h2 className="text-3xl font-bold mb-2">Welcome to CGTPC</h2>
+              <p className="mb-2 leading-relaxed">
                 With a growing number of students pursuing various courses at Vignan's Institute of Information Technology, Visakhapatnam, the Career Guidance, Training & Placement Cell (CGTPC) is dedicated to bridging the gap between students and industry by organizing campus recruitment drives and career development programs.
               </p>
               <p className="leading-relaxed">
@@ -53,18 +53,18 @@ const AboutT = () => {
         </div>
       </section>
 
-      <section className="py-16 bg-white">
+      <section className="py-6 bg-white">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold mb-6">Our Comprehensive Approach</h2>
+          <h2 className="text-3xl font-bold mb-2">Our Comprehensive Approach</h2>
           <p className="text-lg text-gray-600 leading-relaxed">
             The CGTPC actively provides industry-aligned training to students, including Communication Skills, Technical and General Aptitude, Personality Development, Group Discussions, and more. Through continuous engagement with experts, the cell enhances student readiness and facilitates placement in national and multinational companies.
           </p>
         </div>
       </section>
 
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
+      <section className="py-6 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto bg-white p-10 rounded-xl shadow-md">
-          <h3 className="text-3xl font-bold text-center mb-10">
+          <h3 className="text-3xl font-bold text-center mb-4">
             Objectives of the Department
           </h3>
           <ul className="space-y-6">
@@ -77,7 +77,7 @@ const AboutT = () => {
             ].map((objective, index) => (
               <li key={index} className="flex items-start">
                 <svg
-                  className="h-6 w-6 text-green-600 flex-shrink-0 mt-1"
+                  className="h-6 w-6 text-green-600 flex-shrink-0 mt-0"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"

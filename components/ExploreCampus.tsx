@@ -45,7 +45,7 @@ const ExploreCampus: React.FC = () => {
     const [activeHotspot, setActiveHotspot] = useState(hotspots[0]);
 
     return (
-        <div className="bg-white py-12 sm:py-20" ref={ref}>
+        <div className="bg-white pt-12 sm:pt-20 pb-0 sm:pb-0 mb-0" ref={ref}>
             <div className="container mx-auto px-3 sm:px-6 lg:px-8">
                 <div className={`text-center mb-10 sm:mb-16 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}> 
                     <GradientHeaderBg theme="blue">

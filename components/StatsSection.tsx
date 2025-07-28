@@ -45,7 +45,7 @@ const StatsSection: React.FC = () => {
 
   return (
     // Opening section tag for the whole component
-    <section className="relative py-16 sm:py-24 bg-white" ref={ref}>
+    <section className="relative pt-16 sm:pt-24 pb-0 sm:pb-0 mb-0 bg-white" ref={ref}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Heading container */}

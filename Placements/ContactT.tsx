@@ -16,24 +16,24 @@ const ContactT: React.FC = () => {
   return (
     <div className="p-3 bg-gray-100 min-h-screen">
       <div className="bg-white p-4 rounded-lg shadow-md">
-        <h2 className="text-xl font-semibold mb-3 text-blue-700">
+        <h2 className="text-xl font-semibold mb-1 text-blue-700">
           Contact Information
         </h2>
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white">
             <thead className="bg-gray-50">
               <tr>
-                <th className="py-2 px-4 border-b text-left">Name</th>
-                <th className="py-2 px-4 border-b text-left">Position</th>
-                <th className="py-2 px-4 border-b text-left">Mobile Number</th>
-                <th className="py-2 px-4 border-b text-left">Email</th>
+                <th className="py-1 px-4 border-b text-left">Name</th>
+                <th className="py-1 px-4 border-b text-left">Position</th>
+                <th className="py-1 px-4 border-b text-left">Mobile Number</th>
+                <th className="py-1 px-4 border-b text-left">Email</th>
               </tr>
             </thead>
             <tbody>
               <tr className="hover:bg-gray-50">
-                <td className="py-2 px-4 border-b">{contactData.name}</td>
-                <td className="py-2 px-4 border-b">{contactData.position}</td>
-                <td className="py-2 px-4 border-b">
+                <td className="py-1 px-4 border-b">{contactData.name}</td>
+                <td className="py-1 px-4 border-b">{contactData.position}</td>
+                <td className="py-1 px-4 border-b">
                   <a href={`tel:${contactData.mobile}`} className="flex items-center text-blue-600 hover:underline">
                     {/* Phone icon */}
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -42,7 +42,7 @@ const ContactT: React.FC = () => {
                     {contactData.mobile}
                   </a>
                 </td>
-                <td className="py-2 px-4 border-b">
+                <td className="py-1 px-4 border-b">
                   <a href={`mailto:${contactData.email}`} className="flex items-center text-blue-600 hover:underline">
                     {/* Email icon */}
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -55,7 +55,7 @@ const ContactT: React.FC = () => {
             </tbody>
           </table>
         </div>
-        <div className="mt-4 p-2 border-l-4 border-blue-600 bg-yellow-50">
+        <div className="mt-2 p-2 border-l-4 border-blue-600 bg-yellow-50">
           <p>
             <strong>Note:</strong> For Background Verifications (BGVs), please send a request email to{' '}
             <a href={`mailto:${bgvContact.email}`} className="text-blue-600 hover:underline">

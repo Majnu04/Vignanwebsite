@@ -80,7 +80,7 @@ const CellCard: React.FC<{ cell: { name: string; image: string } }> = ({ cell })
 
 const StatsCells: React.FC = () => {
   return (
-    <section className="bg-white pt-0 pb-20 sm:pb-28 relative">
+    <section className="bg-white pt-0 pb-0 sm:pb-0 mb-0 relative">
       <style>{`
         .marquee-left, .marquee-right {
           display: flex;
@@ -100,17 +100,17 @@ const StatsCells: React.FC = () => {
         }
       `}</style>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-10 mt-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-0 mt-4 pb-0">
         <h2 className="text-5xl font-bold text-center text-gray-900 tracking-tight font-serif">
           Our Cells & Councils
         </h2>
-        <p className="mt-5 text-lg text-gray-700 text-center">
+        <p className="mt-2 text-lg text-gray-700 text-center">
           Fostering innovation, leadership, and community engagement.
         </p>
       </div>
 
       {/* First Row - Right Scroll */}
-      <div className="relative overflow-hidden w-full h-[400px] mb-4">
+      <div className="relative overflow-hidden w-full h-[400px] mb-0 pb-0">
         <div className="marquee-right hover:[animation-play-state:paused]">
           {[...FirstRowCellsData, ...FirstRowCellsData].map((cell, index) => (
             <div key={index} className="mx-4">

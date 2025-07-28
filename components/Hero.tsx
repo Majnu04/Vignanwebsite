@@ -31,80 +31,75 @@ return () => clearInterval(intervalRef.current!);
 const nextSlide = () => setCurrentSlideIndex((prev) => (prev + 1) % slides.length);
 const prevSlide = () => setCurrentSlideIndex((prev) => (prev - 1 + slides.length) % slides.length);
 return (
-<section className="relative h-[90vh] mt-[10vh] w-full overflow-hidden group">
-{/* --------------------- DESKTOP VIEW ---------------------- */}
-{!isMobile && (
-<>
-{slides.map((slide, index) => (
-<div
-key={slide.id}
-className="absolute inset-0 w-full h-[90vh] bg-[length:100%_100%] bg-center transition-opacity duration-1000 ease-in-out"
-style={{
-backgroundImage: `url('${slide.desktopImage}')`,
-opacity: index === currentSlideIndex ? 1 : 0,
-transform: `scale(${index === currentSlideIndex ? 1 : 1.05})`,
-transition: 'opacity 1.5s ease-in-out, transform 10s ease-out',
-}}
->
-<div className="absolute inset-0 bg-black/20"></div>
-</div>
-))}
-          {/* Navigation for desktop */}
-          <div className="absolute inset-0 z-10 flex items-center justify-between px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <button
-              onClick={prevSlide}
-              className="w-12 h-12 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm text-white transition hover:bg-white/20 hover:scale-110"
-            >
-              <ArrowIcon className="w-6 h-6 transform rotate-180" />
-            </button>
-            <button
-              onClick={nextSlide}
-              className="w-12 h-12 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm text-white transition hover:bg-white/20 hover:scale-110"
-            >
-              <ArrowIcon className="w-6 h-6" />
-            </button>
+  <section className={`relative w-full overflow-hidden group ${isMobile ? 'h-[45vh] mt-0' : 'h-[90vh] mt-[10vh]'}`}> 
+    {/* --------------------- DESKTOP VIEW ---------------------- */}
+    {!isMobile && (
+      <>
+        {slides.map((slide, index) => (
+          <div
+            key={slide.id}
+            className="absolute inset-0 w-full h-[90vh] bg-[length:100%_100%] bg-center transition-opacity duration-1000 ease-in-out"
+            style={{
+              backgroundImage: `url('${slide.desktopImage}')`,
+              opacity: index === currentSlideIndex ? 1 : 0,
+              transform: `scale(${index === currentSlideIndex ? 1 : 1.05})`,
+              transition: 'opacity 1.5s ease-in-out, transform 10s ease-out',
+            }}
+          >
+            {/* Removed background overlay to prevent biscuit color */}
           </div>
-        </>
-      )}
+        ))}
+        {/* Navigation for desktop */}
+        <div className="absolute inset-0 z-10 flex items-center justify-between px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <button
+            onClick={prevSlide}
+            className="w-12 h-12 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm text-white transition hover:bg-white/20 hover:scale-110"
+          >
+            <ArrowIcon className="w-6 h-6 transform rotate-180" />
+          </button>
+          <button
+            onClick={nextSlide}
+            className="w-12 h-12 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm text-white transition hover:bg-white/20 hover:scale-110"
+          >
+            <ArrowIcon className="w-6 h-6" />
+          </button>
+        </div>
+      </>
+    )}
 
-      {/* --------------------- MOBILE VIEW ---------------------- */}
-      {isMobile && (
-        <>
-          {slides.map((slide, index) => (
-            <div
-              key={slide.id}
-              className={`
-    absolute inset-0 w-full ${isMobile ? 'h-[45vh] bg-contain' : 'h-full bg-cover'} bg-center bg-no-repeat transition-opacity duration-1000 ease-in-out`}
-
-              style={{
-                backgroundImage: `url('${slide.mobileImage}')`,
-                opacity: index === currentSlideIndex ? 1 : 0,
-                transform: `scale(${index === currentSlideIndex ? 1 : 1.05})`,
-                transition: 'opacity 1.5s ease-in-out, transform 8s ease-out',
-              }}
-            >
-              <div className="absolute inset-0 bg-black/30"></div>
-            </div>
-          ))}
-
-          {/* Simpler nav for mobile */}
-          <div className="absolute inset-0 z-10 flex items-center justify-between px-3">
-            <button
-              onClick={prevSlide}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm text-white transition hover:bg-white/20 hover:scale-105"
-            >
-              <ArrowIcon className="w-5 h-5 transform rotate-180" />
-            </button>
-            <button
-              onClick={nextSlide}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm text-white transition hover:bg-white/20 hover:scale-105"
-            >
-              <ArrowIcon className="w-5 h-5" />
-            </button>
-          </div>
-        </>
-      )}
-    </section>
+    {/* --------------------- MOBILE VIEW ---------------------- */}
+    {isMobile && (
+      <div className="relative w-full h-[45vh] overflow-hidden flex items-center justify-center">
+        {slides.map((slide, index) => (
+          <img
+            key={slide.id}
+            src={slide.mobileImage}
+            alt={`Slide ${slide.id}`}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${index === currentSlideIndex ? 'opacity-100' : 'opacity-0'}`}
+            style={{
+              pointerEvents: index === currentSlideIndex ? 'auto' : 'none',
+              transition: 'opacity 1.5s ease-in-out',
+            }}
+          />
+        ))}
+        {/* Simpler nav for mobile */}
+        <div className="absolute inset-0 z-10 flex items-center justify-between px-3">
+          <button
+            onClick={prevSlide}
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm text-white transition hover:bg-white/20 hover:scale-105"
+          >
+            <ArrowIcon className="w-5 h-5 transform rotate-180" />
+          </button>
+          <button
+            onClick={nextSlide}
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm text-white transition hover:bg-white/20 hover:scale-105"
+          >
+            <ArrowIcon className="w-5 h-5" />
+          </button>
+        </div>
+      </div>
+    )}
+  </section>
 );
 };
 export default Hero;

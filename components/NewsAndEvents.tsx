@@ -55,12 +55,12 @@ const NewsAndEvents: React.FC = () => {
     <section className={`relative w-full flex flex-col justify-center items-center overflow-hidden transition-all duration-1000 ease-in-out
       ${isMobileView ? 'min-h-[90vh] py-10' : 'min-h-screen py-20 sm:py-28'}
       bg-white`}>
-      
+
       <div className="text-center mb-6 sm:mb-8 md:mb-12 px-4">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-800 tracking-tight" style={{ fontFamily: 'Georgia, serif' }}>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-black tracking-tight drop-shadow-lg" style={{ fontFamily: 'Georgia, serif' }}>
           News & Upcoming Events
         </h2>
-        <p className="mt-2 sm:mt-4 text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto">
+        <p className="mt-2 sm:mt-4 text-base md:text-lg text-gray-700 max-w-3xl mx-auto">
           Stay connected with the vibrant pulse of our campus.
         </p>
       </div>
@@ -76,7 +76,7 @@ const NewsAndEvents: React.FC = () => {
                 <AnimatePresence>
                   {index === activeIndex && (
                     <motion.div
-                      className="h-full bg-blue-600"
+                      className="h-full bg-black"
                       initial={{ width: '0%' }}
                       animate={{ width: '100%' }}
                       exit={{ width: '100%' }}
@@ -84,7 +84,7 @@ const NewsAndEvents: React.FC = () => {
                     />
                   )}
                 </AnimatePresence>
-                {index < activeIndex && <div className="h-full bg-blue-600"></div>}
+                {index < activeIndex && <div className="h-full bg-black"></div>}
               </div>
             ))}
           </div>
@@ -92,7 +92,7 @@ const NewsAndEvents: React.FC = () => {
           <AnimatePresence initial={false}>
             <motion.div
               key={activeIndex}
-              className="absolute w-[90%] h-[80%] bg-white rounded-xl sm:rounded-2xl shadow-lg border border-gray-100 overflow-hidden"
+              className="absolute w-[90%] h-[80%] bg-white rounded-xl sm:rounded-2xl shadow-2xl border-2 border-black overflow-hidden"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
@@ -110,13 +110,13 @@ const NewsAndEvents: React.FC = () => {
                 }}
               />
               <div className="absolute top-0 left-0 right-0 h-40 sm:h-48 bg-gradient-to-b from-transparent to-white/10"></div>
-              <div className="relative h-full pt-44 sm:pt-52 flex flex-col p-4 sm:p-6 text-slate-800">
-                <span className="px-2 sm:px-3 py-1 bg-blue-50 text-blue-700 text-xs sm:text-sm font-semibold rounded-full self-start mb-3 sm:mb-4 border border-blue-200">{eventsData[activeIndex].type}</span>
+              <div className="relative h-full pt-44 sm:pt-52 flex flex-col p-4 sm:p-6 text-black">
+                <span className="px-2 sm:px-3 py-1 bg-black text-white text-xs sm:text-sm font-semibold rounded-full self-start mb-3 sm:mb-4 border border-black">{eventsData[activeIndex].type}</span>
                 <h3 className="text-xl sm:text-2xl md:text-3xl font-bold" style={{fontFamily: 'Georgia, serif'}}>{eventsData[activeIndex].title}</h3>
-                <p className="text-xs sm:text-sm text-gray-500 mt-1">{eventsData[activeIndex].date}</p>
-                <p className="mt-3 sm:mt-4 text-gray-600 text-xs sm:text-sm">{eventsData[activeIndex].description}</p>
+                <p className="text-xs sm:text-sm text-gray-700 mt-1">{eventsData[activeIndex].date}</p>
+                <p className="mt-3 sm:mt-4 text-gray-700 text-xs sm:text-sm">{eventsData[activeIndex].description}</p>
                 
-                <button className="mt-5 sm:mt-6 px-4 py-2 sm:px-5 sm:py-2.5 bg-blue-600 text-white text-xs sm:text-sm font-semibold rounded-lg self-start hover:bg-blue-700 transition-colors duration-300 shadow-md">
+                <button className="mt-5 sm:mt-6 px-4 py-2 sm:px-5 sm:py-2.5 bg-black text-white text-xs sm:text-sm font-semibold rounded-lg self-start hover:bg-gray-900 transition-colors duration-300 shadow-md">
                   Register Now
                 </button>
               </div>
@@ -147,14 +147,12 @@ const NewsAndEvents: React.FC = () => {
                   animate={{ transform: `translateX(${translateX}%) rotateY(${rotateY}deg) scale(${scale})`, zIndex, opacity }}
                   transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
                 >
-                  <div className="relative w-full h-full bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col items-start justify-center p-8 md:p-12 text-slate-800">
-                    <span className="px-3 py-1 bg-blue-50 text-blue-700 text-sm font-semibold rounded-full self-start mb-4 border border-blue-200">{event.type}</span>
+                  <div className={`relative w-full h-full rounded-2xl shadow-2xl border-2 flex flex-col items-start justify-center p-8 md:p-12 ${activeIndex === index ? 'bg-black border-black text-white' : 'bg-white border-gray-200 text-black'}`}>
+                    <span className={`px-3 py-1 text-sm font-semibold rounded-full self-start mb-4 border ${activeIndex === index ? 'bg-white text-black border-white' : 'bg-black text-white border-black'}`}>{event.type}</span>
                     <h3 className="text-3xl md:text-4xl font-bold" style={{fontFamily: 'Georgia, serif'}}>{event.title}</h3>
-                    <p className="text-sm text-gray-500 mt-1">{event.date}</p>
-                    <p className="mt-4 text-gray-600 max-w-md">{event.description}</p>
-                    <button className="mt-6 px-6 py-3 bg-blue-600 text-white font-bold rounded-lg self-start hover:bg-blue-700 transition-colors duration-300 shadow-lg">
-                      Register Now
-                    </button>
+                    <p className="text-sm mt-1">{event.date}</p>
+                    <p className="mt-4 max-w-md">{event.description}</p>
+                    <button className={`mt-6 px-6 py-3 font-bold rounded-lg self-start transition-colors duration-300 shadow-lg ${activeIndex === index ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-gray-900'}`}>Register Now</button>
                   </div>
                 </motion.div>
               );
@@ -171,8 +169,8 @@ const NewsAndEvents: React.FC = () => {
             >
               {eventsData.map((event, index) => (
                 <div key={index} onClick={() => setActiveIndex(index)} className="flex flex-col items-center flex-shrink-0 w-24 text-center">
-                  <div className={`w-3 h-3 rounded-full transition-all duration-300 ${activeIndex === index ? 'bg-blue-600 scale-150' : 'bg-gray-300'}`}></div>
-                  <p className={`mt-3 text-xs font-semibold transition-colors duration-300 ${activeIndex === index ? 'text-blue-700' : 'text-gray-500'}`}>{event.date}</p>
+                  <div className={`w-3 h-3 rounded-full transition-all duration-300 ${activeIndex === index ? 'bg-black scale-150' : 'bg-gray-300'}`}></div>
+                  <p className={`mt-3 text-xs font-semibold transition-colors duration-300 ${activeIndex === index ? 'text-black' : 'text-gray-500'}`}>{event.date}</p>
                 </div>
               ))}
             </motion.div>

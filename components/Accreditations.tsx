@@ -17,8 +17,8 @@ const Accreditations: React.FC = memo(() => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
 
   return (
-    <section className="bg-white py-12 sm:py-16" ref={ref} id="Accreditations">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="bg-white pt-12 sm:pt-16 pb-0 sm:pb-0 mb-0" ref={ref} id="Accreditations">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-0 pb-0">
         <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-10 items-center">
           {accreditationLogos.map((logo, index) => (
             <div
