@@ -46,7 +46,7 @@ const SyllabusCard: React.FC<{ title: string; href: string }> = ({ title, href }
 );
 
 // --- Main Page Component ---
-const CsePage: React.FC<{ onBack: () => void }> = ({ data, onBack}) => {
+const CsePage: React.FC<{ data: any; onBack: () => void }> = ({ data, onBack}) => {
   return (
     ReactDOM.createPortal(
     <div className="fixed inset-0 bg-white z-50 overflow-y-auto">

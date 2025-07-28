@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import CsePage from './CsePage';
+import { Assets } from '../assets/Assets.ts';
 
 
 
@@ -55,12 +56,12 @@ const ProgramTileDesktop: React.FC<{ program: any; onMouseEnter: () => void; isH
         );
 };
 
-const ProgramTileMobile: React.FC<{ program: any; isActive: boolean; onClick: () => void; onProgramClick: () => void; }> = ({ program, isActive, onClick, onProgramClick }) => {
+const ProgramTileMobile: React.FC<{ program: any; isActive: boolean; onClick: () => void; }> = ({ program, isActive, onClick }) => {
   const isClickable = !!program.pageId;
         return (
           <div className="border-b border-gray-200 bg-white">
             <button
-              onClick={isClickable ? onProgramClick : onClick}
+              onClick={onClick}
               className="w-full flex justify-between items-center text-left p-4"
             >
               <span className="text-lg font-semibold text-gray-900">{program.name}</span>
@@ -171,26 +172,25 @@ const handleProgramClick = (pageId: string) => {
               key={program.name}
               program={program}
               isActive={activeMobileTile === program.name}
-              // onClick={() => handleMobileTileClick(program.name)}
-              onClick={() => program.pageId && handleProgramClick(program.pageId)}
+              onClick={() => program.pageId ? handleProgramClick(program.pageId) : handleMobileTileClick(program.name)}
             />
           ))}
         </div>
 
-        {selectedPageId === 'cse' && <CsePage data={Assets.DepartmentData.cse} onBack={() => setSelectedPageId(false)} />}
-        {selectedPageId === 'aids' && <CsePage data={Assets.DepartmentData.aids} onBack={() => setSelectedPageId(false)} />}
-        {selectedPageId === 'cses' && <CsePage data={Assets.DepartmentData.cses} onBack={() => setSelectedPageId(false)} />}
-        {selectedPageId === 'civil' && <CsePage data={Assets.DepartmentData.civil} onBack={() => setSelectedPageId(false)} />}
-        {selectedPageId === 'eee' && <CsePage data={Assets.DepartmentData.eee} onBack={() => setSelectedPageId(false)} />}
-        {selectedPageId === 'ece' && <CsePage data={Assets.DepartmentData.ece} onBack={() => setSelectedPageId(false)} />}
-        {selectedPageId === 'ecm' && <CsePage data={Assets.DepartmentData.ecm} onBack={() => setSelectedPageId(false)} />}
-        {selectedPageId === 'it' && <CsePage data={Assets.DepartmentData.it} onBack={() => setSelectedPageId(false)} />}
-        {selectedPageId === 'me' && <CsePage data={Assets.DepartmentData.me} onBack={() => setSelectedPageId(false)} />}
-        {selectedPageId === 'basic' && <CsePage data={Assets.DepartmentData.basic} onBack={() => setSelectedPageId(false)} />}
-        {selectedPageId === 'aiml' && <CsePage data={Assets.DepartmentData.aiml} onBack={() => setSelectedPageId(false)} />}
-        {selectedPageId === 'pcse' && <CsePage data={Assets.DepartmentData.pcse} onBack={() => setSelectedPageId(false)} />}
-        {selectedPageId === 'mba' && <CsePage data={Assets.DepartmentData.mba} onBack={() => setSelectedPageId(false)} />}
-        {selectedPageId === 'mca' && <CsePage data={Assets.DepartmentData.mca} onBack={() => setSelectedPageId(false)} />}
+        {selectedPageId === 'cse' && <CsePage data={Assets.DepartmentData.cse} onBack={() => setSelectedPageId(null)} />}
+        {selectedPageId === 'aids' && <CsePage data={Assets.DepartmentData.aids} onBack={() => setSelectedPageId(null)} />}
+        {selectedPageId === 'cses' && <CsePage data={Assets.DepartmentData.cses} onBack={() => setSelectedPageId(null)} />}
+        {selectedPageId === 'civil' && <CsePage data={Assets.DepartmentData.civil} onBack={() => setSelectedPageId(null)} />}
+        {selectedPageId === 'eee' && <CsePage data={Assets.DepartmentData.eee} onBack={() => setSelectedPageId(null)} />}
+        {selectedPageId === 'ece' && <CsePage data={Assets.DepartmentData.ece} onBack={() => setSelectedPageId(null)} />}
+        {selectedPageId === 'ecm' && <CsePage data={Assets.DepartmentData.ecm} onBack={() => setSelectedPageId(null)} />}
+        {selectedPageId === 'it' && <CsePage data={Assets.DepartmentData.it} onBack={() => setSelectedPageId(null)} />}
+        {selectedPageId === 'me' && <CsePage data={Assets.DepartmentData.me} onBack={() => setSelectedPageId(null)} />}
+        {selectedPageId === 'basic' && <CsePage data={Assets.DepartmentData.basic} onBack={() => setSelectedPageId(null)} />}
+        {selectedPageId === 'aiml' && <CsePage data={Assets.DepartmentData.aiml} onBack={() => setSelectedPageId(null)} />}
+        {selectedPageId === 'pcse' && <CsePage data={Assets.DepartmentData.pcse} onBack={() => setSelectedPageId(null)} />}
+        {selectedPageId === 'mba' && <CsePage data={Assets.DepartmentData.mba} onBack={() => setSelectedPageId(null)} />}
+        {selectedPageId === 'mca' && <CsePage data={Assets.DepartmentData.mca} onBack={() => setSelectedPageId(null)} />}
       </div>
     </section>
   );
