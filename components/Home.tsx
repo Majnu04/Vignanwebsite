@@ -40,6 +40,22 @@ const Home: React.FC = () => {
     };
   }, []);
 
+const [isMobile, setIsMobile] = useState(false);
+
+useEffect(() => {
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= 768);
+  };
+
+  handleResize(); // run once on mount
+  window.addEventListener('resize', handleResize);
+
+  return () => {
+    window.removeEventListener('resize', handleResize);
+  };
+}, []);
+
+
   useEffect(() => {
     // Scroll animation code
     const fadeElements = document.querySelectorAll('.fade-in-scroll');
@@ -80,15 +96,22 @@ const Home: React.FC = () => {
   return (
       <div className="bg-white text-gray-800">
 
-      {/* Keep original header visible initially */}
+      {/* Keep original header visible initially
       {!showPagenav && <Header />}
 
       {/* /* PageNav replaces Header only AFTER hero scroll  */}
-      {showPagenav && (
+      {/* {showPagenav && (
         <div className="fixed top-0 w-full z-50 bg-white shadow-md transition-all duration-300">
           <Pagenav />
         </div>
-      )} 
+      )}  */} 
+      {(isMobile || !showPagenav) && <Header />}
+      {!isMobile && showPagenav && (
+      <div className="fixed top-0 w-full z-50 bg-white shadow-md transition-all duration-300">
+      <Pagenav />
+      </div>
+      )}
+
       <main>
         <section id="Hero" ref={heroRef}>
           <Hero />
@@ -105,7 +128,8 @@ const Home: React.FC = () => {
       </main>
 
     </div>
-   
+
+ 
   );
 };
 
