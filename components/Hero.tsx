@@ -3,7 +3,7 @@ const slides = [
 { id: 1, desktopImage: "/images/SLIDE_0.jpg", mobileImage: "/images/SLIDE_0.jpg" },
 { id: 2, desktopImage: "/images/03 copy.jpg", mobileImage: "/images/03 copy.jpg" },
 { id: 3, desktopImage: "/images/SLIDE_A copy.jpg", mobileImage: "/images/SLIDE_A copy.jpg" },
-{ id: 4, desktopImage: "/images/SLIDE_C[1].jpg", mobileImage: "/images/SLIDE_C[1].jpg" },
+{ id: 4, desktopImage: "/images/2021-25 copy.jpg", mobileImage: "/images/SLIDE_C[1].jpg" },
 ];
 const ArrowIcon = ({ className = "" }: { className?: string }) => (
 <svg className={className} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">

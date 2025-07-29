@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useRef } from 'react';
 import ImageWithFallback from './ImageWithFallback';
 
 const FirstRowCellsData = [
@@ -60,16 +60,13 @@ const FirstRowCellsData = [
   },
 ];
 
-
-
-const CellCard: React.FC<{ cell: { name: string; image: string } }> = ({ cell }) => (
+const CellCard = ({ cell }) => (
   <div className="relative w-64 h-80 rounded-2xl overflow-hidden flex-shrink-0 shadow-lg group cursor-pointer">
     <ImageWithFallback
       src={cell.image}
       alt={cell.name}
       fallbackCategory="cells"
-      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-      objectFit="cover"
+      className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-110"
     />
     <div className="absolute inset-0 bg-gradient-to-t from-[#0f1730]/90 via-[#0f1730]/50 to-transparent"></div>
     <div className="absolute bottom-0 left-0 p-6">
@@ -78,20 +75,83 @@ const CellCard: React.FC<{ cell: { name: string; image: string } }> = ({ cell })
   </div>
 );
 
-const StatsCells: React.FC = () => {
+const StatsCells = () => {
+  const marqueeRef = useRef(null);
+  const animationFrameRef = useRef();
+  
+  useEffect(() => {
+    const isMobile = () => window.innerWidth < 768;
+
+    const applyWaveEffect = () => {
+      if (isMobile()) {
+        if (marqueeRef.current) {
+            const cards = marqueeRef.current.children;
+            for (let i = 0; i < cards.length; i++) {
+                cards[i].style.transform = 'translateY(0px) scale(1)';
+            }
+        }
+        animationFrameRef.current = requestAnimationFrame(applyWaveEffect);
+        return;
+      }
+
+      if (marqueeRef.current) {
+        const viewportCenter = window.innerWidth / 2;
+        const waveWidth = viewportCenter * 1.5; 
+        const cards = marqueeRef.current.children;
+
+        for (let i = 0; i < cards.length; i++) {
+          const card = cards[i];
+          const rect = card.getBoundingClientRect();
+          const cardCenter = rect.left + rect.width / 2;
+          
+          const distanceFromCenter = cardCenter - viewportCenter;
+          
+          const waveFactor = Math.max(0, Math.cos((distanceFromCenter / waveWidth) * (Math.PI / 2)));
+
+          const baseScale = 0.85;
+          const maxScale = 1.1;
+          const baseYOffset = -60;
+
+          const scale = baseScale + (maxScale - baseScale) * waveFactor;
+          const yOffset = baseYOffset * (1 - waveFactor);
+          
+          card.style.transform = `translateY(${yOffset}px) scale(${scale})`;
+          card.style.zIndex = Math.floor(10 + waveFactor * 10);
+        }
+      }
+      
+      animationFrameRef.current = requestAnimationFrame(applyWaveEffect);
+    };
+
+    animationFrameRef.current = requestAnimationFrame(applyWaveEffect);
+    window.addEventListener('resize', applyWaveEffect);
+
+    return () => {
+      cancelAnimationFrame(animationFrameRef.current);
+      window.removeEventListener('resize', applyWaveEffect);
+    };
+  }, []);
+
   return (
-    <section className="bg-white pt-0 pb-0 sm:pb-0 mb-0 relative">
+    <section className="bg-white pt-0 pb-20 sm:pb-28 relative">
       <style>{`
-        .marquee-left, .marquee-right {
+        .marquee-right {
           display: flex;
           width: max-content;
-          animation-timing-function: linear;
-          animation-iteration-count: infinite;
+          animation: scrollRight 45s linear infinite;
+          padding-top: 60px; 
+          padding-bottom: 40px;
         }
 
-        .marquee-right {
-          animation-name: scrollRight;
-          animation-duration: 60s;
+        .marquee-container {
+            perspective: 1500px;
+        }
+
+        .card-container {
+            position: relative;
+            /* These two properties are the fix for the shivering text */
+            backface-visibility: hidden;
+            will-change: transform;
         }
 
         @keyframes scrollRight {
@@ -100,26 +160,29 @@ const StatsCells: React.FC = () => {
         }
       `}</style>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-0 mt-4 pb-0">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-10 mt-10">
         <h2 className="text-5xl font-bold text-center text-gray-900 tracking-tight font-serif">
           Our Cells & Councils
         </h2>
-        <p className="mt-2 text-lg text-gray-700 text-center">
-          Fostering innovation, leadership, and community engagement.
-        </p>
       </div>
-
-      {/* First Row - Right Scroll */}
-      <div className="relative overflow-hidden w-full h-[400px] mb-0 pb-0">
-        <div className="marquee-right hover:[animation-play-state:paused]">
+        
+      <div className="relative overflow-hidden w-full h-[450px] marquee-container">
+        <div
+          ref={marqueeRef}
+          className="marquee-right hover:[animation-play-state:paused]"
+        >
           {[...FirstRowCellsData, ...FirstRowCellsData].map((cell, index) => (
-            <div key={index} className="mx-4">
-              <CellCard cell={cell} />
-            </div>
-          ))}
+              <div
+                key={index}
+                className="mx-4 card-container"
+              >
+                <CellCard cell={cell} />
+              </div>
+            )
+          )}
         </div>
-        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-white to-transparent pointer-events-none"></div>
-        <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-white to-transparent pointer-events-none"></div>
+        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-white to-transparent pointer-events-none z-30"></div>
+        <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-white to-transparent pointer-events-none z-30"></div>
       </div>
     </section>
   );

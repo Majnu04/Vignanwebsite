@@ -95,7 +95,7 @@ const styles: { [key: string]: CSSProperties } = {
   cardFace: { position: 'absolute', width: '100%', height: '100%', backfaceVisibility: 'hidden', borderRadius: '16px', boxShadow: '0 8px 25px rgba(0, 0, 0, 0.1)', overflow: 'hidden', display: 'flex', flexDirection: 'column' },
   cardFront: { backgroundColor: '#fff', cursor: 'pointer' },
   cardBack: { backgroundColor: '#1a3b5d', color: '#fff', transform: 'rotateY(180deg)', padding: '1.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' },
-  cardImage: { width: '100%', height: '70%', objectFit: 'cover' },
+  cardImage: { width: '100%', height: '80%', objectFit: 'cover' },
   cardCaption: { fontWeight: 600, fontSize: '1.2rem', padding: '1.5rem', margin: 0, textAlign: 'center', flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' },
   cardBackTitle: { fontSize: '1.5rem', margin: '0 0 1rem 0', borderBottom: '2px solid #007bff', paddingBottom: '0.5rem' },
   stat: { fontSize: '1.1rem', margin: '0.8rem 0', display: 'flex', justifyContent: 'space-between', width: '100%', gap: '1rem' },

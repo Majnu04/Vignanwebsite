@@ -8,38 +8,38 @@ import { useCounter } from '../hooks/useCounter';
 // --- DATA ---
 const highlights = [
   { 
-    student: 'Souradeep Dash', 
+    student: 'Vasu Surisetty', 
     company: 'Microsoft', 
-    package: 'Summer Internship', 
-    image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cHJvZmVzc2lvbmFsJTIwbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=80', 
+    package: '37 LPA', 
+    image: 'public/images/02 copy.png', 
     companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg' 
   },
   { 
     student: 'Ankit Sharma', 
     company: 'LinkedIn', 
     package: '42 LPA', 
-    image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHByb2Zlc3Npb25hbCUyMG1hbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=80', 
+    image: 'public/images/07 copy.png',
     companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo.svg' 
   },
   { 
-    student: 'K. Rishitha', 
+    student: 'K. Rishit', 
     company: 'ServiceNow', 
     package: '42.93 LPA', 
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmVzc2lvbmFsJTIwd29tYW58ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=80', 
+    image: 'public/images/04 copy.png', 
     companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/5/57/ServiceNow_logo.svg' 
   },
   { 
-    student: 'B. Karunakar', 
+    student: 'Umakanth ', 
     company: 'Amazon', 
     package: '26 LPA', 
-    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHByb2Zlc3Npb25hbCUyMG1hbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=80', 
+    image: 'public/images/03 copy.png', 
     companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg' 
   },
   { 
-    student: 'Alla Pooja', 
+    student: 'Koushik', 
     company: 'SAP Labs', 
     package: '18 LPA', 
-    image: 'https://images.unsplash.com/photo-1573497019707-1c04de26e58c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHByb2Zlc3Npb25hbCUyMHdvbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=80', 
+    image: 'public/images/06 copy.png', 
     companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/5/59/SAP_2011_logo.svg' 
   },
 ];
@@ -98,7 +98,7 @@ const PlacementsSection: React.FC = () => {
             A Legacy of Placement Excellence
           </h2>
           <p className="mt-2 sm:mt-4 text-sm sm:text-base md:text-lg text-slate-600 max-w-3xl mx-auto px-4">
-            Our graduates are catalysts for change, leading innovation at the world's most respected companies.
+      
           </p>
         </div>
         <div className={`grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mb-16 sm:mb-20 md:mb-24 transition-opacity duration-1000 delay-200 ${inView ? 'opacity-100' : 'opacity-0'}`}>
