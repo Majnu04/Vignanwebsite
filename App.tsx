@@ -25,41 +25,15 @@ const App: React.FC = () => {
   const [initialLoad, setInitialLoad] = useState(true);
 
   // Track if this is the first time loading the site in this session
+  // Track if this is the first time loading the site in this session
   useEffect(() => {
     // Check sessionStorage to see if we've loaded before
     const hasVisited = sessionStorage.getItem('hasVisitedBefore');
     if (hasVisited) {
-      // Not first visit - don't show video
       setInitialLoad(false);
     } else {
-      // First visit - show video once
+      // Set flag that user has visited
       sessionStorage.setItem('hasVisitedBefore', 'true');
-    }
-    
-    // IMPORTANT: On any refresh, clear any lingering video state
-    // This ensures video doesn't play on navigation or refresh
-    if (!sessionStorage.getItem('videoTriggeredByLogo')) {
-      // Remove any stale video state when page loads (but not from logo click)
-      sessionStorage.removeItem('videoTriggeredPath');
-      sessionStorage.removeItem('pathChanged');
-      sessionStorage.removeItem('currentPath');
-      sessionStorage.removeItem('previousPath');
-    }
-    
-    // Mark that future navigations are client-side
-    (window as any).__isClientNavigation = true;
-    
-    // Check for redirect path from direct URL access
-    const redirectPath = sessionStorage.getItem('redirectPath');
-    if (redirectPath) {
-      // Clear the stored path
-      sessionStorage.removeItem('redirectPath');
-      
-      // Use setTimeout to ensure this happens after initial render
-      setTimeout(() => {
-        // Use window.history to navigate without full page reload
-        window.history.pushState({}, '', redirectPath);
-      }, 100);
     }
   }, []);
 

@@ -14,19 +14,10 @@ const VideoOverlayWithContext: React.FC<VideoOverlayWithContextProps> = ({
   const { isVideoPlaying, stopVideo } = useVideo();
   const [showOverlay, setShowOverlay] = useState(false);
   
-  // SIMPLIFIED: Only show video on initial load or when explicitly triggered by logo click
+  // Handle initial load case and logo click case
   useEffect(() => {
-    // First visit to the website (one-time only)
-    if (initialLoad) {
+    if (initialLoad || isVideoPlaying) {
       setShowOverlay(true);
-      // After first visit, don't show on refresh
-      sessionStorage.setItem('hasVisitedBefore', 'true');
-    } 
-    // Only other case: logo was clicked
-    else if (isVideoPlaying) {
-      setShowOverlay(true);
-    } else {
-      setShowOverlay(false);
     }
   }, [initialLoad, isVideoPlaying]);
   
@@ -36,15 +27,6 @@ const VideoOverlayWithContext: React.FC<VideoOverlayWithContextProps> = ({
     setInitialLoad(false);
     stopVideo();
   };
-  
-  // Critical: Close video and reset state on page navigation
-  useEffect(() => {
-    // This ensures video closes when user navigates away
-    return () => {
-      stopVideo();
-      setShowOverlay(false);
-    };
-  }, [stopVideo]);
 
   return (
     <VideoOverlay

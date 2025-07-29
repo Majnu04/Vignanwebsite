@@ -17,24 +17,9 @@ export default defineConfig(() => {
       css: {
         postcss: './postcss.config.cjs',
       },
-      // Base path set to root to ensure paths resolve correctly
-      base: '/',
-      // Enable SPA history mode for proper client-side routing
-      build: {
-        outDir: 'dist',
-        assetsDir: 'assets',
-        // Generate a special entry point for SPA mode
-        rollupOptions: {
-          input: {
-            main: path.resolve(__dirname, 'index.html'),
-          },
-        },
-      },
-      // Server settings for development
+      // Simple performance optimization
       server: {
-        hmr: true,
-        // Handle client-side routing during development
-        historyApiFallback: true
+        hmr: true
       }
     };
 });
