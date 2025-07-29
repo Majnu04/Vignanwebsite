@@ -11,35 +11,35 @@ const highlights = [
     student: 'Vasu Surisetty', 
     company: 'Microsoft', 
     package: '37 LPA', 
-    image: 'public/images/02 copy.png', 
+    image: '/images/02 copy.png', 
     companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg' 
   },
   { 
     student: 'Ankit Sharma', 
     company: 'LinkedIn', 
     package: '42 LPA', 
-    image: 'public/images/07 copy.png',
+    image: '/images/07 copy.png',
     companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo.svg' 
   },
   { 
     student: 'K. Rishit', 
     company: 'ServiceNow', 
     package: '42.93 LPA', 
-    image: 'public/images/04 copy.png', 
+    image: '/images/04 copy.png', 
     companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/5/57/ServiceNow_logo.svg' 
   },
   { 
     student: 'Umakanth ', 
     company: 'Amazon', 
     package: '26 LPA', 
-    image: 'public/images/03 copy.png', 
+    image: '/images/03 copy.png', 
     companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg' 
   },
   { 
     student: 'Koushik', 
     company: 'SAP Labs', 
-    package: '18 LPA', 
-    image: 'public/images/06 copy.png', 
+    package: '15 LPA', 
+    image: '/images/06 copy.png', 
     companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/5/59/SAP_2011_logo.svg' 
   },
 ];
