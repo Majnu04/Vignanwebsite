@@ -45,6 +45,22 @@ const App: React.FC = () => {
       sessionStorage.removeItem('currentPath');
       sessionStorage.removeItem('previousPath');
     }
+    
+    // Mark that future navigations are client-side
+    (window as any).__isClientNavigation = true;
+    
+    // Check for redirect path from direct URL access
+    const redirectPath = sessionStorage.getItem('redirectPath');
+    if (redirectPath) {
+      // Clear the stored path
+      sessionStorage.removeItem('redirectPath');
+      
+      // Use setTimeout to ensure this happens after initial render
+      setTimeout(() => {
+        // Use window.history to navigate without full page reload
+        window.history.pushState({}, '', redirectPath);
+      }, 100);
+    }
   }, []);
 
   return (

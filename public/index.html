@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vignan's Institute</title>
+    <script>
+      // Single Page App redirection script
+      // This makes client-side routing work on direct URL access
+      (function() {
+        // No need to redirect if on the root path
+        if (window.location.pathname === '/' || 
+            window.location.pathname === '/index.html') {
+          return;
+        }
+        
+        // Check if this is a direct page load (not a client-side navigation)
+        if (window.location.pathname && !window.__isClientNavigation) {
+          // Remember the current URL so we can navigate to it after loading the app
+          sessionStorage.setItem('redirectPath', window.location.pathname);
+          
+          // Redirect to the root where our SPA is served from
+          // This will ensure the app loads properly, then we'll handle routing
+          window.location.href = '/';
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
