@@ -22,9 +22,9 @@ const styles = {
     },
     principalImage: {
       width: '180px',
-      height: 'auto',,0,0,0
+      height: 'auto',
       border: '4px solid #fff',
-      boxShadow: '0 4px 8px rgba(0.1)',
+      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     },
     principalInfo: {
       marginTop: '10px',
