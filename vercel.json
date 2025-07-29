@@ -1,0 +1,17 @@
+{
+  "routes": [
+    { "src": "/administration", "dest": "/" },
+    { "src": "/principal", "dest": "/" },
+    { "src": "/ceo", "dest": "/" },
+    { "src": "/rector", "dest": "/" },
+    { "src": "/policies", "dest": "/" },
+    { "src": "/best-practices", "dest": "/" },
+    { "src": "/visionmission", "dest": "/" },
+    { "src": "/chairman", "dest": "/" },
+    { "src": "/placements/about-t", "dest": "/" },
+    { "src": "/placements/PlacementDetails", "dest": "/" },
+    { "src": "/placements/TrainingProcess", "dest": "/" },
+    { "src": "/placements/Contact", "dest": "/" },
+    { "src": "/(.*)", "dest": "/" }
+  ]
+}
