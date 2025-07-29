@@ -31,7 +31,7 @@ return () => clearInterval(intervalRef.current!);
 const nextSlide = () => setCurrentSlideIndex((prev) => (prev + 1) % slides.length);
 const prevSlide = () => setCurrentSlideIndex((prev) => (prev - 1 + slides.length) % slides.length);
 return (
-  <section className={`relative w-full overflow-hidden group ${isMobile ? 'h-[45vh] mt-0' : 'h-[90vh] mt-[10vh]'}`}> 
+  <section className={`relative w-full overflow-hidden group ${isMobile ? 'h-[45vh] mt-[10vh]' : 'h-[90vh] mt-[10vh]'}`}> 
     {/* --------------------- DESKTOP VIEW ---------------------- */}
     {!isMobile && (
       <>
@@ -69,13 +69,13 @@ return (
 
     {/* --------------------- MOBILE VIEW ---------------------- */}
     {isMobile && (
-      <div className="relative w-full h-[45vh] overflow-hidden flex items-center justify-center">
+      <div className="relative w-full h-[45vh]  overflow-hidden flex items-center justify-center">
         {slides.map((slide, index) => (
           <img
             key={slide.id}
             src={slide.mobileImage}
             alt={`Slide ${slide.id}`}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${index === currentSlideIndex ? 'opacity-100' : 'opacity-0'}`}
+            className={`absolute inset-0 w-full h-[45vh] bg-[length:100%_100%] bg-center object-cover transition-opacity duration-1000 ease-in-out ${index === currentSlideIndex ? 'opacity-100' : 'opacity-0'}`}
             style={{
               pointerEvents: index === currentSlideIndex ? 'auto' : 'none',
               transition: 'opacity 1.5s ease-in-out',

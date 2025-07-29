@@ -1,155 +1,149 @@
 // Assets.tsx - Department data for the college website
 export const Assets = {
   DepartmentData: {
-    cse: {
+    cse:{
       name: 'Computer Science and Engineering',
       heroImage: 'https://vignaniit.edu.in/images/cse.jpg',
-      about: "The Department of Computer Science and Engineering at the Vignan's Institute of Information Technology, Visakhapatnam, was established in the year 2002 and provides a perfect academic and research environment complemented by excellence in teaching.The Department offers B.Tech., M.Tech (CSE and SE) Programmes. The Department has a comprehensive curriculum on topics related to all aspects of Computer Science and Engineering with an emphasis on practical learning. The course structure is up-to-date and includes courses on nascent topics to equip our students with the latest developments in Computer Science and Engineering.The Department has state-of-the-art infrastructure and computing equipment supported by high-speed Ethernet and wireless networks. Student organization like ACM Chapter is active throughout the year.Our faculty members aim at delivering top class education, blending their rich research experience with classroom teaching. The Department has undertaken many research projects funded both by government agencies and foreign research society.CSE Department currently has 49 full-time faculty members, some of whom are cross-listed with related departments such as Basic Science, EEE, ECE, Mechanical, etc. We also draw on the expertise of a few Visiting Professors from Foreign Universities and Industry. The Department has UG intake of 240 students. Roughly 80% of these students finally getting jobs in Industries, and 10-15% are going for Master Programmes and Research.",
-      hodMessage: "A warm welcome to CSE@Vignan's Institute of Information Technology……..CSE (Computer Science and Engineering) at the Vignan's Institute of Information Technology has its seeds in the erstwhile Institute set up in 2002. While at inception, it was primarily focused on academics, the ambit expanded on the journey to include M.Tech Programmes, Research and Placements, Research Center, and NBA Accreditations (2009 and 2017), leading to the current name.CSE Department focuses on academics, creative research, and good placements in three broad areas of computer science:Computer Science and Engineering, including basic concepts, number theory, complexity theory, graph theory, coding theory, algorithms, data structures, cryptography and security.Computer Systems and Software, including computer architecture, operating systems, programming languages, compilers, software engineering, database systems, graphics and visualization, communication networks, and distributed computing.Intelligent Systems, including data mining, machine learning, artificial intelligence, optimization, information retrieval, and scientific applications.These academics and research activities find expression through publications in premier international journals and conferences. CSE is also involved in numerous scientific initiatives at the institute, state, national, and international levels, including sponsored research projects, consultancy, government programs, hackathons, journal editorship, workshops, and conferences.",
+      about: "The Department of Computer Science and Engineering at the Vignan’s Institute of Information Technology, Visakhapatnam, was established in the year 2002 and provides a perfect academic and research environment complemented by excellence in teaching.The Department offers B.Tech., M.Tech (CSE and SE) Programmes. The Department has a comprehensive curriculum on topics related to all aspects of Computer Science and Engineering with an emphasis on practical learning. The course structure is up-to-date and includes courses on nascent topics to equip our students with the latest developments in Computer Science and Engineering.The Department has state-of-the-art infrastructure and computing equipment supported by high-speed Ethernet and wireless networks. Student organization like ACM Chapter is active throughout the year.Our faculty members aim at delivering top class education, blending their rich research experience with classroom teaching. The Department has undertaken many research projects funded both by government agencies and foreign research society.CSE Department currently has 49 full-time faculty members, some of whom are cross-listed with related departments such as Basic Science, EEE, ECE, Mechanical, etc. We also draw on the expertise of a few Visiting Professors from Foreign Universities and Industry. The Department has UG intake of 240 students. Roughly 80% of these students finally getting jobs in Industries, and 10-15% are going for Master Programmes and Research.",
+      hodMessage: "A warm welcome to CSE@Vignan’s Institute of Information Technology……..CSE (Computer Science and Engineering) at the Vignan’s Institute of Information Technology has its seeds in the erstwhile Institute set up in 2002. While at inception, it was primarily focused on academics, the ambit expanded on the journey to include M.Tech Programmes, Research and Placements, Research Center, and NBA Accreditations (2009 and 2017), leading to the current name.CSE Department focuses on academics, creative research, and good placements in three broad areas of computer science:Computer Science and Engineering, including basic concepts, number theory, complexity theory, graph theory, coding theory, algorithms, data structures, cryptography and security.Computer Systems and Software, including computer architecture, operating systems, programming languages, compilers, software engineering, database systems, graphics and visualization, communication networks, and distributed computing.Intelligent Systems, including data mining, machine learning, artificial intelligence, optimization, information retrieval, and scientific applications.These academics and research activities find expression through publications in premier international journals and conferences. CSE is also involved in numerous scientific initiatives at the institute, state, national, and international levels, including sponsored research projects, consultancy, government programs, hackathons, journal editorship, workshops, and conferences.",  
       hodName: 'Dr. Mohan Mahanty',
       hodImage: 'http://vignaniit.edu.in/images/mohan1.png',
       vision: "To become a nationally recognized leader in computer science education, research, and innovation, producing graduates who are highly sought after by industry and academia.",
       mission: "To provide a dynamic and creative learning environment that fosters a deep understanding of computer science fundamentals, encourages practical problem-solving, and inspires lifelong learning and ethical responsibility.",
     },
-    aids: {
+    
+    aids:{
       name: 'Artificial Intelligence and Data Science',
-      heroImage: 'https://sirgurudasmahavidyalaya.ac.in/public/storage/department/OlRFpc01GsaXMC1Bj51zNXINmJCweOlRLtxaHncN.jpg',
-      about: "The Department of Artificial Intelligence and Data Science focuses on cutting-edge technologies in machine learning, neural networks, big data analytics, and intelligent systems design. Our program prepares students to meet the growing demand for AI professionals and data scientists.",
-      hodMessage: "Welcome to the Department of AI & Data Science. Our department is at the forefront of research and education in artificial intelligence and data science technologies. We are committed to preparing our students for the future of technology, where data-driven decision making and intelligent systems are increasingly important.",
-      hodName: 'Dr. Satya Prakash',
-      hodImage: 'http://vignaniit.edu.in/images/faculty1.jpg',
-      vision: "To be a leading center for AI and data science education and research, developing solutions that address real-world challenges through intelligent systems and data analysis.",
-      mission: "To provide comprehensive education in AI and data science, foster innovation, and promote ethical use of AI technologies and data-driven approaches.",
+      heroImage: 'https://vignaniit.edu.in/images/aids_hod.jpeg',
+      about: "B. Tech. in Artificial Intelligence and Data Science (AI &DS) is an undergraduate programme introduced in 2020 with advanced learning solutions imparting knowledge of advanced innovations like artificial intelligence, data science, machine learning and deep learning. The main goal of artificial intelligence (AI) and data science (DS) is to program computers to use example data or experience to solve a given problem.During recent times, data science has emerged as one of the most high-growth, dynamic, and gainful careers in technology. This course aims at providing not only the core technologies such as artificial intelligence, data mining and data modeling but also gives intensive inputs in areas of machine learning and big data analytics.By this course, the students will gain cross-disciplinary skills across fields such as statistics, computer science, machine learning, and logic, data scientists and may have career opportunities in healthcare, business, eCommerce, social networking companies, climatology, biotechnology, genetics, and other important areas.Our mission is to cultivate Industry-Academia partnership, drive collaborative research with other domains and equip our talents to contribute on multi-disciplinary projects by translating the developed technology into real world impacts.",
+      hodMessage: "Welcome to the Department of Artificial Intelligence & Data Science. The B. Tech. program in Artificial Intelligence and Data Science (AI & DS) is an undergraduate initiative introduced in 2020, offering advanced educational solutions that delve into the realm of cutting-edge innovations such as artificial intelligence, data science, machine learning, and deep learning. Our department's mission is to seamlessly integrate superior education with valuable industry contributions.Our Department consistently pushing the boundaries of innovation. With the aim of providing students a harmonious blend of intellectual exploration and hands-on practical exposure, our ultimate goal is to equip them to effectively address a wide array of societal needs.Within our department, students are nurtured and groomed to evolve into exceptional software professionals. This includes roles such as Data Engineers, Data Analysts, AI Engineers or Team Leaders in industry or become entrepreneurs in their own innovative way. I am confident that in the times ahead, numerous students from our department will leave an indelible mark both nationally and internationally in the field of AI & DS, bringing pride to our institution.Our department boosts a dynamic faculty, comprising youthful and driven educators whose expertise spans the entire spectrum of AI & DS disciplines. Coupled with our diligent and dedicated students, as well as a vibrant work culture, our Department of AI & DS forms the academic nucleus of the institute.We firmly believe in our potential to excel, fostering a mindset of self-reliance, confidence, commitment, and responsibility toward our nation. This philosophy underscores the spirit of our youthful and dynamic AI & DS department – one that strives to construct careers, enrich intellects, and provide an unforgettable educational experience that resonates for a lifetime.I extend my heartfelt best wishes for their endeavors. Good luck to each one of you!",
+      hodName: 'Dr. T.V.Madhusudan Rao',
+      hodImage: 'https://vignaniit.edu.in/images/aids_hod.jpeg',
+      vision: "To be a globally competent in the field of Artificial Intelligence and Data Science by creating technically potential professionals for future industry requirements and undertaking high quality domain research to serve the society and betterment of mankind",
+      mission: "1.To empower the students with adequate technical and analytical skills by undertaking research and development in the area of AI&DS.2.To emphasize on innovative teaching learning process in order to produce professionals with AI & DS domain expertise.3.To provide ethical and human values along with problem solving skills, leadership qualities and team spirit to solve the complex engineering problems of modern society.",
+    
     },
-    cses: {
-      name: 'Advanced CSE (AI, Cyber Security, Data Science)',
-      heroImage: 'https://sirgurudasmahavidyalaya.ac.in/public/storage/department/OlRFpc01GsaXMC1Bj51zNXINmJCweOlRLtxaHncN.jpg',
-      about: "The Advanced CSE program combines core computer science with specialized tracks in AI technologies, cybersecurity protocols, and data science methodologies. This multi-disciplinary approach equips students with the expertise needed for the most in-demand tech roles.",
-      hodMessage: "Welcome to Advanced CSE. Our department offers a unique blend of specialized tracks that prepare students for the most challenging and rewarding careers in technology. With focuses on AI, cybersecurity, and data science, our graduates are ready to tackle complex problems across industries.",
-      hodName: 'Dr. Rajesh Kumar',
-      hodImage: 'http://vignaniit.edu.in/images/faculty2.jpg',
-      vision: "To develop technical leaders equipped to tackle complex challenges at the intersection of AI, security, and data analytics.",
-      mission: "To provide specialized education with industry-aligned curriculum that prepares students for emerging technological challenges and opportunities.",
-    },
-    civil: {
-      name: 'Civil Engineering',
-      heroImage: 'https://sirgurudasmahavidyalaya.ac.in/public/storage/department/OlRFpc01GsaXMC1Bj51zNXINmJCweOlRLtxaHncN.jpg',
-      about: "The Department of Civil Engineering provides comprehensive education in structural engineering, construction management, transportation systems, and infrastructure development. Our program emphasizes practical skills alongside theoretical knowledge.",
-      hodMessage: "Welcome to the Department of Civil Engineering. We focus on developing engineers who can design and implement sustainable infrastructure solutions that meet society's evolving needs. Our department combines traditional civil engineering principles with modern techniques and environmental considerations.",
-      hodName: 'Dr. Arun Sharma',
-      hodImage: 'http://vignaniit.edu.in/images/faculty3.jpg',
-      vision: "To develop skilled civil engineers capable of designing sustainable infrastructure for society's evolving needs.",
-      mission: "To impart technical knowledge and practical skills in civil engineering with emphasis on innovation and sustainability.",
-    },
-    eee: {
-      name: 'Electrical & Electronics Engineering',
-      heroImage: 'https://sirgurudasmahavidyalaya.ac.in/public/storage/department/OlRFpc01GsaXMC1Bj51zNXINmJCweOlRLtxaHncN.jpg',
-      about: "The Department of Electrical & Electronics Engineering offers education in power systems, control systems, electrical machinery, and renewable energy technologies. Our program prepares students for careers in the rapidly evolving energy sector.",
-      hodMessage: "Welcome to the Department of Electrical & Electronics Engineering. Our department focuses on both traditional electrical engineering fundamentals and cutting-edge technologies in power electronics, renewable energy, and smart grids. We are committed to preparing our students for the future of energy systems.",
-      hodName: 'Dr. Priya Gupta',
-      hodImage: 'http://vignaniit.edu.in/images/faculty4.jpg',
-      vision: "To be a center of excellence in electrical engineering education, producing engineers who drive innovation in power and energy sectors.",
-      mission: "To provide quality education in electrical engineering fundamentals and applications, with focus on practical skills and research.",
-    },
-    ece: {
-      name: 'Electronics & Computer Engineering',
-      heroImage: 'https://sirgurudasmahavidyalaya.ac.in/public/storage/department/OlRFpc01GsaXMC1Bj51zNXINmJCweOlRLtxaHncN.jpg',
-      about: "The Electronics & Computer Engineering program combines electronics hardware knowledge with computer systems and software development skills. This multidisciplinary approach prepares students for careers at the intersection of hardware and software.",
-      hodMessage: "Welcome to the Department of Electronics & Computer Engineering. Our department bridges the gap between hardware and software domains, preparing versatile engineers who can work across the full technology stack. We focus on embedded systems, IoT, and hardware-software integration.",
-      hodName: 'Dr. Vikram Singh',
-      hodImage: 'http://vignaniit.edu.in/images/faculty5.jpg',
-      vision: "To create engineers with expertise in both hardware and software domains, capable of developing integrated solutions for complex technological challenges.",
-      mission: "To provide comprehensive education bridging electronics and computing, preparing versatile engineers for the technology industry.",
-    },
-    ecm: {
-      name: 'Electronics & Communication Engineering',
-      heroImage: 'https://sirgurudasmahavidyalaya.ac.in/public/storage/department/OlRFpc01GsaXMC1Bj51zNXINmJCweOlRLtxaHncN.jpg',
-      about: "The Department of Electronics & Communication Engineering offers education in signal processing, telecommunications, VLSI design, and embedded systems. Our program prepares students for careers in the communications and electronics industry.",
-      hodMessage: "Welcome to the Department of Electronics & Communication Engineering. Our department is dedicated to preparing students for careers in the rapidly evolving field of electronics and telecommunications. We emphasize both theoretical knowledge and practical skills in areas like VLSI design, embedded systems, and communication networks.",
-      hodName: 'Dr. Neeraj Patel',
-      hodImage: 'http://vignaniit.edu.in/images/faculty6.jpg',
-      vision: "To be a premier department producing electronics engineers capable of technological innovation in communications and electronics sectors.",
-      mission: "To provide quality education in electronics and communication with emphasis on practical skills and research opportunities.",
-    },
-    it: {
-      name: 'Information Technology',
-      heroImage: 'https://sirgurudasmahavidyalaya.ac.in/public/storage/department/OlRFpc01GsaXMC1Bj51zNXINmJCweOlRLtxaHncN.jpg',
-      about: "The Department of Information Technology focuses on information systems, networks, database management, and enterprise solutions. Our program prepares students for careers in IT infrastructure management and software development.",
-      hodMessage: "Welcome to the Department of Information Technology. Our department specializes in preparing students for careers in enterprise IT solutions, cloud computing, and information systems management. We focus on both technical skills and business applications of technology.",
-      hodName: 'Dr. Anand Kumar',
-      hodImage: 'http://vignaniit.edu.in/images/faculty7.jpg',
-      vision: "To develop IT professionals skilled in designing, implementing, and managing information systems for organizational needs.",
-      mission: "To provide education in IT fundamentals and applications with focus on enterprise-level solutions and emerging technologies.",
-    },
-    me: {
-      name: 'Mechanical Engineering',
-      heroImage: 'https://sirgurudasmahavidyalaya.ac.in/public/storage/department/OlRFpc01GsaXMC1Bj51zNXINmJCweOlRLtxaHncN.jpg',
-      about: "The Department of Mechanical Engineering provides education in mechanics, thermodynamics, manufacturing processes, and mechanical design. Our program prepares students for careers in various industries requiring mechanical expertise.",
-      hodMessage: "Welcome to the Department of Mechanical Engineering. Our department offers comprehensive training in both traditional mechanical engineering principles and cutting-edge technologies like CAD/CAM, automation, and advanced materials. We prepare our students for careers across manufacturing, automotive, aerospace, and many other industries.",
-      hodName: 'Dr. Ravi Verma',
-      hodImage: 'http://vignaniit.edu.in/images/faculty8.jpg',
-      vision: "To develop mechanical engineers capable of designing and implementing innovative solutions for industry and society.",
-      mission: "To provide comprehensive mechanical engineering education combining theory with practical applications and research opportunities.",
-    },
-    basic: {
-      name: 'Basic Science & Humanities',
-      heroImage: 'https://sirgurudasmahavidyalaya.ac.in/public/storage/department/OlRFpc01GsaXMC1Bj51zNXINmJCweOlRLtxaHncN.jpg',
-      about: "The Department of Basic Sciences & Humanities provides foundational education in physics, chemistry, mathematics, and communication skills essential for engineering studies. Our courses build the scientific and humanistic foundation for technical education.",
-      hodMessage: "Welcome to the Department of Basic Sciences & Humanities. Our department plays a crucial role in building strong scientific foundations and communication skills for engineering students. We believe that technical excellence must be complemented by humanistic perspectives for holistic professional development.",
-      hodName: 'Dr. Sunita Sharma',
-      hodImage: 'http://vignaniit.edu.in/images/faculty9.jpg',
-      vision: "To build strong scientific foundations and humanistic perspectives among engineering students for holistic development.",
-      mission: "To impart quality education in basic sciences and humanities that complements technical education in engineering disciplines.",
-    },
-    aiml: {
-      name: 'AI & Machine Learning',
-      heroImage: 'https://sirgurudasmahavidyalaya.ac.in/public/storage/department/OlRFpc01GsaXMC1Bj51zNXINmJCweOlRLtxaHncN.jpg',
-      about: "The postgraduate program in AI & Machine Learning focuses on advanced artificial intelligence theories, machine learning algorithms, and their practical applications. Students gain expertise in neural networks, deep learning, and AI research methods.",
-      hodMessage: "Welcome to the AI & Machine Learning postgraduate program. Our program is designed for students who want to specialize in the rapidly growing field of artificial intelligence and machine learning. We combine theoretical knowledge with practical applications and research opportunities.",
-      hodName: 'Dr. Pradeep Kumar',
-      hodImage: 'http://vignaniit.edu.in/images/faculty10.jpg',
-      vision: "To develop AI specialists with deep theoretical knowledge and practical skills to lead innovation in intelligent systems.",
-      mission: "To provide cutting-edge education in AI and machine learning through research-oriented and application-focused curriculum.",
-    },
-    digi: {
-      name: 'Digital Electronics & Communication Systems',
-      heroImage: 'https://sirgurudasmahavidyalaya.ac.in/public/storage/department/OlRFpc01GsaXMC1Bj51zNXINmJCweOlRLtxaHncN.jpg',
-      about: "The postgraduate program in Digital Electronics & Communication Systems specializes in digital electronics design, signal processing, and modern communication systems. Students gain expertise in advanced communication protocols and digital system design.",
-      hodMessage: "Welcome to the Digital Electronics & Communication Systems postgraduate program. Our program prepares specialists in digital electronics and advanced communication systems with both theoretical knowledge and practical skills. We focus on emerging technologies like 5G, IoT communication, and next-generation wireless systems.",
-      hodName: 'Dr. Meena Kumari',
-      hodImage: 'http://vignaniit.edu.in/images/faculty11.jpg',
-      vision: "To develop specialists in digital electronics and communication systems who can lead technological advancements in the field.",
-      mission: "To provide advanced education and research opportunities in digital electronics and communications with industry-relevant skills.",
-    },
-    mba: {
-      name: 'Master of Business Administration',
-      heroImage: 'https://sirgurudasmahavidyalaya.ac.in/public/storage/department/OlRFpc01GsaXMC1Bj51zNXINmJCweOlRLtxaHncN.jpg',
-      about: "The MBA program focuses on leadership, strategic management, finance, marketing, and operations management. Students gain comprehensive business knowledge and management skills for corporate careers.",
-      hodMessage: "Welcome to the MBA program. Our curriculum is designed to develop business leaders with strategic thinking, analytical skills, and ethical values. We emphasize case-study based learning, industry exposure, and leadership development throughout the program.",
-      hodName: 'Dr. Sanjay Kapoor',
-      hodImage: 'http://vignaniit.edu.in/images/faculty12.jpg',
-      vision: "To develop business leaders with strategic thinking, ethical values, and global perspective to excel in the corporate world.",
-      mission: "To provide quality management education combining theory, practical skills, and industry exposure for holistic development.",
-    },
-    mca: {
-      name: 'Master of Computer Applications',
-      heroImage: 'https://sirgurudasmahavidyalaya.ac.in/public/storage/department/OlRFpc01GsaXMC1Bj51zNXINmJCweOlRLtxaHncN.jpg',
-      about: "The MCA program focuses on advanced software development, system design, database management, and IT project management. Students gain technical skills and managerial capabilities for the software industry.",
-      hodMessage: "Welcome to the MCA program. Our curriculum is designed to develop IT professionals with advanced technical skills and project management capabilities. We emphasize hands-on programming experience, software development methodologies, and exposure to emerging technologies.",
-      hodName: 'Dr. Vivek Sharma',
-      hodImage: 'http://vignaniit.edu.in/images/faculty13.jpg',
-      vision: "To develop IT professionals with advanced technical skills and managerial capabilities for the software industry.",
-      mission: "To provide comprehensive education in computer applications combining theory, practical skills, and project experience.",
-    },
-    pcse: {
-      name: 'Computer Science & Engineering (PG)',
-      heroImage: 'https://sirgurudasmahavidyalaya.ac.in/public/storage/department/OlRFpc01GsaXMC1Bj51zNXINmJCweOlRLtxaHncN.jpg',
-      about: "The postgraduate program in Computer Science & Engineering focuses on advanced algorithms, distributed systems, and specialized computing domains. Students engage in research and gain expertise in cutting-edge computing technologies.",
-      hodMessage: "Welcome to the postgraduate program in Computer Science & Engineering. Our research-oriented curriculum prepares students for advanced careers in computing and provides a foundation for doctoral studies. We emphasize both theoretical depth and practical implementation skills.",
-      hodName: 'Dr. Ankit Singh',
-      hodImage: 'http://vignaniit.edu.in/images/faculty14.jpg',
-      vision: "To develop computer science specialists with advanced knowledge and research capabilities.",
-      mission: "To provide cutting-edge education in advanced computing with emphasis on research and innovation.",
+
+    civil:{
+        name: 'Civil Engineering',
+        heroImage: 'https://vignaniit.edu.in/images/civil.jpg',
+        about: "Department of Civil Engineering is part of the institute since 2011. The Department has grown tremendously over the years and is now recognized as one of the major engineering departments in the state offering four-year undergraduate programme in Civil Engineering.The department has amalgam of experienced faculty and almost all of them qualified from premier institutions like IITs and NITs. Department is focusing on the special skills required for Civil Engineering field along with regular academics. Department encourage the students to take up projects based on the societal problems. In addition, from the II years programming skills, problem skills and managerial skills are imparted. As a result of above 90% students are able to get placements in core industries.",
+        hodMessage: "It is a great opportunity of being Head of the department of CIVIL branch. I feel proud to introduce about the department's strength and achievements. The department of CIVIL is offering UG course with an intake of 120 in B.Tech (Civil Engineering) and post-graduation program with an intake of 18 in M.Tech Transportation Engineering. The students of civil are good in both academics as well as in extra and co-curricular activities. Our students are provided a solid engineering education, with a focus on creativity and innovation, and a strong ethical responsibility. The civil engineering program prepares graduates with strong leadership qualities. These leadership qualities and our program's high technical standards generate strong interest from industries and employers across the region.",
+        hodName: 'Dr. Govinda Lalam',
+        hodImage: 'https://vignaniit.edu.in/images/civil_hod2.jpeg',
+        vision: "To create high quality Civil Engineering with Global perspective and inculcate among them Social Consciousness, Work Ethics, and make them psychologically strong.",
+        mission: "M1: To impart high quality education with innovative practices in teaching - learning process to empower students to fit competitively into the present and future industrial requirements.M2: To transform students into effective professionals by providing communication skills, leadership qualities, managerial ability, team spirit, social responsibility to serve the nation, physical fitness with ethical and human values.M3: To promote research activities amongst faculty and students by providing necessary facilities and conductive environment.M4: To promote consultancy work amongst faculty and students by enhancing industry institution interactions.",
+      
+      },
+
+      eee:{
+        name: 'Electrical and Electronics Engineering',
+        heroImage: 'https://vignaniit.edu.in/images/eee.jpg',
+        about: "The Department of Electrical and Electronics Engineering at Vignan's Institute of Information Technology has been active in teaching and research since its inception 2002.The Department offers four year undergraduate program in Electrical & Electronics Engineering and two years Post- graduate course in Power and Industrial Drives. The Department has state of Art Laboratories with fully equipped latest equipment and modern technical software. The Department has rich experienced and dedicated faculty from reputed institutes. Currently, about 38 committed faculty members are working and engaged in research in the areas of Electrical Machines, Control systems, Power systems, High Voltage Engineering & Power Electronics etc. Faculty are encouraged to take independent initiatives with collective responsibility in all the relevant academic and R&D dimension like innovative teaching, student projects and research supervision, continuous education through organizing conferences, symposia etc. The department has Funded Project Grants worth Rs.55 Lakhs Latest Teaching and Learning techniques are adapted to train the students to explore, to create, to challenge and to lead. Dept. Faculty addresses emotional and psychological needs of the students through strong counseling system. The department of EEE Consistently maintaining the results nearly 90%. About 60% of the students are placed in campus drives. As a part of social responsibilities to uplift the surrounding, the department conducts community Welfare Programs.",
+        hodMessage: "It is my pleasure to welcome you to the Department of Electrical & Electronics Engineering at Vignan’s Institute of Information Technology (A). The Department has been active in teaching and research since its inception in the year 2002.The growing utilization of the electrical energy and penetration of renewable energy is a decisive prerequisite for a rapid development of industry. The department aims to train the students by imparting them latest knowledge in the fields of Electrical, Electronics and other allied areas, with a focus on ethical and human values.The department offers academic programmes B.Tech (Electrical & Electronics Engineering) and M.Tech. (Power and Industrial Drives). The curriculum has been enriched on regular intervals by Board of Studies members drawn from International and National level reputed academic, research and industrial organizations.The department is supported by well qualified and experienced faculty with a rich and varied teaching and research exposure. Many of them are drawn from standard Indian Institutions like IITs and NITs. Most of the faculty members published or presented papers in the reputed national and international journals and conferences. Electrical Engineers have great opportunity for employment in the state and central electricity boards like APGENCO, APTRANSCO, BHEL,NTPC, NHPC etc.",
+        hodName: 'Dr.Pudi Sekhar',
+        hodImage: 'https://vignaniit.edu.in/images/_SRK7378.JPG',
+        vision: "To be a centre of excellence for high quality education and research in the field of Electrical and Electronics Engineering generating world-class professionals practicing ethical & human values with commitment of service for the betterment of society.",
+        mission: "M1: To impart high quality education with innovative practices in teaching- learning process to empower students to take up professional/career challenges.M2: To foster a spirit of research amongst faculty and students by providing state- of-the- art facilities and a conducive environment.M3: To transform students into effective professionals with communication skills, leadership qualities, managerial capabilities, team spirit, integrity, social and environmental responsibility, life-long learning ability and ethical & human values.",
+      
+      },
+
+      ece:{
+        name: 'Electronics and communication Engineering(ECE)',
+        heroImage: 'https://vignaniit.edu.in/images/ece.jpg',
+        about: "Department of Electronics and communication Engineering (ECE) at VIGNAN’S institute of Information Technology (Autonomous) was established in the year 2002 with intake 180 for imparting state-of-the-art knowledge in Electronics and Communication Engineering and allied areas. Department offers Post Graduation Programs in VLSI and Embedded Systems & Electronics (M.Tech – VLSI&ES) and Communication Engineering (M.Tech – ECE) with initial intake of 18 later, decreased to 09 in A.Y. 2019-20. The department has set up laboratories with excellent infrastructure in the areas of Electronics, Communication, Advanced Electronics & Advanced Communications. The B.Tech programme of the department is accredited by NBA and has a JNTU-GV recognised research centre. More than 90% student admissions every year & the department has qualified faculty from reputed institutes with average of 25% doctorates (maintained SFR as per AICTE norms). DST SERB project with worth of Rs. 85,63,830/-, AICTE Modrobs with worth of Rs. 15,09,412/- , 20 Patents & Consultancy Projects with worth of Rs.7,37,000/- The average placements are more than 90% for last 5 years & average academic performance is more than 92%. The department has strong research environment with publications 133 (last 5 years). Department organizes various technical & non-technical / Co-Curricular / Extra Curricular / Extension activities to transform them into engineers, leaders, and entrepreneurs.",
+        hodMessage: "HoD Message –It is our earnest desire to develop this department into a cognizant center of learning with excellent faculty and good administration, for the development and welfare of the society, from which we draw the resources and inspiration. The institution is facilitated with the best capabilities to impart skills both theoretical and practical for updating the technical knowledge with the latest expertise in the respective fields of Engineering and Technology. I greet all those who wish to associate themselves with this center of learning and invite them to join The VIGNAN’S Family.",
+        hodName: 'Dr. R.Uma Maheswari',
+        hodImage: 'https://vignaniit.edu.in/images/hod_ecm.jpg',
+        vision: "To be a Centre of Excellence in the field of Electronics and Communication Engineering through high quality education, research and consultancy producing professionals having global standards with ethical and human values and commitment of service to the society.",
+        mission: "M1: Impart high quality education with innovative practices in teaching- learning process to empower students to take up professional/career challenges.M2: Foster research activities for faculty and students by providing the state-of-the-art facilities and conducive environmentM3: Promote consultancy works among faculty and students by enhancing Industry –Institute interactionM4: Transform students into effective professionals with communication skills, leadership qualities, managerial skills, integrity, team spirit, social & environmental responsibility, lifelong learning ability with professional ethics & human values.",
+      
+      },
+
+      cses:{
+        name: 'Advanced Computer Science and Engineering',
+        heroImage: 'https://vignaniit.edu.in/images/WEB_01.jpg',
+        about: "The Department of Advanced Computer Science and Engineering at the Vignan’s Institute of Information Technology, Visakhapatnam, was established in the year 2022 and provides a perfect academic and research environment complemented by excellence in teaching.The Department offers B.Tech. in Cyber Security,Artificial Intelligence, Data Science Programmes. The Department has a comprehensive curriculum on topics related to all aspects of Advanced Computer Science and Engineering with an emphasis on practical learning. The course structure is up-to-date and includes courses on nascent topics to equip our students with the latest developments in Computer Science and Engineering.The Department has state-of-the-art infrastructure and computing equipment supported by high-speed Ethernet and wireless networks. Student organization like ACM Chapter is active throughout the year.Our faculty members aim at delivering top class education, blending their rich research experience with classroom teaching. The Department has undertaken many research projects funded both by government agencies and foreign research society.ACSE Department currently has 13 full-time faculty members, some of whom are cross-listed with related departments. The Department has UG intake of 240 students.",
+        hodMessage: "A warm welcome to ACSE@Vignan's Institute of Information Technology……..ACSE Department focuses on academics, creative research, and good placements in three broad areas of advance computer science:Computer Science and Engineering, including basic concepts, number theory, complexity theory, graph theory, coding theory, algorithms, data structures, cryptography and security.Computer Systems and Software, including computer architecture, operating systems, programming languages, compilers, software engineering, database systems, graphics and visualization, communication networks, and distributed computing.Intelligent Systems, including data mining, machine learning, artificial intelligence, optimization, information retrieval, and scientific applications.These academics and research activities find expression through publications in premier international journals and conferences. ACSE is also involved in numerous scientific initiatives at the institute, state, national, and international levels, including sponsored research projects, consultancy, government programs, hackathons, journal editorship, workshops, and conferences.",
+        hodName: 'Mrs. K.Swathi',
+        hodImage: 'https://vignaniit.edu.in/images/acse_hod1.jpeg',
+        vision: "To be a center of excellence for High Quality Education and Research in the field of Computer Science and Engineering, generating highly competent professionals with ethical and human values serving the society.",
+        mission: "• To impart high quality education with the strong foundation of Computer Science and Engineering principles that enable students to meet the challenges in profession/career.To nurture research activities among faculty and students by providing necessary facilities and environment.To mould students into effective professionals with necessary communication skills, team spirit, leadership qualities, managerial skills, integrity, social & environmental responsibility, lifelong learning ability with professional ethics and human values.",
+      
+      },
+
+    it : {
+  name: 'Information Technology',
+  heroImage: 'https://vignaniit.edu.in/images/IT.jpg',
+  about: "The Department of Information Technology at Vignan's IIT has been active in teaching and research since its inception in 2002. Currently, about 15 committed faculty members are working in the department. The Department of Information Technology offers a four-year undergraduate programme and a two-year postgraduate programme in the field of Information Technology. The department was started in the year 2002 with state-of-the-art infrastructural facilities right from its inception. It is continuously striving to impart quality education and competitive spirit among students for academic excellence. The continuous University ranks in competitive exams such as GATE, GRE, TOEFL, IELTS and campus placements achieved by the students indicate the aspiration of our department. The department has made significant progress within a few years. The objective of the department is developing logical thinking through problem solving among the students and training them in the latest technologies as per industrial needs. The department has efficient and eminent faculty & senior faculty, mostly with B.Tech and M.Tech backgrounds.",
+  hodMessage: "It’s my pleasure to welcome you to the Department of Information Technology, established in the year 2002. Information Technology is a passionate and well-established department with new technologies and eminent experts working as faculty peers. The department focuses on installing, implementing, and maintaining software and applying them in industries to meet their business needs. I ensure the Information Technology Department will provide an exceptional learning experience that will enable students to become independent thinkers and successful professionals in real-time application development. I wish you all the best! COME and JOIN US.",
+  hodName: 'Dr. G. Neelima',
+  hodImage: 'https://vignaniit.edu.in/images/hod_it1.jpeg',
+  vision: "To be a centre of excellence in high-quality education and research, producing globally competent IT professionals with ethical and human values to meet the needs of the Information Technology sector and related services.",
+  mission: "M1: To impart high-quality education through innovative teaching-learning practices, resulting in strong software and hardware knowledge and skills to enable students to meet the challenges of the IT profession. M2: To facilitate faculty and students to carry out research work by providing the necessary latest facilities and a conducive environment. M3: To mould the students into effective professionals with necessary communication skills, team spirit, leadership qualities, managerial skills, integrity, social and environmental responsibility, and lifelong learning ability with professional ethics and human values."
+},
+
+
+      ecm:{
+        name: 'Electronics and Computer Engineering(ECM)',
+        heroImage: 'https://vignaniit.edu.in/images/ecm.jpg',
+        about: "Electronics and Computer Engineering(ECM) is a course that aims to integrate two separate engineering fields to meet the joint demands made by the electronics and computer industries in today's world. This programme combines coursework in different aspects of both fields over four years, with an emphasis on the design of computing systems. Electronics and computers, and their joint applications, are playing an ever-increasing role in our lives as Information Communications Technology (ICT), with everything from consumer goods to space shuttles using electronic hardware (circuits) and computer software integrated together. The increased use of ICT in every aspect of our lives ensures the continued relevance of this a Department of ECM has the expert faculty from both electronics background and Computer Science background. Students can avail the expert knowledge in electronics as well as Computer Science.",
+        hodMessage: "No Comments",
+        hodName: 'Dr.H.Devanna',
+        hodImage: 'https://vignaniit.edu.in/images/ecm1_hod.jpeg',
+        vision: "To Produce globally competent engineers in the area of Electronics & Computers and to create technical man power for the current and future demands of the nation.",
+        mission: "Introducing innovative practices of teaching and learning Undertaking research in the thrust areas of software and hardware.To serve the software and hardware industry by producing quality engineers.Inculcating strong set of Ethical values.",
+      
+      },
+
+      me:{
+        name: 'Mechanical Engineering',
+        heroImage: 'https://vignaniit.edu.in/images/mech.jpg',
+        about: "The Department of Mechanical Engineering at Vignan's IIT has been active in teaching and research since its inception in 2004.The Department of Mechanical offers four-year under-graduate programme with an intake of 180 in the field of Mechanical Engineering and two-year post-graduate programme with an intake of 18 in the field of Machine Design.It has been recognised as \"Research Center\".The Department of Mechanical Engineering was first started in 2004 with an aim to provide quality engineers not only to our nation but also to other countries.The Mechanical Engineering field of study includes technical subject areas such as thermal engineering, design, manufacturing, materials sciences, CAD/CAM etc. Mechanical Engineers are people with a pragmatic ability to design, model physical systems, to analyze and create; all within the framework of socio-humanistic needs. The mechanical engineer is a concerned individual.The strength of our department is derived from its excellent faculty, the comprehensive facilities and the success of our graduates in the market. Many of our faculty are highly recognized in their fields and have earned good name and fame in teaching. Our students are provided a solid engineering education with a focus on creativity and innovation and a strong ethical responsibility. The mechanical engineering program prepares graduates with strong leadership qualities. These leadership qualities and our program's high technical standards generate strong interest from industries and employers across the region. I am happy to inform you that some of our graduates are pursuing their postgraduate studies worldwide.",
+        hodMessage: "HoD Message \–It brings me great joy and a sense of privilege to extend my warmest welcome to you, as you step into the realm of Mechanical Engineering. Among the most ancient and all-encompassing branches of engineering, mechanical engineering holds a pivotal position in advancing safety, economic prosperity, enjoyment, and the overall global quality of life.",
+        hodName: 'Dr.S.Rambabu',
+        hodImage: 'https://vignaniit.edu.in/images/mech_hod_new.jpeg',
+        vision: "To be a center of excellence in academics, research, and consultancy in the field of Mechanical Engineering producing globally competent professionals with ethical and human values for national/international development.",
+        mission: "• To impart high-quality education through innovative teaching & learning methods to enable students to be globally competent to face the challenges of profession/career.To promote research activities amongst faculty and students by providing necessary facilities and environment.To mould the students into effective professionals with necessary communication skills, team spirit, leadership qualities, industry-managerial skills, integrity, social & environmental responsibility, and lifelong learning ability with professional ethics & human values.To promote consultancy work amongst faculty and students by enhancing industry-institution interactions.",
+      
+      },
+
+      basic:{
+        name: 'Basic Sciences and Humanities',
+        heroImage: 'https://vignaniit.edu.in/images/bsh.jpg',
+        about: "Department of Basic Sciences and Humanities is recognized as one of the Ten Departments in the Institution. It is a combination of multiple subjects and streams like Chemistry, Physics, Mathematics, Environmental Sciences and English. It oversees the academic activities of I B.Tech and bridges the gap between Intermediate and Engineering courses. The department has a privilege to transform the students, who are from diverse backgrounds, into better individuals to cope with the global requirements.We had a strong counselling system which helps the students to mould themselves into real time professionals. Department has been securing outstanding results from last 18 years and always stands in top three places under the affiliating university. Department has a rich galaxy of intellectuals with 20 Doctorates, 6 pursuing Doctorates, 11 M.Phils and 7 CSIR-UGC NET/APSET qualified faculty members. Two faculty members had their Post Doctoral Fellowship from Universities abroad. Faculty members have published about 110 research papers and 45 conference papers in various National and International reputed journals and conferences.It is proud to announce that, a research project has been granted to one of our faculty members, Dr.K.Yellareswara Rao, worth INR 34 lakhs. Many of the faculty members have received Gold Medals, Best Teacher Awards, Best Thesis Awards, Vishista seva, Sastra, Vijetha and Prathiba awards for excellence in academics, research and service from reputed universities. Department has put forth many efforts to ensure the Holistic Development of students. It encourages student participation in various co-curricular and extra-curricular activities. Our students have participated and won awards/prizes at National and International level events.Our students have bagged many merit certificates, medals and cash awards at National and International programs. Department conducts Live-Model Exhibitions, Sports Meet, Cultural Meet, Soft Skills Programmes,Workshops and FDPs for the overall development of students and faculty members.",
+        hodMessage: "No Comments",
+        hodName: 'Dr. T.V.S.P.V. Satyaguru',
+        hodImage: 'https://vignaniit.edu.in/images/hod_bsh1.jpeg',
+        vision: "To be a Centre of Excellence for High Quality Education and Research generating highly competent professionals with ethical & human values to serve the society.",
+        mission: "To impart high quality education with innovative practices in teaching-learning process by empowering students to take up professional challenges.To foster the spirit of research amongst faculty and students by providing state-of-the-art facilities and conducive environment.To transform students into professionals by imparting social responsibility, communication skills, leadership qualities, managerial skills, team spirit, and continuous learning.",
+      },
+
+      mba:{
+        name: 'Master of Business Administration',
+        heroImage: 'https://vignaniit.edu.in/images/mba.jpg',
+        about: "The institution started offering MBA course from 2006-07, the three aims of the institute are - To enable students to tap their innate potential to bloom into business leaders, To equip the students with skills required to develop themselves into managers and to provide the impetus to reach the higher echelons of the organization and to offer a wide spectrum of business knowledge, conceptual and analytical skills to develop the students into competent and effective managers. the course lays emphasis on innovative pedagogy which include industry internships, live projects, Business games, Case studies, interaction with experts seminars etc.VIIT is a centre of excellence in value based education, training, research & consultancy. It has got dedicated full time faculty members varied experience in industry & Academia. Vignan brought about a revolution in the field of education & rewrote the history of education in Andhra Pradesh. Today, Vignan is one of the pioneers in the field of education in the country. It has spread its wings across the state& its students have successfully made in their chosen fields all across the globe. The institution started offering MBA a course from 2006-2007, with the ultimate objective of grooming the students into complete professionals and to equip the industry with contemporary global expertise. The course lays emphasis on innovative pedagogy which includes industry internships, live project, Business Games, Case Studies, Interaction with Experts, Seminars etc.",
+        hodMessage: "Greetings from the Department of Management Studies, Vignan's Institute of Information Technology (Autonomous), As you are aware of that the Department of Management Studies has contributed to the spread of Management Education through its full-time programmes. The Department is committed to achieve professional excellence in imparting management education along with social commitment towards extension and diversity The curriculum is designed and enriched with industry support and participation. The pedagogy is highly interactive with practical orientation. The industry has recognized the capability of our students by absorbing them in the core area by offering challenging assignments. The students are placed in well reputed organizations like, Axis Bank, Fedaral Bank, IBM, Just Dail, Capital IQ, JARO Educational Group, Cognizant, GENPACT, Ram Group, I Process, Suthernland Global, Efftronics, Yelamanchili software solutions etc.",
+        hodName: 'Dr.B.Chandra',
+        hodImage: 'https://vignaniit.edu.in/images/mba_hod2.jpeg',
+        vision: "To Build Managers, Entrepreneurs through excellent standards of quality education by keeping pace with rapidly changing environment.",
+        mission: "To enable students to tap their innate potential to bloom into business leaders.To develop better and efficient managers & better job prospects.To deliver distinctive education through the pioneering use of technology",
+      
+      },
+
+      mca:{
+        name: 'Master of Computer Application',
+        heroImage: 'https://vignaniit.edu.in/images/mca.jpg',
+        about: "The Department of MCA at Vignan's IIT has been active in teaching and research since its inception in 2006. Currently, about 8 committed faculty members are working in the department .The Department of MCA offers Two-year post-graduate programme in Master of Computer Applications .VIIT's goal is to become a world class engineering institute in a multi-campus setting. It is one of the best institutions in the state. In respect to that, the department of MCA provides a better guidance to all students with practical knowledge and skills. This is an important aspect for the current requirement, under the new concept of outcome based education. Here the students are trained to work as a team and strive for excellence. These students would be representing the cream of the society and therefore are expected to contribute towards the enhancement of reputation and credibility of this institute. The course will not only groom the students to become world class engineering graduates, but will also nurture their sense of purpose and vision. Members of our faculty reflect the variety of interests and qualities inherent in Information Technology. They are dedicated to demonstrate and promote the speciality to the VIIT community of students and faculty as well as to the people we serve. They work towards outcome all the time,and they don't forget the value of the process. Successful students have a richness about them that comes from openness to great moments, and a consistency in the quality is revealed by VIIT. The most successful professionals care about a wide variety of things in the IT field and emphasize the intrinsic value of the tasks. We invite you to browse through our website and learn about the faculty and programs of the department of MCA, and encourage your comments on our website and departmental activities.",
+        hodMessage: "No Comments",
+        hodName: 'Dr.Chandrasekharan Dinesh',
+        hodImage: 'https://vignaniit.edu.in/images/MCA_HOD.jpg',
+        vision: "We aim to generate groomed, technically competent and skilled intellectual professionals. We serve as a valuable resource for modern industry and current society.",
+        mission: "•  Providing a strong theoretical and practical knowledge in cimputer science discipline with an emphasis on software development.To provide technical solutions in the field of Information Technology to the local society.To provide need based quality training in the field of Information TechnologyImpart quality education to meet global standards and achieve excellence in teaching-learning and research.To provide students with the tools to become productive, participating global citizens and life-long learners.",
+      
+      }
+    // };
+
     }
-  }
+  
 };
