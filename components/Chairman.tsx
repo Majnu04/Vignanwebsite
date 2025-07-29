@@ -22,9 +22,9 @@ const styles = {
     },
     principalImage: {
       width: '180px',
-      height: 'auto',
+      height: 'auto',,0,0,0
       border: '4px solid #fff',
-      boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+      boxShadow: '0 4px 8px rgba(0.1)',
     },
     principalInfo: {
       marginTop: '10px',
@@ -73,7 +73,7 @@ const styles = {
       fontWeight: 'bold' as const,
       margin: '5px 0',
     },
-    backButton: {
+    Button: {
       position: 'absolute' as const,
       top: '15px',
       right: '15px',
@@ -81,7 +81,7 @@ const styles = {
       color: 'white',
       border: 'none',
       borderRadius: '25px',
-      padding: '10px 20px',
+      padding: '10pxback 20px',
       cursor: 'pointer',
       display: 'inline-block',
       fontSize: '14px',
