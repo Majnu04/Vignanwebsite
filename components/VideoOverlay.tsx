@@ -187,7 +187,7 @@ const VideoOverlay: React.FC<VideoOverlayProps> = ({ isOpen, onClose, autoplay =
           style={{ 
             width: '100%', 
             height: '100%', 
-            objectFit: isMobile ? 'cover' : 'cover', // Changed to cover for mobile fullscreen
+            objectFit: isMobile ? 'cover' : 'cover',
             position: 'absolute',
             top: 0,
             left: 0,
@@ -197,8 +197,24 @@ const VideoOverlay: React.FC<VideoOverlayProps> = ({ isOpen, onClose, autoplay =
             padding: 0
           }}
         />
+        {/* Playback speed indicator for debugging */}
+        <div style={{
+          position: 'absolute',
+          top: 16,
+          left: 16,
+          background: 'rgba(0,0,0,0.7)',
+          color: '#fff',
+          padding: '6px 14px',
+          borderRadius: 8,
+          fontSize: 18,
+          fontWeight: 600,
+          zIndex: 10001,
+          pointerEvents: 'none',
+          letterSpacing: 1
+        }}>
+          Speed: {isMobile ? '6.0x (mobile)' : '4.0x (desktop)'}
+        </div>
       </div>
-      {/* Close button removed as requested */}
     </div>
   );
 };
