@@ -1,36 +1,41 @@
 // src/components/NewsAndEvents.tsx
 
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 
 // --- DATA ---
 const eventsData = [
-  { type: 'Workshop', title: 'AI in Wireless Tech', date: 'August 15, 2025', description: 'A hands-on workshop exploring the integration of AI and machine learning in next-generation wireless communication systems.', image: '/images/SLIDE_0.jpg', bgColor: 'from-blue-900 to-slate-900' },
-  { type: 'Bootcamp', title: 'Full Stack Development', date: 'September 01, 2025', description: 'An intensive two-week bootcamp covering the entire MERN stack, from backend APIs with Node.js to frontend development with React.', image: '/images/SLIDE_A copy.jpg', bgColor: 'from-purple-900 to-slate-900' },
-  { type: 'Summit', title: 'National Entrepreneurship', date: 'September 20, 2025', description: 'Join industry leaders, venture capitalists, and student innovators for a two-day summit on building the businesses of tomorrow.', image: '/images/SLIDE_B.jpg', bgColor: 'from-red-900 to-slate-900' },
-  { type: 'Conference', title: 'Cyber Security Conclave', date: 'October 10, 2025', description: 'Explore the latest trends in cybersecurity, ethical hacking, and digital forensics with leading experts from around the globe.', image: '/images/SLIDE_C[1].jpg', bgColor: 'from-green-900 to-slate-900' },
+  { type: 'Workshop', title: 'AI in Wireless Tech', date: 'August 15, 2025', description: 'A hands-on workshop exploring the integration of AI and machine learning in next-generation wireless communication systems.', image: '/images/SLIDE_0.jpg' },
+  { type: 'Bootcamp', title: 'Full Stack Development', date: 'September 01, 2025', description: 'An intensive two-week bootcamp covering the entire MERN stack, from backend APIs with Node.js to frontend development with React.', image: '/images/SLIDE_A copy.jpg' },
+  { type: 'Summit', title: 'National Entrepreneurship', date: 'September 20, 2025', description: 'Join industry leaders, venture capitalists, and student innovators for a two-day summit on building the businesses of tomorrow.', image: '/images/SLIDE_B.jpg' },
+  { type: 'Conference', title: 'Cyber Security Conclave', date: 'October 10, 2025', description: 'Explore the latest trends in cybersecurity, ethical hacking, and digital forensics with leading experts from around the globe.', image: '/images/SLIDE_C[1].jpg' },
 ];
 
-// --- MAIN COMPONENT ---
+// --- Helper Function for Date Formatting ---
+const formatDateForTimeline = (dateStr: string): [string, string] => {
+  const date = new Date(dateStr);
+  const options: Intl.DateTimeFormatOptions = { month: 'long', day: 'numeric' };
+  const line1 = new Intl.DateTimeFormat('en-US', options).format(date) + ',';
+  const line2 = date.getFullYear().toString();
+  return [line1, line2];
+};
 
+// --- MAIN COMPONENT ---
 const NewsAndEvents: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
   const [isMobileView, setIsMobileView] = useState(false);
   const constraintsRef = useRef<HTMLDivElement>(null);
+  const draggableRef = useRef<HTMLDivElement>(null);
+  const timelineControls = useAnimation();
   const autoplayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Check for mobile view on mount and resize
   useEffect(() => {
-    const checkScreenSize = () => {
-      setIsMobileView(window.innerWidth < 768); // md breakpoint in Tailwind
-    };
+    const checkScreenSize = () => setIsMobileView(window.innerWidth < 768);
     checkScreenSize();
     window.addEventListener('resize', checkScreenSize);
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
-  // Autoplay and interaction logic
   useEffect(() => {
     const startAutoplay = () => {
       if (autoplayTimeoutRef.current) clearTimeout(autoplayTimeoutRef.current);
@@ -38,97 +43,84 @@ const NewsAndEvents: React.FC = () => {
         setActiveIndex((prev) => (prev + 1) % eventsData.length);
       }, 5000);
     };
-
     startAutoplay();
-
     return () => {
       if (autoplayTimeoutRef.current) clearTimeout(autoplayTimeoutRef.current);
     };
-  }, [activeIndex, isDragging]); // Restart timer when slide changes or dragging stops
+  }, [activeIndex]);
+
+  useEffect(() => {
+    if (isMobileView || !constraintsRef.current || !draggableRef.current) return;
+
+    const container = constraintsRef.current;
+    const draggable = draggableRef.current;
+    const activeItem = draggable.children[activeIndex] as HTMLElement;
+
+    if (!activeItem) return;
+
+    const containerWidth = container.offsetWidth;
+    const activeItemWidth = activeItem.offsetWidth;
+    const activeItemOffsetLeft = activeItem.offsetLeft;
+
+    const newX = (containerWidth / 2) - activeItemOffsetLeft - (activeItemWidth / 2);
+    
+    timelineControls.start({
+      x: newX,
+      transition: { duration: 0.6, ease: [0.4, 0, 0.2, 1] },
+    });
+
+  }, [activeIndex, isMobileView, timelineControls]);
+
 
   const handleNext = () => setActiveIndex((prev) => (prev + 1) % eventsData.length);
   const handlePrev = () => setActiveIndex((prev) => (prev - 1 + eventsData.length) % eventsData.length);
 
-  const currentBg = eventsData[activeIndex].bgColor;
-
   return (
-    <section className={`relative w-full flex flex-col justify-center items-center overflow-hidden transition-all duration-1000 ease-in-out
+    <section className={`relative w-full flex flex-col justify-center items-center overflow-hidden
       ${isMobileView ? 'min-h-[90vh] py-10' : 'min-h-screen py-20 sm:py-28'}
-      bg-gradient-to-br from-white via-slate-100 to-gray-200`}>
+      bg-white`}>
 
       <div className="text-center mb-6 sm:mb-8 md:mb-12 px-4">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-black tracking-tight drop-shadow-2xl bg-gradient-to-r from-black via-gray-800 to-black bg-clip-text text-transparent" style={{ fontFamily: 'Georgia, serif', letterSpacing: '-0.03em' }}>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 tracking-tight" style={{ fontFamily: 'Georgia, serif', letterSpacing: '-0.03em' }}>
           News & Upcoming Events
         </h2>
-        <p className="mt-2 sm:mt-4 text-base md:text-lg text-gray-700 max-w-3xl mx-auto">
+        <p className="mt-2 sm:mt-4 text-base md:text-lg text-gray-600 max-w-3xl mx-auto">
           Stay connected with the vibrant pulse of our campus.
         </p>
-        <div className="mx-auto mt-4 w-24 h-1 rounded-full bg-gradient-to-r from-black via-gray-700 to-black opacity-40"></div>
+        <div className="mx-auto mt-4 w-24 h-1 rounded-full bg-slate-300"></div>
       </div>
 
-      {/* Conditional Rendering: Desktop or Mobile View */}
       {isMobileView ? (
-        // --- MOBILE VIEW: VERTICAL STORY SWIPER ---
+        // --- MOBILE VIEW ---
         <div className="relative w-full flex-1 flex flex-col items-center justify-center p-4">
-          {/* Progress Bars */}
           <div className="absolute top-2 left-4 right-4 z-20 flex gap-1">
             {eventsData.map((_, index) => (
-              <div key={index} className="flex-1 h-1 bg-gray-200 rounded-full overflow-hidden">
+              <div key={index} className="flex-1 h-1 bg-gray-200/70 rounded-full overflow-hidden">
                 <AnimatePresence>
                   {index === activeIndex && (
-                    <motion.div
-                      className="h-full bg-gradient-to-r from-black via-gray-800 to-black"
-                      initial={{ width: '0%' }}
-                      animate={{ width: '100%' }}
-                      exit={{ width: '100%' }}
-                      transition={{ duration: 5 }}
-                    />
+                    <motion.div className="h-full bg-blue-600" initial={{ width: '0%' }} animate={{ width: '100%' }} exit={{ width: '100%' }} transition={{ duration: 5 }} />
                   )}
                 </AnimatePresence>
-                {index < activeIndex && <div className="h-full bg-black"></div>}
+                {index < activeIndex && <div className="h-full bg-blue-600"></div>}
               </div>
             ))}
           </div>
           <AnimatePresence initial={false}>
-            <motion.div
-              key={activeIndex}
-              className="absolute w-[90%] h-[80%] bg-white rounded-2xl shadow-2xl border-2 border-black overflow-hidden ring-4 ring-black/10"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.5 }}
-            >
-              <div className="absolute inset-0 w-full h-40 sm:h-48">
-                <img 
-                  src={eventsData[activeIndex].image} 
-                  alt={eventsData[activeIndex].title} 
-                  className="w-full h-full object-cover object-center rounded-t-2xl border-b-2 border-black/20 shadow-lg"
-                  onError={(e) => {
-                    // Fallback to a solid color if image fails to load
-                    const target = e.target as HTMLImageElement;
-                    target.onerror = null; // Prevent infinite loop
-                    target.style.backgroundColor = "#f1f5f9"; // Light blue fallback
-                  }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-white/30 rounded-t-2xl"></div>
-              </div>
-              <div className="relative h-full pt-44 sm:pt-52 flex flex-col p-4 sm:p-6 text-black">
-                <span className="px-2 sm:px-3 py-1 bg-black text-white text-xs sm:text-sm font-semibold rounded-full self-start mb-3 sm:mb-4 border border-black shadow-md">{eventsData[activeIndex].type}</span>
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold drop-shadow-lg" style={{fontFamily: 'Georgia, serif'}}>{eventsData[activeIndex].title}</h3>
-                <p className="text-xs sm:text-sm text-gray-700 mt-1 font-semibold">{eventsData[activeIndex].date}</p>
-                <p className="mt-3 sm:mt-4 text-gray-700 text-xs sm:text-sm">{eventsData[activeIndex].description}</p>
-                <button className="mt-5 sm:mt-6 px-4 py-2 sm:px-5 sm:py-2.5 bg-gradient-to-r from-black via-gray-900 to-black text-white text-xs sm:text-sm font-semibold rounded-lg self-start hover:bg-gray-900 transition-colors duration-300 shadow-lg border border-black">
-                  Register Now
-                </button>
+            <motion.div key={activeIndex} className="absolute w-[90%] h-[80%] bg-slate-900 rounded-2xl shadow-2xl border-2 border-slate-800 overflow-hidden ring-4 ring-black/10" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8 }} transition={{ duration: 0.5 }}>
+              <div className="relative h-full flex flex-col p-6 sm:p-8 text-white">
+                <span className="px-3 py-1 bg-white text-slate-900 text-xs sm:text-sm font-semibold rounded-full self-start mb-4 border border-black/10 shadow-md">{eventsData[activeIndex].type}</span>
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold" style={{fontFamily: 'Georgia, serif'}}>{eventsData[activeIndex].title}</h3>
+                <p className="text-sm text-slate-300 mt-1 font-semibold">{eventsData[activeIndex].date}</p>
+                <p className="mt-4 text-slate-300 text-sm">{eventsData[activeIndex].description}</p>
+                <button className="mt-auto px-5 py-2.5 bg-white text-slate-900 text-sm font-bold rounded-lg self-start hover:bg-slate-200 transition-colors duration-300 shadow-lg border border-black/10">Register Now</button>
               </div>
             </motion.div>
           </AnimatePresence>
-          {/* Tap Navigation Zones */}
           <div className="absolute left-0 top-0 h-full w-1/2 cursor-pointer" onClick={handlePrev}></div>
           <div className="absolute right-0 top-0 h-full w-1/2 cursor-pointer" onClick={handleNext}></div>
         </div>
       ) : (
-        // --- DESKTOP VIEW: CINEMATIC CARDS & TIMELINE ---
+        // --- DESKTOP VIEW ---
         <>
           <div className="relative w-full h-[55vh] max-w-4xl [perspective:1500px]">
             {eventsData.map((event, index) => {
@@ -139,43 +131,33 @@ const NewsAndEvents: React.FC = () => {
               const zIndex = eventsData.length - Math.abs(offset);
               const opacity = Math.abs(offset) > 2 ? 0 : 1;
               return (
-                <motion.div
-                  key={event.title}
-                  className="absolute w-full h-full"
-                  animate={{ transform: `translateX(${translateX}%) rotateY(${rotateY}deg) scale(${scale})`, zIndex, opacity }}
-                  transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
-                >
-                  <div className={`relative w-full h-full rounded-2xl shadow-2xl border-2 flex flex-col items-start justify-center p-8 md:p-12 transition-all duration-500
-                    ${activeIndex === index ? 'bg-gradient-to-br from-black via-gray-900 to-gray-800 border-black text-white ring-4 ring-black/10 scale-105' : 'bg-white border-gray-200 text-black opacity-80 hover:scale-102 hover:shadow-2xl hover:ring-2 hover:ring-black/10'}`}
-                  >
-                    <span className={`px-3 py-1 text-sm font-semibold rounded-full self-start mb-4 border shadow-md
-                      ${activeIndex === index ? 'bg-white text-black border-white' : 'bg-black text-white border-black'}`}>{event.type}</span>
-                    <h3 className="text-3xl md:text-4xl font-bold drop-shadow-lg" style={{fontFamily: 'Georgia, serif'}}>{event.title}</h3>
-                    <p className="text-sm mt-1 font-semibold">{event.date}</p>
-                    <p className="mt-4 max-w-md">{event.description}</p>
-                    <button className={`mt-6 px-6 py-3 font-bold rounded-lg self-start transition-colors duration-300 shadow-lg border
-                      ${activeIndex === index ? 'bg-white text-black hover:bg-gray-200 border-white' : 'bg-black text-white hover:bg-gray-900 border-black'}`}>Register Now</button>
-                    {/* Decorative gradient bar */}
-                    {activeIndex === index && <div className="absolute bottom-0 left-0 w-full h-2 bg-gradient-to-r from-white via-gray-400 to-black opacity-30 rounded-b-2xl"></div>}
+                <motion.div key={event.title} className="absolute w-full h-full" animate={{ transform: `translateX(${translateX}%) rotateY(${rotateY}deg) scale(${scale})`, zIndex, opacity }} transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}>
+                  <div className={`relative w-full h-full rounded-2xl shadow-xl border flex flex-col items-start justify-center p-8 md:p-12 transition-all duration-500 ${activeIndex === index ? 'bg-slate-900 border-slate-800 text-white ring-4 ring-blue-500/30' : 'bg-white border-gray-200 text-black opacity-80 hover:scale-102 hover:shadow-2xl'}`}>
+                    <span className={`px-3 py-1 text-sm font-semibold rounded-full self-start mb-4 border shadow-sm ${activeIndex === index ? 'bg-white text-slate-900 border-white/20' : 'bg-slate-900 text-white border-slate-900'}`}>{event.type}</span>
+                    <h3 className="text-3xl md:text-4xl font-bold" style={{fontFamily: 'Georgia, serif'}}>{event.title}</h3>
+                    <p className={`text-base mt-1 font-semibold ${activeIndex === index ? 'text-slate-300' : 'text-gray-500'}`}>{event.date}</p>
+                    <p className={`mt-4 max-w-md ${activeIndex === index ? 'text-slate-300' : 'text-gray-700'}`}>{event.description}</p>
+                    <button className={`mt-6 px-6 py-3 font-bold rounded-lg self-start transition-colors duration-300 shadow-lg border ${activeIndex === index ? 'bg-white text-slate-900 hover:bg-slate-200 border-white/20' : 'bg-slate-900 text-white hover:bg-slate-700 border-slate-900'}`}>Register Now</button>
+                    {activeIndex === index && <div className="absolute bottom-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 via-blue-700 to-slate-900 opacity-50 rounded-b-2xl"></div>}
                   </div>
                 </motion.div>
               );
             })}
           </div>
-          <div ref={constraintsRef} className="relative w-full max-w-4xl h-24 mt-12 cursor-grab active:cursor-grabbing bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100 rounded-lg p-2 shadow-inner border border-black/10">
-            <motion.div
-              className="absolute top-1/2 left-0 flex items-center gap-8"
-              drag="x"
-              dragConstraints={constraintsRef}
-              onDragStart={() => setIsDragging(true)}
-              onDragEnd={() => setIsDragging(false)}
-            >
-              {eventsData.map((event, index) => (
-                <div key={index} onClick={() => setActiveIndex(index)} className="flex flex-col items-center flex-shrink-0 w-24 text-center group cursor-pointer">
-                  <div className={`w-3 h-3 rounded-full transition-all duration-300 border-2 ${activeIndex === index ? 'bg-black border-black scale-150 shadow-lg' : 'bg-gray-300 border-gray-400 group-hover:bg-black/60 group-hover:border-black/60'}`}></div>
-                  <p className={`mt-3 text-xs font-semibold transition-colors duration-300 ${activeIndex === index ? 'text-black' : 'text-gray-500 group-hover:text-black/60'}`}>{event.date}</p>
-                </div>
-              ))}
+          <div ref={constraintsRef} className="relative w-full max-w-4xl h-28 mt-12 bg-slate-100 rounded-lg shadow-inner border border-black/5 overflow-hidden flex items-center">
+            <motion.div ref={draggableRef} className="flex items-start gap-4 px-4" animate={timelineControls} drag="x" dragConstraints={{ left: 0, right: 0 }} dragElastic={0.1}>
+              {eventsData.map((event, index) => {
+                const [line1, line2] = formatDateForTimeline(event.date);
+                return (
+                  <div key={index} onClick={() => setActiveIndex(index)} className="flex flex-col items-center flex-shrink-0 w-36 py-2 group cursor-pointer">
+                    <div className={`w-3.5 h-3.5 rounded-full transition-all duration-300 border-2 ${activeIndex === index ? 'bg-blue-600 border-blue-600 scale-150 shadow-lg' : 'bg-gray-300 border-gray-400 group-hover:bg-blue-500/70 group-hover:border-blue-500/70'}`}></div>
+                    <div className={`mt-3 text-sm text-center transition-colors duration-300 leading-tight ${activeIndex === index ? 'font-bold text-slate-900' : 'font-medium text-gray-500 group-hover:text-slate-800'}`}>
+                      <span>{line1}</span><br/>
+                      <span>{line2}</span>
+                    </div>
+                  </div>
+                );
+              })}
             </motion.div>
           </div>
         </>
