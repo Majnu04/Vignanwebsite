@@ -15,14 +15,14 @@ const navItems: NavItem[] = [
         name: 'About Us', 
         link: '/about-us', 
         isMegaWithImage: true, 
-        defaultImage: '/images/about-us-default.jpg', 
+        defaultImage: 'https://i.ibb.co/Y7bPd5y6/image.png', 
         sub: [
             { 
                 name: "Our Identity", 
                 sub: [
-                    { name: 'Vission & Mission', link: '/visionmission', image: '/images/vision.jpg' },
-                    { name: 'Administration', link: '/administration', image: '/images/admin.jpg' },
-                    { name: 'Policies', link: '/policies', image: '/images/policies.jpg' },
+                    { name: 'Vission & Mission', link: '/visionmission', image: '' },
+                    { name: 'Administration', link: '/administration', image: 'https://i.ibb.co/PvHZ9D0q/image.png' },
+                    { name: 'Policies', link: '/policies', image: 'https://i.ibb.co/dw23gy1B/image.png' },
                     { name: 'Best Practice', link: '/best-practices', image: '/images/best-practice.jpg' },
                     { name: 'Empowering Strategies', link: '/empowering-strategies', image: '/images/strategies.jpg' }
 
@@ -112,7 +112,7 @@ const navItems: NavItem[] = [
         name: 'Placements', 
         link: '/placements', 
         isMegaWithImage: true, 
-        defaultImage: '/images/placements-default.jpg',
+        defaultImage: 'https://i.ibb.co/fjr1thQ/image.png',
         sub: [
             { 
                 name: "Career Services", 
