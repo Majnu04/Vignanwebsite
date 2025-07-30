@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import CsePage from './CsePage';
-import { Assets} from '../assets/Assets.ts';
+
+// Import the Assets with proper casing
+import { Assets } from '../Assets/Assets';
 
 
 
@@ -14,8 +16,8 @@ const programsData = {
     { name: 'Advanced CSE (AI, Cyber Security, Data Science)', desc: 'Specialized tracks in AI, ethical hacking, and data modeling.', career: 'AI Specialist, Security Analyst, Data Engineer' , pageId:'cses'},
     { name: 'Civil Engineering', desc: 'Design and build infrastructure like bridges, buildings, and transport systems.', career: 'Structural Engineer, Project Manager', pageId:'civil' },
     { name: 'Electrical & Electronics Engineering', desc: 'Explore circuits, power systems, and control systems.', career: 'Power Engineer, Controls Engineer', pageId:'eee' },
-    { name: 'Electronics & Communication Engineering', desc: 'A blend of hardware and software, from microprocessors to OS.', career: 'Hardware Engineer, IoT Specialist', pageId:'ece' },
-    { name: 'Electronics & Computer Engineering', desc: 'Focus on signal processing, telecommunications, and embedded systems.', career: 'Telecom Engineer, VLSI Designer' , pageId:'ecm'},
+    { name: 'Electronics & Computer Engineering', desc: 'A blend of hardware and software, from microprocessors to OS.', career: 'Hardware Engineer, IoT Specialist', pageId:'ece' },
+    { name: 'Electronics & Communication Engineering', desc: 'Focus on signal processing, telecommunications, and embedded systems.', career: 'Telecom Engineer, VLSI Designer' , pageId:'ecm'},
     { name: 'Information Technology', desc: 'Manage and implement enterprise-level IT infrastructure and solutions.', career: 'IT Manager, Systems Administrator', pageId:'it' },
     { name: 'Mechanical Engineering', desc: 'Principles of mechanics, thermodynamics, and material science.', career: 'Design Engineer, Manufacturing Head', pageId:'me' },
     { name: 'Basic Science & Humanities', desc: 'Foundational studies in physics, chemistry, mathematics, and communication skills.', career: 'Research, Academia, Technical Writing' , pageId:'basic'},
@@ -46,11 +48,26 @@ const ProgramTileDesktop: React.FC<{ program: any; onMouseEnter: () => void; isH
           >
             <div className={`transition-all duration-500 ${isHovered ? 'opacity-0 -translate-y-2' : 'opacity-100'}`}>
               <h3 className="text-xl font-bold text-center text-gray-900">{program.name}</h3>
-              {isClickable && <span className="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs text-cyan-400 font-bold opacity-0 group-hover:opacity-100 transition-opacity">VIEW DETAILS</span>}
+              {isClickable && (
+                <div className="flex items-center justify-center mt-2">
+                  <span className="text-xs text-blue-600 font-semibold">VIEW DEPARTMENT</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </div>
+              )}
             </div>
             <div className={`absolute inset-0 p-6 flex flex-col justify-center text-center transition-all duration-500 ${isHovered ? 'opacity-100' : 'opacity-0 translate-y-2'}`}>
               <p className="text-sm text-gray-700">{program.desc}</p>
-              <p className="text-xs text-cyan-400 font-semibold mt-4 uppercase tracking-wider">{program.career}</p>
+              <p className="text-xs text-cyan-400 font-semibold mt-2 uppercase tracking-wider">{program.career}</p>
+              {isClickable && (
+                <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg mx-auto flex items-center justify-center hover:bg-blue-700 transition-colors">
+                  View Department
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
+              )}
             </div>
           </div>
         );
@@ -62,11 +79,16 @@ const ProgramTileMobile: React.FC<{ program: any; isActive: boolean; onClick: ()
           <div className="border-b border-gray-200 bg-white">
             <button
               onClick={onClick}
-              className="w-full flex justify-between items-center text-left p-4"
+              className={`w-full flex justify-between items-center text-left p-4 ${isClickable ? 'bg-blue-50' : ''}`}
             >
               <span className="text-lg font-semibold text-gray-900">{program.name}</span>
               {isClickable ? (
-                <span className="text-xs text-cyan-400 font-bold">VIEW DETAILS →</span>
+                <span className="text-xs bg-blue-600 text-white px-3 py-1.5 rounded-lg flex items-center">
+                  VIEW DEPARTMENT 
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </span>
               ) : (
                 <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 text-cyan-400 transition-transform duration-300 ${isActive ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -99,8 +121,18 @@ const ProgramsSection: React.FC= () => {
   const [selectedPageId, setSelectedPageId] = useState<string | null>(null);
 
 const handleProgramClick = (pageId: string) => {
-  setSelectedPageId(pageId);
-  console.log(pageId);
+  // Check which department data is available
+  if (['cse', 'aids', 'it'].includes(pageId)) {
+    // Set the selected page ID to display the department
+    setSelectedPageId(pageId);
+    // Scroll to top for better user experience
+    window.scrollTo(0, 0);
+    console.log("Department selected:", pageId);
+  } else {
+    // For departments that don't have data yet
+    setSelectedPageId(pageId);
+    console.log("Department selected (placeholder):", pageId);
+  }
 };
 
   useEffect(() => {
@@ -177,20 +209,35 @@ const handleProgramClick = (pageId: string) => {
           ))}
         </div>
 
-        {selectedPageId === 'cse' && <CsePage data={Assets.DepartmentData.cse} onBack={() => setSelectedPageId(null)} />}
-        {selectedPageId === 'aids' && <CsePage data={Assets.DepartmentData.aids} onBack={() => setSelectedPageId(null)} />}
-        {selectedPageId === 'cses' && <CsePage data={Assets.DepartmentData.acse} onBack={() => setSelectedPageId(null)} />}
-        {selectedPageId === 'civil' && <CsePage data={Assets.DepartmentData.civil} onBack={() => setSelectedPageId(null)} />}
-        {selectedPageId === 'eee' && <CsePage data={Assets.DepartmentData.eee} onBack={() => setSelectedPageId(null)} />}
-        {selectedPageId === 'ece' && <CsePage data={Assets.DepartmentData.ece} onBack={() => setSelectedPageId(null)} />}
-        {selectedPageId === 'ecm' && <CsePage data={Assets.DepartmentData.ecm} onBack={() => setSelectedPageId(null)} />}
-        {selectedPageId === 'it' && <CsePage data={Assets.DepartmentData.it} onBack={() => setSelectedPageId(null)} />}
-        {selectedPageId === 'me' && <CsePage data={Assets.DepartmentData.me} onBack={() => setSelectedPageId(null)} />}
-        {selectedPageId === 'basic' && <CsePage data={Assets.DepartmentData.bsh} onBack={() => setSelectedPageId(null)} />}
-        {selectedPageId === 'aiml' && <CsePage data={Assets.DepartmentData.aiml} onBack={() => setSelectedPageId(null)} />}
-        {selectedPageId === 'pcse' && <CsePage data={Assets.DepartmentData.pcse} onBack={() => setSelectedPageId(null)} />}
-        {selectedPageId === 'mba' && <CsePage data={Assets.DepartmentData.mba} onBack={() => setSelectedPageId(null)} />}
-        {selectedPageId === 'mca' && <CsePage data={Assets.DepartmentData.mca} onBack={() => setSelectedPageId(null)} />}
+        {selectedPageId && (
+          <>
+            {/* Use a portal with a transparent backdrop */}
+            <div className="fixed inset-0 z-40 bg-black bg-opacity-50" onClick={() => setSelectedPageId(null)}></div>
+            
+            {/* Department Content */}
+            <div className="fixed inset-0 z-50 bg-white overflow-auto" style={{top: 0, left: 0, right: 0, bottom: 0}}>
+              {selectedPageId === 'cse' && (
+                <CsePage data={Assets.DepartmentData.cse} onBack={() => setSelectedPageId(null)} />
+              )}
+              {selectedPageId === 'aids' && (
+                <CsePage data={Assets.DepartmentData.aids} onBack={() => setSelectedPageId(null)} />
+              )}
+              {selectedPageId === 'it' && (
+                <CsePage data={Assets.DepartmentData.it} onBack={() => setSelectedPageId(null)} />
+              )}
+              {/* For departments that don't have data yet, show CSE data as placeholder */}
+              {['cses', 'civil', 'eee', 'ece', 'ecm', 'me', 'basic', 'aiml', 'digi', 'mba', 'mca'].includes(selectedPageId) && (
+                <CsePage 
+                  data={{
+                    ...Assets.DepartmentData.cse,
+                    name: `${programsToShow.find(p => p.pageId === selectedPageId)?.name || 'Department'} (Preview)`,
+                  }} 
+                  onBack={() => setSelectedPageId(null)} 
+                />
+              )}
+            </div>
+          </>
+        )}
       </div>
     </section>
   );

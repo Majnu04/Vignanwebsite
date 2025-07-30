@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronDown, LayoutGrid } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
 // Import components
 import AnimatedLogo from './AnimatedLogo';
@@ -401,7 +401,9 @@ const Header: React.FC<HeaderProps> = ({ onLogoClick }) => {
                             {/* Desktop Admin Panel */}
                             <div className="hidden lg:flex h-full items-center justify-center relative" onMouseEnter={handleAdminPanelEnter} onMouseLeave={handleAdminPanelLeave}>
                                 <button className={`p-2 rounded-lg transition-colors duration-300 ${isScrolled ? "text-slate-700 hover:bg-slate-200" : "text-slate-700 hover:bg-slate-200"}`}>
-                                    <LayoutGrid className="h-5 w-5" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                                    </svg>
                                 </button>
                                 <div className={`absolute top-full right-0 mt-2 w-56 transition-all duration-300 ease-in-out transform-gpu ${isAdminPanelOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
                                     <ul className="bg-white rounded-lg shadow-lg border border-slate-200/60 p-2 space-y-1">
@@ -422,7 +424,9 @@ const Header: React.FC<HeaderProps> = ({ onLogoClick }) => {
                                         className={`p-2 rounded-lg transition-colors duration-300 focus:outline-none ${isMobileAdminPanelOpen ? 'bg-blue-50' : 'hover:bg-slate-100'}`}
                                         aria-label="Toggle admin panel"
                                     >
-                                        <LayoutGrid className="h-6 w-6 text-slate-700" />
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-slate-700" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                                        </svg>
                                     </button>
                                     <div className={`absolute top-full right-0 mt-2 w-56 transition-all duration-300 ease-in-out transform-gpu ${isMobileAdminPanelOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
                                         <ul className="bg-white rounded-lg shadow-lg border border-slate-200/60 p-2 space-y-1">

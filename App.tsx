@@ -20,6 +20,8 @@ import AboutT from './Placements/AboutT';
 import PlacementD from './Placements/PlacementD';
 import Training from './Placements/Training';
 import ContactT from './Placements/ContactT';
+import CsePage from './components/CsePage';
+import { Assets } from './Assets/Assets';
 
 const App: React.FC = () => {
   const [initialLoad, setInitialLoad] = useState(true);
@@ -57,7 +59,33 @@ const App: React.FC = () => {
               <Footer />
             </div>
           } />
-          {/* <Route path="/departments/cse" element={<CsePage />} /> */}
+          <Route path="/departments/cse" element={
+            <div>
+              <Header />
+              <div className="mt-16 min-h-screen bg-white">
+                <CsePage data={Assets.DepartmentData.cse} onBack={() => window.history.back()} />
+              </div>
+              <Footer />
+            </div>
+          } />
+          <Route path="/departments/aids" element={
+            <div>
+              <Header />
+              <div className="mt-16 min-h-screen bg-white">
+                <CsePage data={Assets.DepartmentData.aids} onBack={() => window.history.back()} />
+              </div>
+              <Footer />
+            </div>
+          } />
+          <Route path="/departments/it" element={
+            <div>
+              <Header />
+              <div className="mt-16 min-h-screen bg-white">
+                <CsePage data={Assets.DepartmentData.it} onBack={() => window.history.back()} />
+              </div>
+              <Footer />
+            </div>
+          } />
           <Route path="/placements/about-t" element={<AboutT />} />
           <Route path="/visionmission" element={
             <div className="pb-16">

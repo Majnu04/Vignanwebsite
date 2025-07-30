@@ -3,12 +3,21 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
-// --- Reusable Sidebar Component (No changes needed here) ---
+// --- Reusable Sidebar Component (with smooth scrolling) ---
 const SidebarNav: React.FC<{ items: any[]; onBack: () => void; }> = ({ items, onBack }) => {
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
 
   const toggleSubmenu = (title: string) => {
     setOpenSubmenu(openSubmenu === title ? null : title);
+  };
+
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const targetId = href.substring(1);
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   return (
@@ -32,13 +41,13 @@ const SidebarNav: React.FC<{ items: any[]; onBack: () => void; }> = ({ items, on
               <div className={`pl-4 overflow-hidden transition-all duration-300 ${openSubmenu === item.title ? 'max-h-96' : 'max-h-0'}`}>
                 <div className="py-2 space-y-1 border-l border-blue-200">
                   {item.children.map((child: any) => (
-                    <a key={child.title} href={child.href} className="block pl-4 py-1.5 text-gray-500 hover:text-blue-600 hover:bg-blue-50">{child.title}</a>
+                    <a key={child.title} href={child.href} onClick={(e) => handleSmoothScroll(e, child.href)} className="block pl-4 py-1.5 text-gray-500 hover:text-blue-600 hover:bg-blue-50">{child.title}</a>
                   ))}
                 </div>
               </div>
             </>
           ) : (
-            <a href={item.href} className="block px-4 py-2.5 text-gray-700 hover:bg-gray-100 rounded-md transition-colors font-medium">{item.title}</a>
+            <a href={item.href} onClick={(e) => handleSmoothScroll(e, item.href)} className="block px-4 py-2.5 text-gray-700 hover:bg-gray-100 rounded-md transition-colors font-medium">{item.title}</a>
           )}
         </div>
       ))}
@@ -58,14 +67,15 @@ interface DepartmentLayoutProps {
 const DepartmentLayout: React.FC<DepartmentLayoutProps> = ({ departmentName, heroImage, sidebarNavItems, children, onBack }) => {
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-      className="w-full min-h-screen bg-white"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      transition={{ duration: 0.3 }}
+      className="fixed inset-0 z-50 overflow-y-auto bg-white"
+      style={{ height: '100vh' }}
     >
-      {/* Hero Section with RESPONSIVE HEIGHT */}
-      <div className="relative h-[40vh] md:h-[50vh] flex items-center justify-center text-center px-4">
+      {/* --- RESPONSIVE HERO --- */}
+      <div className="relative h-[25vh] sm:h-[30vh] md:h-[40vh] flex items-center justify-center text-center px-4">
         <div className="absolute inset-0 z-0">
           <img 
             src={heroImage} 
@@ -75,12 +85,12 @@ const DepartmentLayout: React.FC<DepartmentLayoutProps> = ({ departmentName, her
           <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent"></div>
         </div>
         <div className="relative z-10">
-          {/* RESPONSIVE FONT SIZE for the heading */}
-          <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-gray-900 drop-shadow-lg" style={{ fontFamily: 'Georgia, serif' }}>
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-gray-900 drop-shadow-lg" style={{ fontFamily: 'Georgia, serif' }}>
             {departmentName}
           </h1>
         </div>
       </div>
+      {/* --- END RESPONSIVE HERO --- */}
 
       {/* Main Content Area */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
