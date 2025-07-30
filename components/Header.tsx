@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronDown } from 'lucide-react';
 
 // Import components
 import AnimatedLogo from './AnimatedLogo';
