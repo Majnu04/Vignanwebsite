@@ -21,21 +21,10 @@ const cseSidebarData = [
   { title: 'Awards and Achievements', href: '#awards' },
 ];
 
-// const csePageData = {
-//   name: 'Computer Science and Engineering',
-//   heroImage: 'https://sirgurudasmahavidyalaya.ac.in/public/storage/department/OlRFpc01GsaXMC1Bj51zNXINmJCweOlRLtxaHncN.jpg',
-//   about: "Established in 2002, the Department of Computer Science and Engineering at Vignan's Institute provides a perfect academic and research environment complemented by excellence in teaching. We offer B.Tech and M.Tech programmes with a comprehensive, industry-aligned curriculum that emphasizes practical, hands-on learning to prepare students for the future of technology.",
-//   hodMessage: "A warm welcome to CSE@Vignan’s Institute of Information Technology... CSE at the Vignan's Institute of Information Technology has its seeds in the erstwhile Institute set up in 2002. While at inception, it was primarily focused on academics, the ambit expanded on the journey to include M.Tech Programmes, Research and Placements, Research Center, and NBA Accreditations (2009 and 2017), leading to the current name.",
-//   hodName: 'Dr. Mohan Mahanty',
-//   hodImage: 'http://vignaniit.edu.in/images/mohan1.png',
-//   vision: "To become a nationally recognized leader in computer science education, research, and innovation, producing graduates who are highly sought after by industry and academia.",
-//   mission: "To provide a dynamic and creative learning environment that fosters a deep understanding of computer science fundamentals, encourages practical problem-solving, and inspires lifelong learning and ethical responsibility.",
-// };
-
 // --- Styled Sub-components for the Light Theme ---
 const SyllabusCard: React.FC<{ title: string; href: string }> = ({ title, href }) => (
-  <a 
-    href={href} 
+  <a
+    href={href}
     className="bg-white border border-gray-200 p-4 rounded-xl flex flex-col items-center justify-center text-center transition-all duration-300 hover:bg-blue-50 hover:-translate-y-1 hover:shadow-lg hover:border-blue-300"
   >
     <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-blue-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -57,7 +46,7 @@ const CsePage: React.FC<{ data: any; onBack: () => void }> = ({ data, onBack}) =
       onBack={onBack} // Pass the onBack function to the layout
     >
       <article className="space-y-16">
-        
+
         {/* ABOUT SECTION */}
         <section id="about" className="scroll-mt-24">
           <h2 className="text-3xl font-bold text-blue-800 border-b-2 border-blue-200 pb-3 mb-4">About The Department</h2>
@@ -79,7 +68,12 @@ const CsePage: React.FC<{ data: any; onBack: () => void }> = ({ data, onBack}) =
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 13.5l4-4m0 0l4-4m-4 4v11m0-11h11m-11 0l4 4m-4-4l4 4" /></svg>
                         Our Mission
                     </h3>
-                    <p className="text-gray-600 leading-relaxed">{data.mission}</p>
+                    {/* UPDATED to handle mission as an array */}
+                    <ul className="text-gray-600 leading-relaxed list-disc list-inside space-y-2">
+                      {data.mission?.map((point: string, index: number) => (
+                        <li key={index}>{point}</li>
+                      ))}
+                    </ul>
                 </div>
             </div>
         </section>
@@ -90,8 +84,8 @@ const CsePage: React.FC<{ data: any; onBack: () => void }> = ({ data, onBack}) =
             Message from the HOD
           </h2>
           <div className="flex flex-col sm:flex-row items-center gap-8 bg-white p-8 rounded-2xl border border-gray-200">
-            <img 
-              src={data.hodImage} 
+            <img
+              src={data.hodImage}
               alt={`HOD ${data.hodName}`}
               className="w-40 h-40 rounded-full object-cover shadow-lg shrink-0 border-4 border-white ring-4 ring-blue-500"
             />
@@ -117,6 +111,31 @@ const CsePage: React.FC<{ data: any; onBack: () => void }> = ({ data, onBack}) =
             <h2 className="text-3xl font-bold text-blue-800 border-b-2 border-blue-200 pb-3 mb-6">Program Structure & Syllabus</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                 {cseSidebarData.find(item => item.title.includes('Syllabus'))?.children?.map(s => <SyllabusCard key={s.title} title={s.title} href={s.href} />)}
+            </div>
+        </section>
+
+        {/* FACULTY SECTION */}
+        <section id="faculty" className="scroll-mt-24">
+            <h2 className="text-3xl font-bold text-blue-800 border-b-2 border-blue-200 pb-3 mb-6">Our Faculty</h2>
+            <div className="overflow-x-auto bg-white rounded-lg border border-gray-200">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">S.No</th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name of the Faculty</th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Designation</th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {data.faculty?.map((member: any, index: number) => (
+                    <tr key={index} className="hover:bg-gray-50">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{member.sno}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{member.name}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{member.designation}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
         </section>
 

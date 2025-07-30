@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
-// --- Reusable Sidebar Component ---
+// --- Reusable Sidebar Component (No changes needed here) ---
 const SidebarNav: React.FC<{ items: any[]; onBack: () => void; }> = ({ items, onBack }) => {
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
 
@@ -13,7 +13,6 @@ const SidebarNav: React.FC<{ items: any[]; onBack: () => void; }> = ({ items, on
 
   return (
     <nav className="space-y-2">
-      {/* "BACK TO HOME" BUTTON IS NOW THE FIRST ITEM IN THE SIDEBAR */}
       <button 
         onClick={onBack}
         className="flex items-center gap-2 w-full text-left px-4 py-2.5 text-gray-700 hover:bg-gray-200 rounded-md transition-colors mb-4 font-semibold"
@@ -22,7 +21,6 @@ const SidebarNav: React.FC<{ items: any[]; onBack: () => void; }> = ({ items, on
         Back to Home
       </button>
 
-      {/* The rest of the navigation items */}
       {items.map((item) => (
         <div key={item.title}>
           {item.children ? (
@@ -54,12 +52,11 @@ interface DepartmentLayoutProps {
   heroImage: string;
   sidebarNavItems: any[];
   children: React.ReactNode;
-  onBack: () => void; // Changed back to onBack
+  onBack: () => void;
 }
 
 const DepartmentLayout: React.FC<DepartmentLayoutProps> = ({ departmentName, heroImage, sidebarNavItems, children, onBack }) => {
   return (
-    // The main container is no longer fixed, it's part of the normal document flow
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -67,16 +64,19 @@ const DepartmentLayout: React.FC<DepartmentLayoutProps> = ({ departmentName, her
       transition={{ duration: 0.5 }}
       className="w-full min-h-screen bg-white"
     >
-      {/* REMOVED the fixed "Close" button */}
-
-      {/* Hero Section */}
-      <div className="relative h-[50vh] flex items-center justify-center text-center px-4">
-        <div className="absolute inset-0 z-0 opacity-50">
-          <img src={heroImage} alt={`${departmentName} department`} className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/70 to-transparent"></div>
+      {/* Hero Section with RESPONSIVE HEIGHT */}
+      <div className="relative h-[40vh] md:h-[50vh] flex items-center justify-center text-center px-4">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={heroImage} 
+            alt={`${departmentName} department`} 
+            className="w-full h-full object-cover" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent"></div>
         </div>
         <div className="relative z-10">
-          <h1 className="text-5xl md:text-7xl font-extrabold text-gray-900 drop-shadow-lg" style={{ fontFamily: 'Georgia, serif' }}>
+          {/* RESPONSIVE FONT SIZE for the heading */}
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-gray-900 drop-shadow-lg" style={{ fontFamily: 'Georgia, serif' }}>
             {departmentName}
           </h1>
         </div>
@@ -88,7 +88,6 @@ const DepartmentLayout: React.FC<DepartmentLayoutProps> = ({ departmentName, her
           {/* Sidebar */}
           <aside className="lg:w-1/4">
             <div className="sticky top-24 p-4 bg-gray-50 rounded-xl border border-gray-200">
-              {/* The onBack prop is passed to the SidebarNav component */}
               <SidebarNav items={sidebarNavItems} onBack={onBack} />
             </div>
           </aside>
