@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import CsePage from './CsePage';
 
-// Import the Assets with proper casing
-import { Assets } from '../Assets/Assets';
+// Import the Assets with proper path
+import { Assets } from '../assets/Assets';
 
 
 

@@ -21,7 +21,7 @@ import PlacementD from './Placements/PlacementD';
 import Training from './Placements/Training';
 import ContactT from './Placements/ContactT';
 import CsePage from './components/CsePage';
-import { Assets } from './Assets/Assets';
+import { Assets } from './assets/Assets';
 
 const App: React.FC = () => {
   const [initialLoad, setInitialLoad] = useState(true);
