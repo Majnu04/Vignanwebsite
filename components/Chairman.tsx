@@ -143,13 +143,9 @@ const styles = {
             EDUCATION IS A SHARED COMMITMENT BETWEEN DEDICATED TEACHERS, STUDENTS AND PARENTS
           </blockquote>
           <p style={styles.paragraph}>
-            Yashwant English Medium School feels it a privilege to welcome you all to our website.
-            We are pledge bound to offer an atmosphere more homelier than their original homes to
-            all our children. The most important part of education as a process of information is
-            transformation. The transformation means change of vision. The change of behavior
-            and the change of character that is the object of education. We encourage the students
-            to involve in all activities to build up leadership qualities and the spirit of social
-            service.
+           Well Thought-out Reforms In Technical Education Is The Need Of The Hour" We, in India today, are living in a transitional era. On one hand, we are swamped by the global financial meltdown while on the other; we are witnessing a slow but sure revival of the manufacturing and agricultural sectors. It is evident that highly trained and skilled professionals will be needed in vast numbers to enable our country's transition towards industrial and financial self-sufficiency. In this changing scenario, technology will continue to be a major catalyst for enabling the country's transformation. So the demand for quality technical education in India is huge.
+
+
           </p>
           <p style={styles.paragraph}>
             The main purpose of our school is to ensure that the young people we serve are well
@@ -167,7 +163,7 @@ const styles = {
             pursing excellence in education.
           </p>
           <div style={styles.signature}>
-            <p style={styles.signatureName}>Dr.Lavu Rathaih (PHD)</p>
+            <p style={styles.signatureName}>Dr.Lavu Rathaih</p>
             <p style={styles.principalTitle}>Chairman,</p>
             <p style={styles.principalTitle}>Vignan's Institute of Informational Technology,Visakhapatnam</p>
           </div>
