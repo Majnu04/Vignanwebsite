@@ -23,7 +23,7 @@ const navItems: NavItem[] = [
                     { name: 'Vission & Mission', link: '/visionmission', image: '' },
                     { name: 'Administration', link: '/administration', image: 'https://i.ibb.co/PvHZ9D0q/image.png' },
                     { name: 'Policies', link: '/policies', image: 'https://i.ibb.co/dw23gy1B/image.png' },
-                    { name: 'Best Practice', link: '/best-practices', image: '/images/best-practice.jpg' },
+                    { name: 'Best Practice', link: '/best-practices', image: 'https://i.ibb.co/xqFZGJp7/image.png' },
                     { name: 'Empowering Strategies', link: '/empowering-strategies', image: '/images/strategies.jpg' }
 
                 ] 
@@ -61,7 +61,7 @@ const navItems: NavItem[] = [
         name: 'Academics', 
         link: '/academics', 
         isMegaWithImage: true,
-        defaultImage: '/images/academics-default.jpg',
+        defaultImage: 'https://i.ibb.co/CsJJTFvS/image.png',
         sub: [
             { 
                 name: "Academic Programs", 
@@ -129,7 +129,7 @@ const navItems: NavItem[] = [
         name: 'Governance', 
         link: '/governance', 
         isMegaWithImage: true, 
-        defaultImage: '/images/governance-default.jpg',
+        defaultImage: 'https://i.ibb.co/xqFZGJp7/image.png',
         sub: [
             { 
                 name: "Core Structure",
@@ -180,7 +180,7 @@ const navItems: NavItem[] = [
         name: 'Examinations', 
         link: '/examinations', 
         isMegaWithImage: true, 
-        defaultImage: '/images/exams-default.jpg',
+        defaultImage: 'https://i.ibb.co/fY7F5Pz8/image.png',
         sub: [
             { 
                 name: "Exam Cell & Resources", 
