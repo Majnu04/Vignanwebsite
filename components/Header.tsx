@@ -43,7 +43,7 @@ const navItems: NavItem[] = [
         name: 'Accreditation', 
         link: '/accreditations', 
         isMegaWithImage: true, 
-        defaultImage: '/images/accreditation-default.jpg',
+        defaultImage: 'https://i.ibb.co/93ctFFdH/image.png',
         sub: [
             { 
                 name: "Quality & Recognition", 
@@ -199,7 +199,7 @@ const navItems: NavItem[] = [
         name: 'Cells', 
         link: '#', 
         isMegaWithImage: true, 
-        defaultImage: '/images/cells-default.jpg',
+        defaultImage: 'https://i.ibb.co/wFHC52qZ/image.png',
         sub: [
             { 
                 name: 'Innovation & Development', 
