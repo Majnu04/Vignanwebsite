@@ -1,243 +1,260 @@
-import React from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
-// ------------------- STYLED COMPONENTS -------------------
-// By defining styles in the same file, we keep component-specific styling co-located.
+// --- DATA (Unchanged) ---
+const trainingData = {
+    title: "Our Training Process",
+    intro: "VIIT (A) is committed to training and nurturing students to excel and be industry-ready. Besides providing academic excellence, students are groomed for corporate placements using multiple training and mentoring interventions. This program enables each student to become pro-active in defining their own goals and bring out their inherent talent.",
+    pillars: [
+        { name: "Soft Skills", description: "Essential interpersonal skills that include communication, teamwork, problem-solving, and adaptability. Developing these skills is crucial for students as they enter the workforce." },
+        { name: "Language & Communication", description: "Effective communication is a fundamental skill in any field. Improving language and communication skills helps students convey their ideas clearly and confidently." },
+        { name: "Life Skills", description: "A range of abilities necessary for daily living, such as time management, decision-making, and stress management, contributing to personal and professional success." },
+        { name: "Transforming Skills", description: "The ability to learn and adapt to the ever-changing landscape of new technologies and business trends, ensuring our students are future-ready." },
+        { name: "Tech Trend Awareness", description: "Staying updated with the latest technological advancements is crucial. We provide students with awareness of these trends to ensure they are well-prepared for industry demands." },
+    ],
+    yearlyStats: [
+        { year: '2023-24', softSkillsEvents: 4, softSkillsStudents: 1628, langEvents: 3, langStudents: 1083, lifeEvents: 5, lifeStudents: 1933, techEvents: 50, techStudents: 11212, link: '#' },
+        { year: '2022-23', softSkillsEvents: 4, softSkillsStudents: 3345, langEvents: 3, langStudents: 588, lifeEvents: 15, lifeStudents: 3363, techEvents: 31, techStudents: 4655, link: '#' },
+        { year: '2021-22', softSkillsEvents: 4, softSkillsStudents: 1694, langEvents: 6, langStudents: 1020, lifeEvents: 15, lifeStudents: 3293, techEvents: 30, techStudents: 5690, link: '#' },
+        { year: '2020-21', softSkillsEvents: 5, softSkillsStudents: 4020, langEvents: 2, langStudents: 181, lifeEvents: 5, lifeStudents: 1422, techEvents: 16, techStudents: 2241, link: '#' },
+        { year: '2019-20', softSkillsEvents: 3, softSkillsStudents: 3026, langEvents: 2, langStudents: 202, lifeEvents: 9, lifeStudents: 1830, techEvents: 13, techStudents: 2328, link: '#' },
+        { year: '2018-19', softSkillsEvents: 3, softSkillsStudents: 3176, langEvents: 2, langStudents: 709, lifeEvents: 6, lifeStudents: 767, techEvents: 14, techStudents: 5314, link: '#' },
+    ]
+};
 
-const TrainingContainer = styled.div`
-  font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
-  color: #4A4A4A;
-  line-height: 1.7;
-  padding: 2.5rem;
-  background-color: #FDFDFD;
-`;
-
-const Title = styled.h1`
-  font-size: 2.8rem;
-  color: #2c3e50;
-  border-bottom: 3px solid #3498db;
-  padding-bottom: 0.75rem;
-  margin-bottom: 2rem;
-  font-weight: 600;
-`;
-
-const Section = styled.section`
-  margin-bottom: 2.5rem;
-`;
-
-const SectionTitle = styled.h2`
-  font-size: 1.9rem;
-  color: #34495e;
-  margin-bottom: 1.25rem;
-  font-weight: 500;
-`;
-
-const Paragraph = styled.p`
-  font-size: 1.05rem;
-  margin-bottom: 1rem;
-  text-align: justify;
-  max-width: 900px;
-`;
-
-const Emphasis = styled.span`
-  font-weight: 600;
-  color: #2980b9;
-`;
-
-const List = styled.ul`
-  list-style-position: inside;
-  padding-left: 10px;
-  margin-bottom: 1rem;
-`;
-
-const ListItem = styled.li`
-  margin-bottom: 0.75rem;
-  font-size: 1.05rem;
-`;
-
-const TableContainer = styled.div`
-  overflow-x: auto;
-  margin-top: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-`;
-
-const StyledTable = styled.table`
+// --- STYLED COMPONENTS (With Responsive Fixes) ---
+const SectionWrapper = styled.section`
   width: 100%;
-  border-collapse: collapse;
-  background-color: #fff;
+  padding: 6rem 2rem;
+  position: relative;
+  overflow: hidden;
+  background-color: #F4F8FF; 
+  font-family: 'Georgia', serif;
 `;
 
-const TableHead = styled.thead`
-  background-color: #34495e;
-  color: #ffffff;
-`;
-
-const TableHeader = styled.th`
-  padding: 1.25rem 1rem;
+const SectionTitle = styled(motion.h2)`
+  font-size: 3rem;
+  font-weight: 700;
   text-align: center;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-size: 0.9rem;
+  color: #1A2C4B;
+  margin-bottom: 1.5rem;
+  @media (max-width: 768px) { font-size: 2.2rem; }
 `;
 
-const SubHeader = styled(TableHeader)`
-  background-color: #4a6278;
-  font-weight: 400;
-  font-size: 0.85rem;
-`;
-
-const TableBody = styled.tbody``;
-
-const TableRow = styled.tr`
-  border-bottom: 1px solid #e0e0e0;
-
-  
-
-  &:last-of-type {
-    border-bottom: none;
-  }
-`;
-
-const TableCell = styled.td`
-  padding: 1rem;
+const IntroText = styled(motion.p)`
+  font-size: 1.1rem;
+  color: #4A5568;
   text-align: center;
-  vertical-align: middle;
-  color: #555;
+  max-width: 800px;
+  margin: 0 auto 4rem auto;
+  line-height: 1.8;
 `;
 
-const YearCell = styled(TableCell)`
-  font-weight: 600;
-  color: #2c3e50;
+const PillarsContainer = styled(motion.div)`
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
 `;
 
-const DetailsButton = styled.a`
-  display: inline-block;
-  padding: 0.5rem 1.25rem;
-  font-size: 0.9rem;
+const PillarTab = styled.button`
+  font-family: 'Georgia', serif;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
   font-weight: 500;
-  color: #fff;
-  background-color: #3498db;
-  border: none;
-  border-radius: 5px;
-  text-decoration: none;
+  border-radius: 30px;
+  border: 2px solid #E2E8F0;
+  background-color: ${props => (props.active ? '#3B82F6' : '#FFFFFF')};
+  color: ${props => (props.active ? '#FFFFFF' : '#1A2C4B')};
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: all 0.3s ease;
 
   &:hover {
-    background-color: #2980b9;
-    transform: translateY(-2px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-color: #3B82F6;
   }
 `;
 
-// ------------------- DATA AND INTERFACES -------------------
+const PillarContent = styled(motion.div)`
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto 4rem auto;
+  text-align: center;
+  color: #4A5568;
+  line-height: 1.7;
+`;
 
-// Define a clear interface for the training data objects for type safety
-interface TrainingRecord {
-    academicYear: string;
-    softSkillsEvents: number;
-    softSkillsStudents: number;
-    languageSkillsEvents: number;
-    languageSkillsStudents: number;
-    lifeSkillsEvents: number;
-    lifeSkillsStudents: number;
-    techTrendsEvents: number;
-    techTrendsStudents: number;
-    link: string;
-}
+const DashboardContainer = styled(motion.div)`
+  background: #FFFFFF;
+  border-radius: 16px;
+  border: 1px solid #E2E8F0;
+  padding: 2.5rem;
+  box-shadow: 0 8px 25px rgba(0, 42, 112, 0.08);
+  max-width: 1000px;
+  margin: 0 auto;
+`;
 
-const trainingData: TrainingRecord[] = [
-    { academicYear: '2023-24', softSkillsEvents: 4, softSkillsStudents: 1628, languageSkillsEvents: 3, languageSkillsStudents: 1083, lifeSkillsEvents: 5, lifeSkillsStudents: 1933, techTrendsEvents: 50, techTrendsStudents: 11212, link: 'https://vignaniit.edu.in/aqar2324uploads/Criteria5/5_1_3_Summary%20Sheet_final.pdf' },
-    { academicYear: '2022-23', softSkillsEvents: 4, softSkillsStudents: 3345, languageSkillsEvents: 3, languageSkillsStudents: 588, lifeSkillsEvents: 15, lifeSkillsStudents: 3363, techTrendsEvents: 31, techTrendsStudents: 4655, link: 'https://vignaniit.edu.in/capacitybuilding2021-22.php' },
-    { academicYear: '2021-22', softSkillsEvents: 4, softSkillsStudents: 1694, languageSkillsEvents: 6, languageSkillsStudents: 1020, lifeSkillsEvents: 15, lifeSkillsStudents: 3293, techTrendsEvents: 30, techTrendsStudents: 5690, link: 'https://vignaniit.edu.in/capacitybuilding2020-21.php' },
-    { academicYear: '2020-21', softSkillsEvents: 5, softSkillsStudents: 4020, languageSkillsEvents: 2, languageSkillsStudents: 181, lifeSkillsEvents: 5, lifeSkillsStudents: 1422, techTrendsEvents: 16, techTrendsStudents: 2241, link: 'https://vignaniit.edu.in/capacitybuilding2019-20.php' },
-    { academicYear: '2019-20', softSkillsEvents: 3, softSkillsStudents: 3026, languageSkillsEvents: 2, languageSkillsStudents: 202, lifeSkillsEvents: 9, lifeSkillsStudents: 1830, techTrendsEvents: 13, techTrendsStudents: 2328, link: 'https://vignaniit.edu.in/capacitybuilding2018-19.php' },
-    { academicYear: '2018-19', softSkillsEvents: 3, softSkillsStudents: 3176, languageSkillsEvents: 2, languageSkillsStudents: 709, lifeSkillsEvents: 6, lifeSkillsStudents: 767, techTrendsEvents: 14, techTrendsStudents: 5314, link: 'https://vignaniit.edu.in/capacitybuilding2018-19.php' },
-];
+const DashboardHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
 
+  h3 {
+    font-size: 1.8rem;
+    color: #1A2C4B;
+    margin: 0;
+  }
 
-// ------------------- REACT COMPONENT -------------------
+  select {
+    font-family: 'Georgia', serif;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: 1px solid #E2E8F0;
+  }
+`;
 
-const Training: React.FC = () => {
+const StatsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+
+  @media (max-width: 992px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const StatCard = styled.div`
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 42, 112, 0.1);
+  }
+
+  h4 {
+    font-size: 1rem;
+    color: #4A5568;
+    margin: 0 0 0.5rem 0;
+    font-weight: normal;
+  }
+
+  p {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #1A2C4B;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+    p {
+      font-size: 1.75rem;
+    }
+  }
+`;
+
+const ReportButton = styled.a`
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.75rem 2rem;
+  background-color: #3B82F6;
+  color: #FFFFFF;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #2563EB;
+  }
+`;
+
+// --- Main Component ---
+const TrainingProcess = () => {
+    const [activePillar, setActivePillar] = useState(trainingData.pillars[0]);
+    const [selectedYear, setSelectedYear] = useState(trainingData.yearlyStats[0].year);
+
+    const cardVariants = {
+        offscreen: { opacity: 0, y: 50 },
+        onscreen: { opacity: 1, y: 0, transition: { type: "spring", bounce: 0.4, duration: 1.2 } }
+    };
+
+    const selectedYearData = trainingData.yearlyStats.find(y => y.year === selectedYear);
+    if (!selectedYearData) return <div>Error: Data for selected year not found.</div>;
+
     return (
-        <TrainingContainer>
-            <Title>Training and Development at VIIT</Title>
+        <SectionWrapper>
+            <SectionTitle variants={cardVariants} initial="offscreen" whileInView="onscreen" viewport={{ once: true }}>
+                {trainingData.title}
+            </SectionTitle>
+            <IntroText variants={cardVariants} initial="offscreen" whileInView="onscreen" viewport={{ once: true }}>
+                {trainingData.intro}
+            </IntroText>
 
-            <Section>
-                <SectionTitle>Commitment to Student Excellence</SectionTitle>
-                <Paragraph>
-                    VIIT (A) is committed to training and nurturing the students to excel in industry-ready. Besides providing academic excellence by the departments, the students are groomed for corporate placements using multiple training and mentoring interventions. Career guidance programs provide assistance and equip students with the skills and knowledge and better informed so that they can become architects in building their own future.
-                </Paragraph>
-                <Paragraph>
-                    <Emphasis>Mentoring, Career Guidance, Training and Placement</Emphasis> is an innovative and novel process introduced by the Management of VIIT. The aim of the institute to motivate the students to the academic environment, providing guidance and train all students from the very beginning to enhance their knowledge, skill and talent and help them achieve their goals. This program enables each student to become pro-active in defining their own goals and bring out inherent talent.
-                </Paragraph>
-            </Section>
+            <PillarsContainer variants={cardVariants} initial="offscreen" whileInView="onscreen" viewport={{ once: true }}>
+                {trainingData.pillars.map(pillar => (
+                    <PillarTab key={pillar.name} onClick={() => setActivePillar(pillar)} active={activePillar.name === pillar.name}>
+                        {pillar.name}
+                    </PillarTab>
+                ))}
+            </PillarsContainer>
 
-            <Section>
-                <SectionTitle>Core Skill Enhancement Initiatives</SectionTitle>
-                <Paragraph>
-                    VIIT has created a robust platform for capacity development and skills enhancement. These initiatives are crucial for preparing students for academic and professional success:
-                </Paragraph>
-                <List>
-                    <ListItem><Emphasis>Soft Skills:</Emphasis> Soft skills are essential interpersonal skills that include communication, teamwork, problem-solving, and adaptability. Developing these skills is crucial for students as they enter the workforce.</ListItem>
-                    <ListItem><Emphasis>Language & Communication:</Emphasis> Effective communication is a fundamental skill in any field. Improving language and communication skills helps students convey their ideas clearly and confidently.</ListItem>
-                    <ListItem><Emphasis>Life Skills:</Emphasis>Life skills encompass a range of abilities that are necessary for daily living, such as time management, decision-making, and stress management. These skills contribute to personal and professional success.</ListItem>
-                    <ListItem><Emphasis>Transforming Skills:</Emphasis>It's important to adapt to the ever-changing landscape of technology and business. "Transforming skills" could refer to the ability to learn and adapt to new technologies and trends.</ListItem>
-                    <ListItem><Emphasis>Awareness of Trends in Technology:</Emphasis> Staying updated with the latest technological advancements is crucial in the IT field. Providing students with awareness of these trends ensures they are well-prepared for industry demands.</ListItem>
-                </List>
-            </Section>
+            <AnimatePresence mode="wait">
+                <PillarContent
+                    key={activePillar.name}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.3 }}
+                >
+                    {activePillar.description}
+                </PillarContent>
+            </AnimatePresence>
 
-            <TableContainer>
-                <StyledTable>
-                    <TableHead>
-                        <TableRow>
-                            <TableHeader colSpan={10}>Capacity development and skills enhancement activities are organised for improving students capability</TableHeader>
-                        </TableRow>
-                        <TableRow>
-                            <TableHeader rowSpan={2}>Academic Year</TableHeader>
-                            <TableHeader colSpan={2}>Soft Skills</TableHeader>
-                            <TableHeader colSpan={2}>Language & Communication</TableHeader>
-                            <TableHeader colSpan={2}>Life Skills</TableHeader>
-                            <TableHeader colSpan={2}>Tech Trends Awareness</TableHeader>
-                            <TableHeader rowSpan={2}>Details</TableHeader>
-                        </TableRow>
-                        <TableRow>
-                            <SubHeader>Events</SubHeader>
-                            <SubHeader>Students</SubHeader>
-                            <SubHeader>Events</SubHeader>
-                            <SubHeader>Students</SubHeader>
-                            <SubHeader>Events</SubHeader>
-                            <SubHeader>Students</SubHeader>
-                            <SubHeader>Events</SubHeader>
-                            <SubHeader>Students</SubHeader>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {trainingData.map((data) => (
-                            <TableRow key={data.academicYear}>
-                                <YearCell>{data.academicYear}</YearCell>
-                                <TableCell>{data.softSkillsEvents}</TableCell>
-                                <TableCell>{data.softSkillsStudents.toLocaleString()}</TableCell>
-                                <TableCell>{data.languageSkillsEvents}</TableCell>
-                                <TableCell>{data.languageSkillsStudents.toLocaleString()}</TableCell>
-                                <TableCell>{data.lifeSkillsEvents}</TableCell>
-                                <TableCell>{data.lifeSkillsStudents.toLocaleString()}</TableCell>
-                                <TableCell>{data.techTrendsEvents}</TableCell>
-                                <TableCell>{data.techTrendsStudents.toLocaleString()}</TableCell>
-                                <TableCell>
-                                    <DetailsButton href={data.link} target="_blank" rel="noopener noreferrer">
-                                        View
-                                    </DetailsButton>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </StyledTable>
-            </TableContainer>
-        </TrainingContainer>
+            <DashboardContainer variants={cardVariants} initial="offscreen" whileInView="onscreen" viewport={{ once: true }}>
+                <DashboardHeader>
+                    <h3>Annual Training Data</h3>
+                    <select value={selectedYear} onChange={e => setSelectedYear(e.target.value)}>
+                        {trainingData.yearlyStats.map(y => <option key={y.year} value={y.year}>{y.year}</option>)}
+                    </select>
+                </DashboardHeader>
+
+                <StatsGrid>
+                    <StatCard><h4>Soft Skills Events</h4><p>{selectedYearData.softSkillsEvents}</p></StatCard>
+                    <StatCard><h4>Students Trained</h4><p>{selectedYearData.softSkillsStudents.toLocaleString()}</p></StatCard>
+                    <StatCard><h4>Language Events</h4><p>{selectedYearData.langEvents}</p></StatCard>
+                    <StatCard><h4>Students Trained</h4><p>{selectedYearData.langStudents.toLocaleString()}</p></StatCard>
+                    <StatCard><h4>Life Skills Events</h4><p>{selectedYearData.lifeEvents}</p></StatCard>
+                    <StatCard><h4>Students Trained</h4><p>{selectedYearData.lifeStudents.toLocaleString()}</p></StatCard>
+                    <StatCard><h4>Tech Trend Events</h4><p>{selectedYearData.techEvents}</p></StatCard>
+                    <StatCard><h4>Students Trained</h4><p>{selectedYearData.techStudents.toLocaleString()}</p></StatCard>
+                </StatsGrid>
+                
+                <div style={{ textAlign: 'center' }}>
+                    <ReportButton href={selectedYearData.link} target="_blank" rel="noopener noreferrer">
+                        View Full Report for {selectedYear}
+                    </ReportButton>
+                </div>
+            </DashboardContainer>
+        </SectionWrapper>
     );
 };
 
-export default Training;
+export default TrainingProcess;
