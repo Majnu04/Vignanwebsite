@@ -35,34 +35,21 @@ const ProgramTileDesktop: React.FC<{ program: any; onMouseEnter: () => void; isH
     <div
       onMouseEnter={onMouseEnter}
       onClick={isClickable ? onClick : undefined}
-      className={`relative p-6 rounded-xl h-48 flex flex-col justify-center transition-all duration-500 ease-out ${isClickable ? 'cursor-pointer' : 'cursor-default'} bg-white border border-gray-200`}
+      className={`relative p-6 rounded-xl h-48 flex flex-col justify-center transition-all duration-300 ${isClickable ? 'cursor-pointer' : 'cursor-default'} bg-blue-50 border border-blue-100`}
       style={{
-        boxShadow: isHovered ? '0 4px 24px 0 rgba(0,0,0,0.08)' : 'none',
-        transform: isHovered ? 'scale(1.05)' : 'scale(1)',
-        borderColor: isClickable && isHovered ? '#06b6d4' : '#e5e7eb',
+        boxShadow: isHovered ? '0 4px 15px rgba(0, 0, 0, 0.1)' : 'none',
+        transform: isHovered ? 'scale(1.02)' : 'scale(1)',
       }}
     >
-      <div className={`transition-all duration-500 ${isHovered ? 'opacity-0 -translate-y-2' : 'opacity-100'}`}>
+      {/* Main content - simple program name */}
+      <div className="flex flex-col items-center justify-center h-full">
         <h3 className="text-xl font-bold text-center text-gray-900">{program.name}</h3>
-        {isClickable && (
-          <div className="flex items-center justify-center mt-2">
-            <span className="text-xs text-blue-600 font-semibold">VIEW DEPARTMENT</span>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
+        
+        {isHovered && (
+          <div className="mt-4">
+            <div className="w-12 h-1 bg-blue-500 mx-auto mb-2"></div>
+            <p className="text-sm text-gray-600">{program.desc}</p>
           </div>
-        )}
-      </div>
-      <div className={`absolute inset-0 p-6 flex flex-col justify-center text-center transition-all duration-500 ${isHovered ? 'opacity-100' : 'opacity-0 translate-y-2'}`}>
-        <p className="text-sm text-gray-700">{program.desc}</p>
-        <p className="text-xs text-cyan-400 font-semibold mt-2 uppercase tracking-wider">{program.career}</p>
-        {isClickable && (
-          <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg mx-auto flex items-center justify-center hover:bg-blue-700 transition-colors">
-            View Department
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
-          </button>
         )}
       </div>
     </div>
@@ -79,14 +66,11 @@ const ProgramTileMobile: React.FC<{ program: any; isActive: boolean; onClick: ()
       >
         <span className="text-lg font-semibold text-gray-900">{program.name}</span>
         {isClickable ? (
-          <span className="text-xs bg-blue-600 text-white px-3 py-1.5 rounded-lg flex items-center">
-            VIEW DEPARTMENT
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
-          </span>
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
         ) : (
-          <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 text-cyan-400 transition-transform duration-300 ${isActive ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 text-blue-600 transition-transform duration-300 ${isActive ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
           </svg>
         )}
@@ -95,7 +79,7 @@ const ProgramTileMobile: React.FC<{ program: any; isActive: boolean; onClick: ()
         <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isActive ? 'max-h-48' : 'max-h-0'}`}>
           <div className="p-4 pt-0">
             <p className="text-sm text-gray-700 mb-2">{program.desc}</p>
-            <p className="text-xs text-cyan-400 font-semibold uppercase tracking-wider">{program.career}</p>
+            <p className="text-xs text-blue-600 font-semibold uppercase tracking-wider">{program.career}</p>
           </div>
         </div>
       )}
@@ -141,7 +125,10 @@ const ProgramsSection: React.FC = () => {
       grid.style.setProperty('--mouse-y', `${y}px`);
     };
     grid.addEventListener('mousemove', handleMouseMove);
-    return () => grid.removeEventListener('mousemove', handleMouseMove);
+    
+    return () => {
+      grid.removeEventListener('mousemove', handleMouseMove);
+    };
   }, []);
 
   const handleMobileTileClick = (name: string) => {
@@ -180,8 +167,8 @@ const ProgramsSection: React.FC = () => {
           onMouseLeave={() => setHoveredTile(null)}
           className="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 relative"
         >
-          {programsToShow.map((program, idx) => (
-            <div className={idx % 2 === 0 ? 'bg-white' : 'bg-black'} style={{ borderRadius: '1rem', overflow: 'hidden' }} key={program.name}>
+          {programsToShow.map((program) => (
+            <div style={{ borderRadius: '1rem', overflow: 'hidden' }} key={program.name}>
               <ProgramTileDesktop
                 program={program}
                 isHovered={hoveredTile === program.name}
@@ -199,7 +186,12 @@ const ProgramsSection: React.FC = () => {
               key={program.name}
               program={program}
               isActive={activeMobileTile === program.name}
-              onClick={() => program.pageId ? handleProgramClick(program.pageId) : handleMobileTileClick(program.name)}
+              onClick={() => {
+                handleMobileTileClick(program.name);
+                if (program.pageId && activeMobileTile === program.name) {
+                  handleProgramClick(program.pageId);
+                }
+              }}
             />
           ))}
         </div>
