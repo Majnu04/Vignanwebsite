@@ -12,8 +12,14 @@ const VideoOverlay: React.FC<VideoOverlayProps> = ({ isOpen, onClose, autoplay =
   const overlayRef = useRef<HTMLDivElement>(null);
   const [isClosing, setIsClosing] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [logoPosition, setLogoPosition] = useState({ 
+    x: 10, 
+    y: 10, 
+    width: 100, 
+    height: 100 
+  }); // Default position and size for logo animation target
   
-  // Detect mobile device
+  // Detect mobile device only - no logo detection
   useEffect(() => {
     const checkMobile = () => {
       const isMobileDevice = window.innerWidth <= 768 || 
@@ -21,20 +27,55 @@ const VideoOverlay: React.FC<VideoOverlayProps> = ({ isOpen, onClose, autoplay =
       setIsMobile(isMobileDevice);
     };
     
+    // FIXED APPROACH: Use a fixed position at the top center
+    const setFixedLogoPosition = () => {
+      const screenWidth = window.innerWidth;
+      
+      // Based on the screenshot, position in top center
+      setLogoPosition({
+        x: screenWidth / 2, // Center horizontally
+        y: 150, // Fixed position from top
+        width: screenWidth * 0.4, // 40% of screen width
+        height: 180 // Fixed height for logo area
+      });
+      // Don't try to find the logo anymore - just use fixed position
+      console.log('Using fixed position for logo animation target');
+    };
+    
     checkMobile();
-    window.addEventListener('resize', checkMobile);
+    setFixedLogoPosition(); // Set the fixed position immediately
+    
+    const handleResize = () => {
+      checkMobile();
+      setFixedLogoPosition(); // Update fixed position on resize
+    };
+    
+    window.addEventListener('resize', handleResize);
     
     return () => {
-      window.removeEventListener('resize', checkMobile);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
   
+  // Make the video fill the entire screen and provide a smooth animation to logo at the end
+  // No need for actual fullscreen API which is causing issues
+
   // Handle video playback when overlay opens
   useEffect(() => {
     // Ensure video plays as soon as it's rendered
     if (isOpen && videoRef.current) {
       videoRef.current.currentTime = 0;
-      videoRef.current.playbackRate = isMobile ? 6.0 : 4.0; // Higher speed for mobile, 4.0x for desktop
+      videoRef.current.playbackRate = isMobile ? 5.0 : 1.0; // Slightly slower on mobile for better experience
+      
+      // No fullscreen, but make sure the overlay covers the entire viewport
+      if (overlayRef.current) {
+        overlayRef.current.style.width = '100vw';
+        overlayRef.current.style.height = '100vh';
+        overlayRef.current.style.position = 'fixed';
+        overlayRef.current.style.zIndex = '9999';
+        overlayRef.current.style.top = '0';
+        overlayRef.current.style.left = '0';
+      }
       
       // Prevent body scrolling when overlay is open
       document.body.style.overflow = 'hidden';
@@ -48,30 +89,21 @@ const VideoOverlay: React.FC<VideoOverlayProps> = ({ isOpen, onClose, autoplay =
         meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
         document.head.appendChild(meta);
         
-        // Try to request fullscreen for best mobile experience
-        try {
-          setTimeout(() => {
-            if (document.documentElement.requestFullscreen && !document.fullscreenElement) {
-              document.documentElement.requestFullscreen().catch(err => {
-                console.log('Fullscreen request failed:', err);
-              });
-            }
-          }, 1000); // Slight delay to ensure it happens after user interaction
-        } catch (e) {
-          console.log('Fullscreen API not supported or not allowed');
-        }
+        // No fullscreen API usage for mobile - just make it visually fullscreen
         
-        // Ensure the mobile video is loaded
-        if (videoRef.current.src !== `/Sequence 01.mp4`) {
-          videoRef.current.src = '/Sequence 01.mp4';
+        // Ensure the mobile video is loaded with the new mobile2.mp4
+        if (videoRef.current.src !== `/mobil2.mp4`) {
+          videoRef.current.src = '/mobil2.mp4';
           videoRef.current.load();
         }
       } else {
-        // Ensure the desktop video is loaded
-        if (videoRef.current.src !== `/video.mp4`) {
-          videoRef.current.src = '/video.mp4';
+        // Ensure the desktop video is loaded with the new animation that ends at the logo
+        if (videoRef.current.src !== `/images/lv_0_20250728171716.mp4`) {
+          videoRef.current.src = '/images/lv_0_20250728171716.mp4';
           videoRef.current.load();
         }
+        
+        // No fullscreen API for desktop either - just make it visually fullscreen
       }
       
       // Attempt to play with retry mechanism
@@ -98,20 +130,11 @@ const VideoOverlay: React.FC<VideoOverlayProps> = ({ isOpen, onClose, autoplay =
     }
   }, [isOpen, isMobile]);
 
+  // No fullscreen handling needed
+  
   // Handle graceful close with animation
   const handleClose = () => {
     setIsClosing(true);
-    
-    // Exit fullscreen if active
-    try {
-      if (document.fullscreenElement) {
-        document.exitFullscreen().catch(err => {
-          console.log('Error exiting fullscreen:', err);
-        });
-      }
-    } catch (e) {
-      console.log('Fullscreen API not supported');
-    }
     
     // Wait for animation to complete before actually closing
     setTimeout(() => {
@@ -136,9 +159,60 @@ const VideoOverlay: React.FC<VideoOverlayProps> = ({ isOpen, onClose, autoplay =
     }, 800); // Match to animation duration
   };
 
-  // Handle auto-close when video ends
+  // Handle auto-close when video ends with special animation for desktop
   const handleVideoEnd = () => {
-    handleClose();
+    // For desktop video, animate to the logo position
+    if (!isMobile && videoRef.current) {
+        const videoElement = videoRef.current;
+        if (!videoElement) return;
+        const videoWrapper = videoElement.parentElement;
+      
+      // Use fixed position at top center - much more reliable
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
+      
+      // Enhanced animation values for smoother logo transition
+      const finalLogoX = screenWidth / 2; // Center
+      const finalLogoY = 60; // Top area where logo is
+      
+      // Use a responsive scale ratio
+      const scaleRatio = Math.min(0.2, 150 / Math.min(screenWidth, screenHeight)); // Dynamic scaling
+      
+      // Enhanced translation to top center logo
+      const translateX = 0; // No horizontal translation needed if already centered
+      const translateY = -screenHeight * 0.45; // Move up more for better logo position
+      
+      console.log('Using simplified animation to top center');
+      
+      // Enhanced smooth animation
+      videoElement.style.transition = 'transform 2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.8s ease-in-out';
+      videoElement.style.transformOrigin = 'center top'; // Better for logo animation
+      videoElement.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scaleRatio})`;
+      videoElement.style.opacity = '0.2'; // Fade to slightly visible before disappearing completely
+      
+      // Fade overlay background
+      if (overlayRef.current) {
+        overlayRef.current.style.transition = 'background-color 1.5s ease';
+        overlayRef.current.style.backgroundColor = 'rgba(0,0,0,0.7)';
+      }
+      
+      // Prevent clicking during animation
+      if (overlayRef.current) {
+        overlayRef.current.style.pointerEvents = 'none';
+      }
+      
+      // Wait for logo animation to complete before closing
+      setTimeout(() => {
+        // Reset pointer events before closing
+        if (overlayRef.current) {
+          overlayRef.current.style.pointerEvents = '';
+        }
+        handleClose();
+      }, 2000); // Increased animation duration for smoother transition
+    } else {
+      // For mobile, just use the standard close animation
+      handleClose();
+    }
   };
   
   if (!isOpen) return null;
@@ -154,13 +228,15 @@ const VideoOverlay: React.FC<VideoOverlayProps> = ({ isOpen, onClose, autoplay =
         left: 0,
         width: '100vw',
         height: '100vh',
+        minHeight: '-webkit-fill-available', // Fix for iOS viewport height
         zIndex: 9999, // Ensure it's above everything else
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         overflow: 'hidden', // Prevent scrolling
         margin: 0,
-        padding: 0
+        padding: 0,
+        perspective: '1000px' // Adds depth perspective for 3D animations
       }}
       onClick={handleClose} // Allow tapping to close
     >
@@ -178,7 +254,7 @@ const VideoOverlay: React.FC<VideoOverlayProps> = ({ isOpen, onClose, autoplay =
         <video 
           ref={videoRef}
           className={`video-animation ${isClosing ? 'animate-zoom-out' : 'animate-zoom-in'}`}
-          src={isMobile ? "/Sequence 01.mp4" : "/video.mp4"}
+          src={isMobile ? "/mobil2.mp4" : "/images/lv_0_20250728171716.mp4"}
           autoPlay={autoplay}
           muted
           playsInline
@@ -187,14 +263,19 @@ const VideoOverlay: React.FC<VideoOverlayProps> = ({ isOpen, onClose, autoplay =
           style={{ 
             width: '100%', 
             height: '100%', 
-            objectFit: isMobile ? 'cover' : 'cover', // Changed to cover for mobile fullscreen
+            objectFit: 'cover', // Always cover for fullscreen effect on both mobile and desktop
             position: 'absolute',
             top: 0,
             left: 0,
             right: 0,
             bottom: 0,
             margin: 0,
-            padding: 0
+            padding: 0,
+            transformOrigin: 'center center',
+            willChange: 'transform, opacity', // Hardware acceleration hint
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+            transition: 'transform 1.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.5s ease-out' // Built-in transition
           }}
         />
       </div>

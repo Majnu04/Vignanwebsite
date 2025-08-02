@@ -88,3 +88,49 @@
   from { transform: scale(1); opacity: 1; }
   to { transform: scale(1.05); opacity: 0; }
 }
+
+/* Animation for desktop video ending at logo position */
+.animate-to-logo {
+  animation: moveToLogo 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: center center;
+}
+
+@keyframes moveToLogo {
+  0% { 
+    transform: scale(1) translate(0, 0); 
+    opacity: 1; 
+  }
+  40% {
+    transform: scale(0.4) translate(0, -15%); 
+    opacity: 0.9;
+  }
+  70% {
+    transform: scale(0.25) translate(0, -25%); 
+    opacity: 0.6;
+  }
+  100% { 
+    transform: scale(0.15) translate(0, -40%); 
+    opacity: 0; 
+  }
+}
+
+/* Alternative animation if the logo is in the center-top */
+.animate-to-center-logo {
+  animation: moveToCenterLogo 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: center center;
+}
+
+@keyframes moveToCenterLogo {
+  0% { 
+    transform: scale(1); 
+    opacity: 1; 
+  }
+  50% {
+    transform: scale(0.5); 
+    opacity: 0.7;
+  }
+  100% { 
+    transform: scale(0.15); 
+    opacity: 0; 
+  }
+}

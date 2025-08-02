@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme'); // <-- Import default theme
+
 module.exports = {
   content: [
     "./index.html",
@@ -9,10 +11,9 @@ module.exports = {
   ],
   theme: {
     extend: {
-      animation: {
-        'float': 'float 6s ease-in-out infinite',
-        'pulse-custom': 'pulse 3s ease-in-out infinite',
-        'shine': 'shine 3s infinite',
+      // ADDED: Font family configuration
+      fontFamily: {
+        sans: ['Inter', ...defaultTheme.fontFamily.sans],
       },
       keyframes: {
         float: {
@@ -29,7 +30,7 @@ module.exports = {
         },
         'marquee-full': {
           '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(-100%)' }, // Scrolls the entire width of one set of items
+          '100%': { transform: 'translateX(-100%)' },
         },
         blob: {
           '0%': { transform: 'translate(0px, 0px) scale(1)' },
@@ -43,12 +44,15 @@ module.exports = {
           '100%': { backgroundPosition: '0% 50%' },
         },
       },
-      animation:{
-        blob: 'blob 5s infinite ease-in-out',
-        aurora: 'aurora 15s ease infinite',
+      animation: {
+        'float': 'float 6s ease-in-out infinite',
+        'pulse-custom': 'pulse 3s ease-in-out infinite',
+        'shine': 'shine 3s infinite',
+        'blob': 'blob 5s infinite ease-in-out',
+        'aurora': 'aurora 15s ease infinite',
         'marquee-full': 'marquee-full 60s linear infinite',
-      }
+      },
     },
   },
   plugins: [],
-}
+};
