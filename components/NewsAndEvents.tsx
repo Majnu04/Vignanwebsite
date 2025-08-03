@@ -42,13 +42,13 @@ const NewsAndEvents: React.FC = () => {
       if (autoplayTimeoutRef.current) clearTimeout(autoplayTimeoutRef.current);
       autoplayTimeoutRef.current = setTimeout(() => {
         setActiveIndex((prev) => (prev + 1) % eventsData.length);
-      }, 5000);
+      }, isMobileView ? 6000 : 5000); // Slightly longer time on mobile for better reading
     };
     startAutoplay();
     return () => {
       if (autoplayTimeoutRef.current) clearTimeout(autoplayTimeoutRef.current);
     };
-  }, [activeIndex]);
+  }, [activeIndex, isMobileView]);
 
   useEffect(() => {
     if (isMobileView || !constraintsRef.current || !draggableRef.current) return;
@@ -78,53 +78,134 @@ const NewsAndEvents: React.FC = () => {
 
   return (
     <section className={`relative w-full flex flex-col justify-center items-center overflow-hidden
-      ${isMobileView ? 'py-4' : 'py-6 sm:py-8'}
+      ${isMobileView ? 'py-6' : 'py-6 sm:py-8'}
       bg-white`}>
 
       <div className="text-center mb-6 sm:mb-8 md:mb-12 px-4">
         <AnimatedElement animation="slide-down" className="block">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 tracking-tight" style={{ fontFamily: 'Georgia, serif', letterSpacing: '-0.03em' }}>
+          <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 tracking-tight" style={{ fontFamily: 'Georgia, serif', letterSpacing: '-0.03em' }}>
             News & Upcoming Events
           </h2>
         </AnimatedElement>
         <AnimatedElement animation="fade-in" delay={200} className="block">
-          <p className="mt-2 sm:mt-4 text-base md:text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="mt-2 sm:mt-4 text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto">
             Stay connected with the vibrant pulse of our campus.
           </p>
         </AnimatedElement>
         <AnimatedElement animation="slide-up" delay={400} className="block">
-          <div className="mx-auto mt-4 w-24 h-1 rounded-full bg-slate-300"></div>
+          <div className="mx-auto mt-3 w-16 sm:w-24 h-1 rounded-full bg-slate-300"></div>
         </AnimatedElement>
       </div>
 
       {isMobileView ? (
         // --- MOBILE VIEW ---
-        <div className="relative w-full flex-1 flex flex-col items-center justify-center p-4">
-          <div className="absolute top-2 left-4 right-4 z-20 flex gap-1">
+        <div className="relative w-full px-4 py-6 flex flex-col items-center">
+          {/* Progress indicator */}
+          <div className="w-full flex justify-center mb-4 gap-2">
             {eventsData.map((_, index) => (
-              <div key={index} className="flex-1 h-1 bg-gray-200/70 rounded-full overflow-hidden">
-                <AnimatePresence>
-                  {index === activeIndex && (
-                    <motion.div className="h-full bg-blue-600" initial={{ width: '0%' }} animate={{ width: '100%' }} exit={{ width: '100%' }} transition={{ duration: 5 }} />
-                  )}
-                </AnimatePresence>
-                {index < activeIndex && <div className="h-full bg-blue-600"></div>}
-              </div>
+              <button 
+                key={index} 
+                onClick={() => setActiveIndex(index)} 
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                  activeIndex === index 
+                    ? 'bg-blue-600 transform scale-125' 
+                    : 'bg-gray-300 hover:bg-gray-400'
+                }`}
+                aria-label={`View event ${index + 1}`}
+              />
             ))}
           </div>
-          <AnimatePresence initial={false}>
-            <motion.div key={activeIndex} className="absolute w-[90%] h-[80%] bg-slate-900 rounded-2xl shadow-2xl border-2 border-slate-800 overflow-hidden ring-4 ring-black/10" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8 }} transition={{ duration: 0.5 }}>
-              <div className="relative h-full flex flex-col p-6 sm:p-8 text-white">
-                <span className="px-3 py-1 bg-white text-slate-900 text-xs sm:text-sm font-semibold rounded-full self-start mb-4 border border-black/10 shadow-md">{eventsData[activeIndex].type}</span>
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold" style={{fontFamily: 'Georgia, serif'}}>{eventsData[activeIndex].title}</h3>
-                <p className="text-sm text-slate-300 mt-1 font-semibold">{eventsData[activeIndex].date}</p>
-                <p className="mt-4 text-slate-300 text-sm">{eventsData[activeIndex].description}</p>
-                <button className="mt-auto px-5 py-2.5 bg-white text-slate-900 text-sm font-bold rounded-lg self-start hover:bg-slate-200 transition-colors duration-300 shadow-lg border border-black/10">Register Now</button>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-          <div className="absolute left-0 top-0 h-full w-1/2 cursor-pointer" onClick={handlePrev}></div>
-          <div className="absolute right-0 top-0 h-full w-1/2 cursor-pointer" onClick={handleNext}></div>
+          
+          {/* Card carousel */}
+          <div className="relative w-full overflow-hidden rounded-xl shadow-lg" style={{ height: '400px' }}>
+            <AnimatePresence initial={false} mode="wait">
+              <motion.div 
+                key={activeIndex}
+                className="absolute inset-0 w-full h-full bg-gradient-to-br from-slate-900 to-slate-800 overflow-hidden"
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -100 }}
+                transition={{ duration: 0.4 }}
+              >
+                {/* Background image with overlay */}
+                <div className="absolute inset-0 opacity-20" style={{
+                  backgroundImage: `url(${eventsData[activeIndex].image})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center'
+                }}/>
+                
+                <div className="relative h-full flex flex-col p-5 text-white">
+                  <div className="flex items-center justify-between">
+                    <span className="px-3 py-1 bg-blue-600 text-white text-xs font-semibold rounded-full shadow-md">
+                      {eventsData[activeIndex].type}
+                    </span>
+                    <span className="text-xs text-blue-300 font-medium">
+                      {eventsData[activeIndex].date}
+                    </span>
+                  </div>
+                  
+                  <h3 className="text-xl font-bold mt-4" style={{fontFamily: 'Georgia, serif'}}>
+                    {eventsData[activeIndex].title}
+                  </h3>
+                  
+                  <div className="flex-1 flex items-center mt-2">
+                    <p className="text-slate-200 text-sm leading-relaxed">
+                      {eventsData[activeIndex].description}
+                    </p>
+                  </div>
+                  
+                  <button className="w-full mt-4 py-3 bg-blue-600 text-white text-sm font-bold rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-lg flex items-center justify-center">
+                    Register Now
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </button>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+            
+            {/* Navigation arrows */}
+            <button 
+              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white/30 transition-colors"
+              onClick={handlePrev}
+              aria-label="Previous event"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+            </button>
+            <button 
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white/30 transition-colors"
+              onClick={handleNext}
+              aria-label="Next event"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+              </svg>
+            </button>
+          </div>
+          
+          {/* Date display under card */}
+          <div className="mt-4 bg-slate-100 rounded-lg p-3 w-full flex justify-between items-center">
+            {eventsData.map((event, index) => {
+              const [line1, line2] = formatDateForTimeline(event.date);
+              return (
+                <div 
+                  key={index} 
+                  onClick={() => setActiveIndex(index)}
+                  className={`text-center cursor-pointer transition-all duration-300 px-1 ${
+                    activeIndex === index 
+                      ? 'text-blue-600 font-bold transform scale-110' 
+                      : 'text-slate-500'
+                  }`}
+                >
+                  <div className="text-xs leading-tight">
+                    {line1}<br/>{line2}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       ) : (
         // --- DESKTOP VIEW ---
