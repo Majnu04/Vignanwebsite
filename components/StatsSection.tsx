@@ -3,6 +3,7 @@
 import React from 'react';
 import { useInView } from '../hooks/useInView';
 import { useCounter } from '../hooks/useCounter';
+import { AnimatedElement } from './AnimatedElement';
 
 // Data for the statistics cards
 const statsData = [
@@ -20,21 +21,26 @@ const statsData = [
 type StatItem = typeof statsData[0];
 
 // StatCard Sub-Component
-const StatCard: React.FC<{ stat: StatItem; inView: boolean; delay: string; }> = ({ stat, inView, delay }) => {
+const StatCard: React.FC<{ stat: StatItem; inView: boolean; delay: string; index: number }> = ({ stat, inView, delay, index }) => {
     const count = useCounter(stat.value, 2000, inView, stat.decimals);
 
     return (
-        <div
-          className={`bg-white p-4 sm:p-6 rounded-xl shadow-lg border border-blue-300 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} text-center`}
-          style={{ transitionDelay: delay }}
+        <AnimatedElement
+          animation={index % 2 === 0 ? "slide-up" : "slide-down"}
+          delay={index * 100}
+          className="h-full w-full"
         >
-            <div className="flex items-baseline justify-center gap-1">
-              <p className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900" style={{ fontFamily: "'Georgia', serif" }}>{count}</p>
-              <span className="text-xl sm:text-2xl md:text-3xl font-bold text-blue-600" style={{ fontFamily: "'Georgia', serif" }}>{stat.suffix}</span>
-            </div>
-            <h3 className="text-sm sm:text-base md:text-lg font-semibold text-gray-800 mt-2 sm:mt-3" style={{ fontFamily: "'Georgia', serif" }}>{stat.label}</h3>
-            <p className="text-xs sm:text-sm text-gray-600 mt-1 sm:mt-1.5 line-clamp-2">{stat.description}</p>
-        </div>
+          <div
+            className={`bg-white p-4 sm:p-6 rounded-xl shadow-lg border border-blue-300 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl text-center h-full`}
+          >
+              <div className="flex items-baseline justify-center gap-1">
+                <p className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900" style={{ fontFamily: "'Georgia', serif" }}>{count}</p>
+                <span className="text-xl sm:text-2xl md:text-3xl font-bold text-blue-600" style={{ fontFamily: "'Georgia', serif" }}>{stat.suffix}</span>
+              </div>
+              <h3 className="text-sm sm:text-base md:text-lg font-semibold text-gray-800 mt-2 sm:mt-3" style={{ fontFamily: "'Georgia', serif" }}>{stat.label}</h3>
+              <p className="text-xs sm:text-sm text-gray-600 mt-1 sm:mt-1.5 line-clamp-2">{stat.description}</p>
+          </div>
+        </AnimatedElement>
     );
 };
 
@@ -46,29 +52,35 @@ const StatsSection: React.FC = () => {
     <section className="relative pt-12 sm:pt-20 pb-12 sm:pb-20 bg-gray-50" ref={ref}>
       <div className="container mx-auto px-3 sm:px-6 lg:px-8">
 
-        <div className={`text-center mb-8 sm:mb-16 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight" style={{ fontFamily: "'Georgia', serif" }}>
-            VIIT at a Glance
-          </h2>
-          <p className="mt-2 text-sm sm:text-base text-gray-600 px-4">A snapshot of our achievements and community</p>
+        <div className="text-center mb-8 sm:mb-16">
+          <AnimatedElement animation="slide-down" className="block">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight" style={{ fontFamily: "'Georgia', serif" }}>
+              VIIT at a Glance
+            </h2>
+          </AnimatedElement>
+          <AnimatedElement animation="fade-in" delay={200} className="block">
+            <p className="mt-2 text-sm sm:text-base text-gray-600 px-4">A snapshot of our achievements and community</p>
+          </AnimatedElement>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 md:gap-8">
           {statsData.map((stat, index) => (
-            <StatCard key={index} stat={stat} inView={inView} delay={`${index * 100}ms`} />
+            <StatCard key={index} stat={stat} inView={inView} delay={`${index * 100}ms`} index={index} />
           ))}
         </div>
 
-        <div className={`mt-10 sm:mt-16 text-center transition-all duration-700 delay-300 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-          <a
-            href="#"
-            className="inline-flex items-center px-5 sm:px-8 py-2.5 sm:py-3 bg-blue-600 text-white rounded-full font-semibold text-sm sm:text-base hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
-          >
-            Download Brochure
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-            </svg>
-          </a>
+        <div className="mt-10 sm:mt-16 text-center">
+          <AnimatedElement animation="slide-up" delay={800} className="inline-block">
+            <a
+              href="#"
+              className="inline-flex items-center px-5 sm:px-8 py-2.5 sm:py-3 bg-blue-600 text-white rounded-full font-semibold text-sm sm:text-base hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+            >
+              Download Brochure
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+            </a>
+          </AnimatedElement>
         </div>
 
       </div>

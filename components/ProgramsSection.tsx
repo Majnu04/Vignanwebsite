@@ -3,6 +3,7 @@ import CsePage from './CsePage';
 
 // Import the Assets with proper path
 import { Assets } from '../assets/Assets';
+import { AnimatedElement } from './AnimatedElement';
 
 // --- DATA ---
 const programsData = {
@@ -29,61 +30,73 @@ const programsData = {
 
 // --- SUB-COMPONENTS ---
 
-const ProgramTileDesktop: React.FC<{ program: any; onMouseEnter: () => void; isHovered: boolean; onClick: () => void; }> = ({ program, onMouseEnter, isHovered, onClick }) => {
+const ProgramTileDesktop: React.FC<{ program: any; onMouseEnter: () => void; isHovered: boolean; onClick: () => void; index: number; }> = ({ program, onMouseEnter, isHovered, onClick, index }) => {
   const isClickable = !!program.pageId;
   return (
-    <div
-      onMouseEnter={onMouseEnter}
-      onClick={isClickable ? onClick : undefined}
-      className={`relative p-6 rounded-xl h-48 flex flex-col justify-center transition-all duration-300 ${isClickable ? 'cursor-pointer' : 'cursor-default'} bg-blue-50 border border-blue-100`}
-      style={{
-        boxShadow: isHovered ? '0 4px 15px rgba(0, 0, 0, 0.1)' : 'none',
-        transform: isHovered ? 'scale(1.02)' : 'scale(1)',
-      }}
+    <AnimatedElement 
+      animation="fade-in" 
+      delay={index * 100}
+      className="w-full h-full"
     >
-      {/* Main content - simple program name */}
-      <div className="flex flex-col items-center justify-center h-full">
-        <h3 className="text-xl font-bold text-center text-gray-900">{program.name}</h3>
-        
-        {isHovered && (
-          <div className="mt-4">
-            <div className="w-12 h-1 bg-blue-500 mx-auto mb-2"></div>
-            <p className="text-sm text-gray-600">{program.desc}</p>
-          </div>
-        )}
+      <div
+        onMouseEnter={onMouseEnter}
+        onClick={isClickable ? onClick : undefined}
+        className={`relative p-6 rounded-xl h-48 flex flex-col justify-center transition-all duration-300 ${isClickable ? 'cursor-pointer' : 'cursor-default'} bg-blue-50 border border-blue-100`}
+        style={{
+          boxShadow: isHovered ? '0 4px 15px rgba(0, 0, 0, 0.1)' : 'none',
+          transform: isHovered ? 'scale(1.02)' : 'scale(1)',
+        }}
+      >
+        {/* Main content - simple program name */}
+        <div className="flex flex-col items-center justify-center h-full">
+          <h3 className="text-xl font-bold text-center text-gray-900">{program.name}</h3>
+          
+          {isHovered && (
+            <div className="mt-4">
+              <div className="w-12 h-1 bg-blue-500 mx-auto mb-2"></div>
+              <p className="text-sm text-gray-600">{program.desc}</p>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </AnimatedElement>
   );
 };
 
-const ProgramTileMobile: React.FC<{ program: any; isActive: boolean; onClick: () => void; }> = ({ program, isActive, onClick }) => {
+const ProgramTileMobile: React.FC<{ program: any; isActive: boolean; onClick: () => void; index?: number; }> = ({ program, isActive, onClick, index = 0 }) => {
   const isClickable = !!program.pageId;
   return (
-    <div className="border-b border-gray-200 bg-white">
-      <button
-        onClick={onClick}
-        className={`w-full flex justify-between items-center text-left p-4 ${isClickable ? 'bg-blue-50' : ''}`}
-      >
-        <span className="text-lg font-semibold text-gray-900">{program.name}</span>
-        {isClickable ? (
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        ) : (
-          <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 text-blue-600 transition-transform duration-300 ${isActive ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
-        )}
-      </button>
-      {!isClickable && (
-        <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isActive ? 'max-h-48' : 'max-h-0'}`}>
-          <div className="p-4 pt-0">
-            <p className="text-sm text-gray-700 mb-2">{program.desc}</p>
-            <p className="text-xs text-blue-600 font-semibold uppercase tracking-wider">{program.career}</p>
+    <AnimatedElement
+      animation="slide-up"
+      delay={index * 100}
+      className="w-full"
+    >
+      <div className="border-b border-gray-200 bg-white">
+        <button
+          onClick={onClick}
+          className={`w-full flex justify-between items-center text-left p-4 ${isClickable ? 'bg-blue-50' : ''}`}
+        >
+          <span className="text-lg font-semibold text-gray-900">{program.name}</span>
+          {isClickable ? (
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          ) : (
+            <svg xmlns="http://www.w3.org/2000/svg" className={`h-5 w-5 text-blue-600 transition-transform duration-300 ${isActive ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          )}
+        </button>
+        {!isClickable && (
+          <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isActive ? 'max-h-48' : 'max-h-0'}`}>
+            <div className="p-4 pt-0">
+              <p className="text-sm text-gray-700 mb-2">{program.desc}</p>
+              <p className="text-xs text-blue-600 font-semibold uppercase tracking-wider">{program.career}</p>
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </AnimatedElement>
   );
 };
 
@@ -138,28 +151,32 @@ const ProgramsSection: React.FC = () => {
   return (
     <section className="relative pt-20 sm:pt-28 pb-0 sm:pb-0 mb-0 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+      <div className="text-center mb-12">
+        <AnimatedElement animation="slide-down" duration={800} className="block">
           <h2 className="text-5xl font-extrabold text-black tracking-tight drop-shadow-lg mb-2" style={{ fontFamily: 'Georgia, serif' }}>
             Programmes Offered
           </h2>
+        </AnimatedElement>
+        <AnimatedElement animation="fade-in" delay={200} duration={800} className="block">
           <p className="text-lg text-gray-700 max-w-2xl mx-auto mt-2">Explore our diverse range of undergraduate and postgraduate programs designed for future leaders and innovators.</p>
-        </div>
-
-        {/* Filter Buttons */}
-        <div className="flex justify-center gap-4 mb-12">
-          <button
-            onMouseEnter={() => setActiveFilter('UG')}
-            className={`px-7 py-2.5 rounded-full font-semibold transition-all duration-300 border-2 ${activeFilter === 'UG' ? 'bg-black text-white border-black shadow-lg scale-105' : 'bg-white text-black border-gray-300 hover:bg-gray-100 hover:border-black'}`}
-          >
-            Undergraduate
-          </button>
-          <button
-            onMouseEnter={() => setActiveFilter('PG')}
-            className={`px-7 py-2.5 rounded-full font-semibold transition-all duration-300 border-2 ${activeFilter === 'PG' ? 'bg-black text-white border-black shadow-lg scale-105' : 'bg-white text-black border-gray-300 hover:bg-gray-100 hover:border-black'}`}
-          >
-            Postgraduate
-          </button>
-        </div>
+        </AnimatedElement>
+      </div>        {/* Filter Buttons */}
+        <AnimatedElement animation="slide-up" delay={400} className="block w-full">
+          <div className="flex justify-center gap-4 mb-12">
+            <button
+              onMouseEnter={() => setActiveFilter('UG')}
+              className={`px-7 py-2.5 rounded-full font-semibold transition-all duration-300 border-2 ${activeFilter === 'UG' ? 'bg-black text-white border-black shadow-lg scale-105' : 'bg-white text-black border-gray-300 hover:bg-gray-100 hover:border-black'}`}
+            >
+              Undergraduate
+            </button>
+            <button
+              onMouseEnter={() => setActiveFilter('PG')}
+              className={`px-7 py-2.5 rounded-full font-semibold transition-all duration-300 border-2 ${activeFilter === 'PG' ? 'bg-black text-white border-black shadow-lg scale-105' : 'bg-white text-black border-gray-300 hover:bg-gray-100 hover:border-black'}`}
+            >
+              Postgraduate
+            </button>
+          </div>
+        </AnimatedElement>
 
         {/* --- DESKTOP VIEW: Interactive Grid --- */}
         <div
@@ -167,10 +184,11 @@ const ProgramsSection: React.FC = () => {
           onMouseLeave={() => setHoveredTile(null)}
           className="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 relative"
         >
-          {programsToShow.map((program) => (
+          {programsToShow.map((program, index) => (
             <div style={{ borderRadius: '1rem', overflow: 'hidden' }} key={program.name}>
               <ProgramTileDesktop
                 program={program}
+                index={index}
                 isHovered={hoveredTile === program.name}
                 onMouseEnter={() => setHoveredTile(program.name)}
                 onClick={() => program.pageId && handleProgramClick(program.pageId)}
@@ -181,10 +199,11 @@ const ProgramsSection: React.FC = () => {
 
         {/* --- MOBILE VIEW: Accordion List --- */}
         <div className="block md:hidden">
-          {programsToShow.map((program) => (
+          {programsToShow.map((program, index) => (
             <ProgramTileMobile
               key={program.name}
               program={program}
+              index={index}
               isActive={activeMobileTile === program.name}
               onClick={() => {
                 handleMobileTileClick(program.name);

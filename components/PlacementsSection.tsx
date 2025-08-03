@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Tilt from 'react-parallax-tilt';
 import { useInView } from '../hooks/useInView';
 import { useCounter } from '../hooks/useCounter';
+import { AnimatedElement } from './AnimatedElement';
 
 // --- DATA ---
 const highlights = [
@@ -79,21 +80,33 @@ const PlacementsSection: React.FC = () => {
     <section ref={ref} className="relative py-16 md:py-24 lg:py-28 overflow-hidden bg-gray-50">
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         {/* --- HEADER --- */}
-        <div className={`text-center mb-16 md:mb-20 transition-all duration-1000 ease-in-out ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900" style={{ fontFamily: 'Georgia, serif' }}>
-            A Legacy of Placement Excellence
-          </h2>
-          <p className="mt-4 text-base md:text-lg text-slate-600 max-w-3xl mx-auto">
-            Our students are shaping the future at the world's leading technology companies.
-          </p>
+        <div className="text-center mb-16 md:mb-20">
+          <AnimatedElement animation="slide-down" className="block">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900" style={{ fontFamily: 'Georgia, serif' }}>
+              A Legacy of Placement Excellence
+            </h2>
+          </AnimatedElement>
+          <AnimatedElement animation="fade-in" delay={200} className="block">
+            <p className="mt-4 text-base md:text-lg text-slate-600 max-w-3xl mx-auto">
+              Our students are shaping the future at the world's leading technology companies.
+            </p>
+          </AnimatedElement>
         </div>
         
         {/* --- STATS DASHBOARD --- */}
-        <div className={`grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-20 md:mb-24 transition-all duration-1000 delay-200 ease-in-out ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          <AnimatedStat value={45} suffix=" LPA" label="Highest Package" />
-          <AnimatedStat value={8.5} decimals={1} suffix=" LPA" label="Average Package" />
-          <AnimatedStat value={1250} suffix="+" label="Total Offers (2024)" />
-          <AnimatedStat value={350} suffix="+" label="Companies Visited" />
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-20 md:mb-24">
+          <AnimatedElement animation="slide-up" delay={100} className="h-full">
+            <AnimatedStat value={45} suffix=" LPA" label="Highest Package" />
+          </AnimatedElement>
+          <AnimatedElement animation="slide-up" delay={200} className="h-full">
+            <AnimatedStat value={8.5} decimals={1} suffix=" LPA" label="Average Package" />
+          </AnimatedElement>
+          <AnimatedElement animation="slide-up" delay={300} className="h-full">
+            <AnimatedStat value={1250} suffix="+" label="Total Offers (2024)" />
+          </AnimatedElement>
+          <AnimatedElement animation="slide-up" delay={400} className="h-full">
+            <AnimatedStat value={350} suffix="+" label="Companies Visited" />
+          </AnimatedElement>
         </div>
 
         {/* --- FINAL RESPONSIVE CAROUSEL --- */}

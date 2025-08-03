@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
+import { AnimatedElement } from './AnimatedElement';
 
 // --- DATA ---
 const eventsData = [
@@ -81,13 +82,19 @@ const NewsAndEvents: React.FC = () => {
       bg-white`}>
 
       <div className="text-center mb-6 sm:mb-8 md:mb-12 px-4">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 tracking-tight" style={{ fontFamily: 'Georgia, serif', letterSpacing: '-0.03em' }}>
-          News & Upcoming Events
-        </h2>
-        <p className="mt-2 sm:mt-4 text-base md:text-lg text-gray-600 max-w-3xl mx-auto">
-          Stay connected with the vibrant pulse of our campus.
-        </p>
-        <div className="mx-auto mt-4 w-24 h-1 rounded-full bg-slate-300"></div>
+        <AnimatedElement animation="slide-down" className="block">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 tracking-tight" style={{ fontFamily: 'Georgia, serif', letterSpacing: '-0.03em' }}>
+            News & Upcoming Events
+          </h2>
+        </AnimatedElement>
+        <AnimatedElement animation="fade-in" delay={200} className="block">
+          <p className="mt-2 sm:mt-4 text-base md:text-lg text-gray-600 max-w-3xl mx-auto">
+            Stay connected with the vibrant pulse of our campus.
+          </p>
+        </AnimatedElement>
+        <AnimatedElement animation="slide-up" delay={400} className="block">
+          <div className="mx-auto mt-4 w-24 h-1 rounded-full bg-slate-300"></div>
+        </AnimatedElement>
       </div>
 
       {isMobileView ? (
