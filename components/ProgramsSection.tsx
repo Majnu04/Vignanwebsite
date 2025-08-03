@@ -149,7 +149,7 @@ const ProgramsSection: React.FC = () => {
   };
 
   return (
-    <section className="relative pt-20 sm:pt-28 pb-0 sm:pb-0 mb-0 bg-white">
+    <section className="relative pt-6 sm:pt-8 pb-0 sm:pb-0 mb-0 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-12">
         <AnimatedElement animation="slide-down" duration={800} className="block">

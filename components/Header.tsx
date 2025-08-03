@@ -368,7 +368,7 @@ const Header: React.FC<HeaderProps> = ({ onLogoClick }) => {
             <header className="fixed top-0 w-full z-50 transition-all duration-300 ease-in-out" onMouseLeave={() => { handleMouseLeave(); handleAdminPanelLeave(); }}>
                 <div className="absolute top-0 left-0 right-0 h-full transition-all duration-300" style={{ background: isScrolled ? 'rgba(255, 255, 255, 0.9)' : 'transparent', backdropFilter: isScrolled ? 'blur(10px)' : 'blur(10px)', boxShadow: isScrolled ? '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)' : 'none' }}></div>
                 <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className={`flex items-center justify-between transition-all duration-300 ${isScrolled ? 'h-16' : 'h-16'}`}>
+                    <div className={`flex items-center justify-between transition-all duration-300 ${isScrolled ? 'h-18' : 'h-20'}`}>
                         
                         {/* --- KEY FIX: Left Group (Logo + Main Nav) --- */}
                         <div className="flex items-center gap-x-6">
@@ -376,7 +376,7 @@ const Header: React.FC<HeaderProps> = ({ onLogoClick }) => {
                                 {/* Make logo clickable to play video */}
                                 <AnimatedLogo 
                                   isScrolled={isScrolled} 
-                                  logoSize={isScrolled ? 96 : 128} 
+                                  logoSize={isScrolled ? 90 : 110} 
                                   onClick={() => {
                                     playVideo(); // Play the video when logo is clicked
                                     if (onLogoClick) onLogoClick(); // Still call the original onLogoClick if provided
@@ -490,10 +490,10 @@ const Header: React.FC<HeaderProps> = ({ onLogoClick }) => {
                 <div className={`fixed top-0 right-0 bottom-0 z-50 w-[85%] max-w-sm bg-white shadow-2xl overflow-hidden transition-transform duration-500 ease-in-out lg:hidden ${isMobileMenuOpen ? 'transform-none' : 'translate-x-full'}`}>
                     <div className="flex items-center justify-between p-4 border-b border-slate-200 bg-slate-50">
                         <div className="flex items-center">
-                          <div className="block w-36">
+                          <div className="block w-44">
                             <AnimatedLogo 
                               isScrolled={true} 
-                              logoSize={64} 
+                              logoSize={80} 
                               onClick={() => playVideo()} // Play video on mobile logo click too
                             />
                           </div>

@@ -54,8 +54,8 @@ const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ isScrolled, logoSize, isHer
     };
   }, []);
 
-  // Determine logo size based on context
-  const finalLogoSize = logoSize ? logoSize : (isHero ? 180 : (isScrolled ? 80 : 120));
+  // Determine logo size based on context - increased sizes by ~25%
+  const finalLogoSize = logoSize ? logoSize : (isHero ? 225 : (isScrolled ? 100 : 150));
   
   return (
     <div 

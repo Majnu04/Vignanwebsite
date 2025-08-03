@@ -78,7 +78,7 @@ const NewsAndEvents: React.FC = () => {
 
   return (
     <section className={`relative w-full flex flex-col justify-center items-center overflow-hidden
-      ${isMobileView ? 'min-h-[90vh] py-10' : 'min-h-screen py-20 sm:py-28'}
+      ${isMobileView ? 'py-4' : 'py-6 sm:py-8'}
       bg-white`}>
 
       <div className="text-center mb-6 sm:mb-8 md:mb-12 px-4">

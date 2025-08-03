@@ -49,7 +49,7 @@ const StatsSection: React.FC = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <section className="relative pt-12 sm:pt-20 pb-12 sm:pb-20 bg-gray-50" ref={ref}>
+    <section className="relative pt-6 sm:pt-10 pb-6 sm:pb-10 bg-gray-50" ref={ref}>
       <div className="container mx-auto px-3 sm:px-6 lg:px-8">
 
         <div className="text-center mb-8 sm:mb-16">

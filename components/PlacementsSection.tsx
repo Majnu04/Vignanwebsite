@@ -77,7 +77,7 @@ const PlacementsSection: React.FC = () => {
   const goToNext = () => setCurrentIndex(prev => prev + 1);
 
   return (
-    <section ref={ref} className="relative py-16 md:py-24 lg:py-28 overflow-hidden bg-gray-50">
+    <section ref={ref} className="relative py-6 md:py-8 lg:py-10 overflow-hidden bg-gray-50">
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         {/* --- HEADER --- */}
         <div className="text-center mb-16 md:mb-20">

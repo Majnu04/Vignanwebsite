@@ -112,7 +112,7 @@ useEffect(() => {
       </div>
       )}
 
-      <main>
+      <main className="space-y-0">
         <section id="Hero" ref={heroRef}>
           <Hero />
         </section>

@@ -16,7 +16,7 @@ const Accreditations: React.FC = memo(() => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
 
   return (
-    <section className="bg-white py-16 sm:py-24" ref={ref} id="Accreditations">
+    <section className="bg-white py-6 sm:py-10" ref={ref} id="Accreditations">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Optional: Add a title for the section */}

@@ -56,7 +56,7 @@ const Hero: React.FC = () => {
 
   return (
     <section className={`relative w-full overflow-hidden group ${
-        isMobile ? 'mt-16' : 'h-[90vh] mt-[10vh]' // Restored desktop height, kept new mobile margin
+        isMobile ? 'mt-0' : 'h-[90vh] mt-0' // Removed margin to eliminate space under header
     }`}>
 
       {/* --------------------- DESKTOP VIEW (Restored to your original) ---------------------- */}
