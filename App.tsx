@@ -226,7 +226,7 @@ const App: React.FC = () => {
       <VideoProvider>
       <div className="App bg-white">
         {/* Video Overlay with useVideo hook - only shows on logo click or first visit */}
-        <VideoOverlayWithContext initialLoad={initialLoad} setInitialLoad={setInitialLoad} />
+        {/* <VideoOverlayWithContext initialLoad={initialLoad} setInitialLoad={setInitialLoad} /> */}
         
 
         <Routes>

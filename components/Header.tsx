@@ -59,7 +59,7 @@ sub: [
 name: 'Academics',
 link: '/academics',
 isMegaWithImage: true,
-defaultImage: 'https://i.ibb.co/CsJJTFvS/image.png',
+defaultImage: '/images/headerpics/academics.jpeg',
 sub: [
 {
 name: "Academic Programs",
@@ -110,7 +110,7 @@ sub: [
 name: 'Placements',
 link: '/placements',
 isMegaWithImage: true,
-defaultImage: 'https://i.ibb.co/fjr1thQ/image.png',
+defaultImage: '/images/headerpics/placements.jpeg',
 sub: [
 {
 name: "Career Services",
@@ -178,7 +178,7 @@ sub: [
 name: 'Examinations',
 link: '/examinations',
 isMegaWithImage: true,
-defaultImage: 'https://i.ibb.co/fY7F5Pz8/image.png',
+defaultImage: '/images/headerpics/examinations.jpeg',
 sub: [
 {
 name: "Exam Cell & Resources",
@@ -197,7 +197,7 @@ sub: [
 name: 'Cells',
 link: '#',
 isMegaWithImage: true,
-defaultImage: 'https://i.ibb.co/wFHC52qZ/image.png',
+defaultImage: '/images/headerpics/cells.jpeg',
 sub: [
 {
 name: 'Innovation & Development',
