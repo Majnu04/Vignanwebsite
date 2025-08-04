@@ -31,7 +31,7 @@ const AccordionItem: React.FC<{ strategy: any; isOpen: boolean; onClick: () => v
     );
 };
 
-// --- Main Empowering Strategies Page Component (with Corrected Back Button) ---
+// --- Main Empowering Strategies Page Component (with Corrected Spacing) ---
 const EmpoweringStrategiesPage = () => {
     const [openIndex, setOpenIndex] = useState<number | null>(0);
     const handleAccordionClick = (index: number) => setOpenIndex(openIndex === index ? null : index);
@@ -43,8 +43,7 @@ const EmpoweringStrategiesPage = () => {
                 
                 .strategies-section { 
                     background-color: #f1f5f9; 
-                    /* KEY FIX: Ample top padding to create a safe zone below the header */
-                    padding: 120px 2rem 5rem; 
+                    padding: 2rem 2rem 5rem; 
                     font-family: 'Georgia', 'Times New Roman', serif; 
                     display: flex; 
                     justify-content: center; 
@@ -52,19 +51,14 @@ const EmpoweringStrategiesPage = () => {
                     min-height: 100vh; 
                 }
                 
-                /* Main wrapper to center and control layout */
                 .strategies-main-wrapper {
+                    position: relative;
                     width: 100%;
                     max-width: 1000px;
+                    /* --- FINAL FIX: Reduced padding to bring content closer to the header --- */
+                    padding-top: 20px;
                 }
                 
-                /* Container for the button to position it correctly */
-                .button-container-top {
-                    display: flex;
-                    justify-content: flex-end; /* Aligns button to the right */
-                    margin-bottom: 1.5rem;     /* Creates space below the button */
-                }
-
                 .strategies-container { 
                     width: 100%; 
                     background-color: #ffffff; 
@@ -72,6 +66,7 @@ const EmpoweringStrategiesPage = () => {
                     border-radius: 16px; 
                     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1); 
                     perspective: 1000px;
+                    margin-top: 2.5rem; /* Space below the button */
                 }
                 .animated-item { opacity: 0; animation: contentFadeInUp 0.6s ease-out forwards; }
                 
@@ -102,6 +97,9 @@ const EmpoweringStrategiesPage = () => {
 
                 /* --- FINAL, CORRECTED BACK BUTTON STYLES --- */
                 .back-button-exact {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
                     background-color: #0056b3;
                     color: white;
                     border: none;
@@ -125,25 +123,25 @@ const EmpoweringStrategiesPage = () => {
                 }
                 
                 @media (max-width: 768px) {
-                    .strategies-section { padding: 100px 1rem 3rem; }
-                    .strategies-container { padding: 2rem; }
-                    .strategies-title { font-size: 1.75rem; }
-                    .accordion-header h3 { font-size: 1.1rem; }
-                     .back-button-exact {
+                    .strategies-section { padding: 1rem; }
+                    .strategies-main-wrapper { padding-top: 70px; }
+                    .strategies-container { padding: 2rem; margin-top: 0; }
+                    .back-button-exact {
+                        top: 10px;
+                        right: 10px;
                         padding: 12px 24px;
                         font-size: 15px;
                     }
+                    .strategies-title { font-size: 1.75rem; }
+                    .accordion-header h3 { font-size: 1.1rem; }
                 }
             `}</style>
             <section className="strategies-section">
                 <div className="strategies-main-wrapper">
                     
-                    {/* Button is now in its own container, guaranteeing its position */}
-                    <div className="button-container-top">
-                        <a href="/" className="back-button-exact">
-                            Back
-                        </a>
-                    </div>
+                    <a href="/" className="back-button-exact">
+                        Back
+                    </a>
                     
                     <div className="strategies-container">
                         <h2 className="strategies-title animated-item" style={{ animationDelay: '0.1s' }}>Empowering Strategies</h2>

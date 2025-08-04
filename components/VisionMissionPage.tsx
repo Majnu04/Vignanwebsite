@@ -1,6 +1,6 @@
 import React, { useState, MouseEvent } from 'react';
 
-// --- Professional SVG Icons ---
+// --- Professional SVG Icons (Unchanged) ---
 const VisionIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -14,9 +14,7 @@ const MissionIcon = () => (
     </svg>
 );
 
-// --- Reusable Card Component with 3D Tilt Effect ---
-
-// KEY FIX: Props are now defined in a separate 'type' alias to prevent parser errors.
+// --- Reusable Card Component (Unchanged) ---
 type VmCardProps = {
     title: string;
     icon: React.ReactNode;
@@ -87,7 +85,7 @@ const VisionMissionPage = () => {
                 
                 .vm-section-final {
                     background-color: #ffffff;
-                    padding: 120px 2rem 5rem; 
+                    padding: 2rem 2rem 5rem; 
                     font-family: 'Georgia', 'Times New Roman', serif;
                     display: flex;
                     justify-content: center;
@@ -97,14 +95,11 @@ const VisionMissionPage = () => {
                 .vm-main-wrapper {
                     width: 100%;
                     max-width: 1400px;
+                    position: relative;
+                    /* --- FINAL FIX: Reduced padding to bring content closer to the header --- */
+                    padding-top: 20px; 
                 }
                 
-                .button-container-top {
-                    display: flex;
-                    justify-content: flex-end;
-                    margin-bottom: 1.5rem;
-                }
-
                 .vm-container-final {
                     display: flex;
                     justify-content: center;
@@ -112,6 +107,7 @@ const VisionMissionPage = () => {
                     gap: 3rem;
                     flex-wrap: wrap;
                     width: 100%;
+                    margin-top: 2.5rem; /* Add some space below the button */
                 }
                 
                 .vm-card-final {
@@ -173,6 +169,9 @@ const VisionMissionPage = () => {
                 }
 
                 .back-button-exact {
+                    position: absolute;
+                    top: 0; /* Positioned relative to the top of vm-main-wrapper */
+                    right: 0;
                     background-color: #0056b3;
                     color: white;
                     border: none;
@@ -188,7 +187,6 @@ const VisionMissionPage = () => {
                     text-align: center;
                     font-family: 'Inter', 'Segoe UI', sans-serif;
                 }
-
                 .back-button-exact:hover {
                     background-color: #003d82;
                     transform: translateY(-3px);
@@ -196,26 +194,27 @@ const VisionMissionPage = () => {
                 }
 
                 @media (max-width: 768px) {
-                    .vm-section-final { padding: 100px 1rem 4rem; }
-                    .vm-container-final { gap: 2.5rem; }
-                    .card-content-final { padding: 2.5rem; }
-                    .vm-card-final h2 { font-size: 2.25rem; }
-                    .vision-text-final, .mission-list-final { font-size: 1rem; }
+                    .vm-section-final { padding: 1rem; }
+                    .vm-main-wrapper { padding-top: 70px; } /* Space for button on mobile */
                     .back-button-exact {
+                        top: 10px;
+                        right: 10px;
                         padding: 12px 24px;
                         font-size: 15px;
                     }
+                    .vm-container-final { gap: 2.5rem; margin-top: 0; }
+                    .card-content-final { padding: 2.5rem; }
+                    .vm-card-final h2 { font-size: 2.25rem; }
+                    .vision-text-final, .mission-list-final { font-size: 1rem; }
                 }
             `}</style>
 
             <section className="vm-section-final">
                 <div className="vm-main-wrapper">
                     
-                    <div className="button-container-top">
-                        <a href="/" className="back-button-exact">
-                            Back
-                        </a>
-                    </div>
+                    <a href="/" className="back-button-exact">
+                        Back
+                    </a>
 
                     <div className="vm-container-final">
                         <VmCard title="Vision" icon={<VisionIcon />} animationDelay="0s">

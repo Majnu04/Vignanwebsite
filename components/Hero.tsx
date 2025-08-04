@@ -1,5 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 
+// Define the props for the Hero component, including the new onClick function
+interface HeroProps {
+  onClick?: () => void;
+}
+
 // --- Data for the slides ---
 const slides = [
   { id: 1, desktopImage: "/images/SLIDE_0.jpg", mobileImage: "/images/SLIDE_0.jpg" },
@@ -16,7 +21,7 @@ const ArrowIcon = ({ className = "" }: { className?: string }) => (
 );
 
 // --- The Final Hero Component ---
-const Hero: React.FC = () => {
+const Hero: React.FC<HeroProps> = ({ onClick }) => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -55,17 +60,22 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <section className={`relative w-full overflow-hidden group ${
-        isMobile ? 'mt-0' : 'h-[90vh] mt-0' // Removed margin to eliminate space under header
+    // --- MODIFICATION ---
+    // The `onClick` prop is attached here. When this section is clicked,
+    // it will call the function passed from the parent component.
+    <section
+      onClick={onClick}
+      className={`relative w-full overflow-hidden group ${
+        isMobile ? 'mt-16' : 'h-[70vh] mt-[10vh]'
     }`}>
 
-      {/* --------------------- DESKTOP VIEW (Restored to your original) ---------------------- */}
+      {/* --------------------- DESKTOP VIEW ---------------------- */}
       {!isMobile && (
         <>
           {slides.map((slide, index) => (
             <div
               key={slide.id}
-              className="absolute inset-0 w-full h-[90vh] bg-[length:100%_100%] bg-center transition-opacity duration-1000 ease-in-out"
+              className="absolute inset-0 w-full h-[70vh] bg-[length:100%_100%] bg-center transition-opacity duration-1000 ease-in-out"
               style={{
                 backgroundImage: `url('${slide.desktopImage}')`,
                 opacity: index === currentSlideIndex ? 1 : 0,
@@ -73,10 +83,8 @@ const Hero: React.FC = () => {
                 transition: 'opacity 1.5s ease-in-out, transform 10s ease-out',
               }}
             >
-              {/* This is your original div-based slide with the Ken Burns effect */}
             </div>
           ))}
-          {/* Your original desktop navigation */}
           <div className="absolute inset-0 z-10 flex items-center justify-between px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <button
               onClick={prevSlide}
@@ -94,10 +102,9 @@ const Hero: React.FC = () => {
         </>
       )}
 
-      {/* --------------------- MOBILE VIEW (The new, working version) ---------------------- */}
+      {/* --------------------- MOBILE VIEW (Unchanged) ---------------------- */}
       {isMobile && (
-        <div className="relative w-full h-0 pb-[56.25%]"> {/* Aspect ratio container */}
-          {/* Slides */}
+        <div className="relative w-full h-0 pb-[56.25%]">
           {slides.map((slide, index) => (
             <img
               key={slide.id}
@@ -108,8 +115,6 @@ const Hero: React.FC = () => {
               }`}
             />
           ))}
-
-          {/* Mobile Navigation */}
           <div className="absolute top-0 left-0 w-full h-full z-10 flex items-center justify-between px-2">
             <button
               onClick={prevSlide}

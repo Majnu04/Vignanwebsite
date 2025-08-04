@@ -53,8 +53,7 @@ const AdministrationPage = () => {
                 
                 .admin-section-focused {
                     background-color: #f8fafc;
-                    /* KEY FIX: Ample top padding creates a safe zone below the header */
-                    padding: 120px 2rem 4rem; 
+                    padding: 2rem 2rem 4rem; 
                     font-family: 'Inter', 'Segoe UI', sans-serif;
                     display: flex;
                     justify-content: center;
@@ -62,17 +61,12 @@ const AdministrationPage = () => {
                     min-height: 100vh;
                 }
                 
-                /* Main wrapper to center and control layout */
                 .admin-main-wrapper {
+                    position: relative;
                     width: 100%;
                     max-width: 1200px;
-                }
-                
-                /* NEW: Container for the button to position it correctly */
-                .button-container-top {
-                    display: flex;
-                    justify-content: flex-end; /* Aligns button to the right */
-                    margin-bottom: 1.5rem;     /* Creates space below the button */
+                    /* --- FINAL FIX: Reduced padding to bring content closer to the header --- */
+                    padding-top: 20px;
                 }
 
                 .admin-container-focused {
@@ -81,6 +75,7 @@ const AdministrationPage = () => {
                     padding: 2.5rem;
                     border-radius: 12px;
                     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+                    margin-top: 2.5rem; /* Space below the button */
                 }
                 
                 .section-title-focused {
@@ -150,9 +145,11 @@ const AdministrationPage = () => {
                     text-decoration: underline;
                 }
 
-                /* --- BACK BUTTON STYLES (No absolute positioning) --- */
+                /* --- FINAL Back Button Styles --- */
                 .back-button-exact {
-                    /* NO LONGER position: absolute */
+                    position: absolute;
+                    top: 0;
+                    right: 0;
                     background-color: #0056b3;
                     color: white;
                     border: none;
@@ -176,25 +173,25 @@ const AdministrationPage = () => {
                 }
 
                 @media (max-width: 768px) {
-                    .admin-section-focused { padding: 100px 1rem 2.5rem; }
-                    .admin-container-focused { padding: 1.5rem; }
-                    .admin-table-focused th, .admin-table-focused td { padding: 0.75rem; }
-                    .section-title-focused { font-size: 1.5rem; }
+                    .admin-section-focused { padding: 1rem; }
+                    .admin-main-wrapper { padding-top: 70px; }
+                    .admin-container-focused { padding: 1.5rem; margin-top: 0; }
                     .back-button-exact {
+                        top: 10px;
+                        right: 10px;
                         padding: 12px 24px;
                         font-size: 15px;
                     }
+                    .admin-table-focused th, .admin-table-focused td { padding: 0.75rem; }
+                    .section-title-focused { font-size: 1.5rem; }
                 }
             `}</style>
             <section className="admin-section-focused">
                 <div className="admin-main-wrapper">
 
-                    {/* Button is now in its own container, guaranteeing its position */}
-                    <div className="button-container-top">
-                        <a href="/" className="back-button-exact">
-                            Back
-                        </a>
-                    </div>
+                    <a href="/" className="back-button-exact">
+                        Back
+                    </a>
                     
                     <div className="admin-container-focused">
                         <h2 className="section-title-focused">ADMINISTRATION TEAM</h2>

@@ -41,31 +41,27 @@ const BestPracticesPage = () => {
             <style>{`
                 .practices-page-final {
                     background-color: #f8f9fa;
-                    /* KEY FIX: Ample top padding creates a safe zone below the header */
-                    padding: 120px 2rem 6rem;
+                    padding: 2rem 2rem 6rem;
                     font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-                    display: flex; /* Added for centering */
-                    justify-content: center; /* Added for centering */
+                    display: flex;
+                    justify-content: center;
                     overflow-x: hidden;
+                    min-height: 100vh;
                 }
                 
-                /* Main wrapper to center and control layout */
                 .practices-main-wrapper {
+                    position: relative;
                     width: 100%;
                     max-width: 1200px;
+                    /* --- FINAL FIX: Reduced padding to bring content closer to the header --- */
+                    padding-top: 20px;
                 }
                 
-                /* Container for the button to position it correctly */
-                .button-container-top {
-                    display: flex;
-                    justify-content: flex-end; /* Aligns button to the right */
-                    margin-bottom: 2.5rem;     /* Creates space below the button */
-                }
-
                 .practices-container-final {
                     display: flex;
                     flex-direction: column;
                     gap: 8rem;
+                    margin-top: 2.5rem; /* Space below the button */
                 }
                 
                 .practice-row-final {
@@ -134,8 +130,11 @@ const BestPracticesPage = () => {
                     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
                 }
 
-                /* --- ADDED BACK BUTTON STYLES --- */
+                /* --- FINAL Back Button Styles --- */
                 .back-button-exact {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
                     background-color: #0056b3;
                     color: white;
                     border: none;
@@ -159,10 +158,16 @@ const BestPracticesPage = () => {
                 }
 
                 @media (max-width: 992px) {
-                    .practices-page-final { padding: 100px 1rem 4rem; }
+                    .practices-page-final { padding: 1rem; }
+                    .practices-main-wrapper { padding-top: 70px; }
+                    .practices-container-final { margin-top: 0; }
                     .practice-row-final, .practice-row-final:nth-child(even) {
                         flex-direction: column;
                         gap: 3rem;
+                    }
+                    .back-button-exact {
+                        top: 10px;
+                        right: 10px;
                     }
                 }
                 
@@ -179,12 +184,9 @@ const BestPracticesPage = () => {
             <div className="practices-page-final">
                 <div className="practices-main-wrapper">
                     
-                    {/* Button is now in its own container, guaranteeing its position */}
-                    <div className="button-container-top">
-                        <a href="/" className="back-button-exact">
-                            Back
-                        </a>
-                    </div>
+                    <a href="/" className="back-button-exact">
+                        Back
+                    </a>
                     
                     <div className="practices-container-final">
                         {practicesData.map((practice, index) => (

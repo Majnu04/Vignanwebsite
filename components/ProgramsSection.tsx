@@ -38,25 +38,81 @@ const ProgramTileDesktop: React.FC<{ program: any; onMouseEnter: () => void; isH
       delay={index * 100}
       className="w-full h-full"
     >
-      <div
+      {/* <div
         onMouseEnter={onMouseEnter}
         onClick={isClickable ? onClick : undefined}
-        className={`relative p-6 rounded-xl h-48 flex flex-col justify-center transition-all duration-300 ${isClickable ? 'cursor-pointer' : 'cursor-default'} bg-blue-50 border border-blue-100`}
+        // <div
+        //     className={`bg-white p-4 sm:p-6 rounded-xl shadow-lg border border-blue-300 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl text-center h-full`}
+        //   >
+        className={`relative p-6 rounded-xl shadow-Lg h-48 flex flex-col justify-center transition-all duration-300 transform hover:-translate-y-2 hower:shadow-xl ${isClickable ? 'cursor-pointer' : 'cursor-default'} bg-white-50 border border-blue-300`}
         style={{
-          boxShadow: isHovered ? '0 4px 15px rgba(0, 0, 0, 0.1)' : 'none',
+          boxShadow: isHovered ? '0 4px 15px rgba(39, 16, 211, 0.76)' : 'none',
           transform: isHovered ? 'scale(1.02)' : 'scale(1)',
         }}
-      >
+      > */}
+
+        {/* <div
+          onMouseEnter={onMouseEnter}
+          onClick={isClickable ? onClick : undefined}
+          className={`relative rounded-2xl border border-blue-300 bg-white shadow-md 
+            flex flex-col items-center justify-center
+            transition-transform duration-300 ease-in-out 
+            transform ${isHovered ? 'scale-150' : 'scale-100'} 
+            ${isClickable ? 'cursor-pointer' : 'cursor-default'} 
+            w-full max-w-sm sm:max-w-md md:max-w-lg h-40 sm:h-48 md:h-56 lg:h-64
+            px-4 sm:px-6 md:px-8 py-6`}
+            style={{
+              boxShadow: isHovered ? '0 4px 15px rgba(39, 16, 211, 0.76)' : 'none',
+              transform: isHovered ? 'scale(1.02)' : 'scale(1)',
+            }}
+        > */}
+
+        {/* <div className="relative w-full max-w-sm sm:max-w-md md:max-w-lg h-40 sm:h-48 md:h-56 lg:h-64">
+          <div
+            onMouseEnter={onMouseEnter}
+            onClick={isClickable ? onClick : undefined}
+            className={`absolute inset-0 rounded-2xl border border-blue-300 bg-white shadow-md 
+              flex flex-col items-center justify-center
+              transition-transform duration-300 ease-in-out
+              transform 
+              ${isHovered ? 'scale-110' : 'scale-100'}
+              ${isClickable ? 'cursor-pointer' : 'cursor-default'}
+              px-4 sm:px-6 md:px-8 py-6`}
+            style={{
+              boxShadow: isHovered ? '0 4px 15px rgba(39, 16, 211, 0.76)' : 'none',
+            }}
+          > */}
+
+        <div className="relative w-full max-w-[250px] sm:max-w-[270px] md:max-w-[290px] h-36 sm:h-40 md:h-46 lg:h-48">
+        <div
+          onMouseEnter={onMouseEnter}
+          onClick={isClickable ? onClick : undefined}
+          className={`absolute inset-0 rounded-2xl border border-blue-300 bg-white shadow-md 
+            flex flex-col items-center justify-center
+            transition-transform duration-300 ease-in-out
+            transform 
+            ${isHovered ? 'scale-110' : 'scale-100'}
+            ${isClickable ? 'cursor-pointer' : 'cursor-default'}
+            px-4 sm:px-5 md:px-6 py-4`}
+          style={{
+            boxShadow: isHovered ? '0 4px 15px rgba(39, 16, 211, 0.76)' : 'none',
+          }}
+        >
+
         {/* Main content - simple program name */}
         <div className="flex flex-col items-center justify-center h-full">
-          <h3 className="text-xl font-bold text-center text-gray-900">{program.name}</h3>
-          
+          {/* <h3 className="text-xl font-bold text-center text-gray-900">{program.name}</h3> */}
+          <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-center text-gray-900">
+            {program.name}
+          </h3>
+
           {isHovered && (
             <div className="mt-4">
               <div className="w-12 h-1 bg-blue-500 mx-auto mb-2"></div>
               <p className="text-sm text-gray-600">{program.desc}</p>
             </div>
           )}
+        </div>
         </div>
       </div>
     </AnimatedElement>
@@ -112,20 +168,25 @@ const ProgramsSection: React.FC = () => {
 
   const [selectedPageId, setSelectedPageId] = useState<string | null>(null);
 
+  // const handleProgramClick = (pageId: string) => {
+  //   // Check which department data is available
+  //   if (['cse', 'aids', 'it'].includes(pageId)) {
+  //     // Set the selected page ID to display the department
+  //     setSelectedPageId(pageId);
+  //     // Scroll to top for better user experience
+  //     window.scrollTo(0, 0);
+  //     console.log("Department selected:", pageId);
+  //   } else {
+  //     // For departments that don't have data yet
+  //     setSelectedPageId(pageId);
+  //     console.log("Department selected (placeholder):", pageId);
+  //   }
+  // };
+
   const handleProgramClick = (pageId: string) => {
-    // Check which department data is available
-    if (['cse', 'aids', 'it'].includes(pageId)) {
-      // Set the selected page ID to display the department
-      setSelectedPageId(pageId);
-      // Scroll to top for better user experience
-      window.scrollTo(0, 0);
-      console.log("Department selected:", pageId);
-    } else {
-      // For departments that don't have data yet
-      setSelectedPageId(pageId);
-      console.log("Department selected (placeholder):", pageId);
-    }
-  };
+  setSelectedPageId(pageId);
+  console.log(pageId);
+};
 
   useEffect(() => {
     const grid = gridRef.current;
@@ -147,9 +208,9 @@ const ProgramsSection: React.FC = () => {
   const handleMobileTileClick = (name: string) => {
     setActiveMobileTile(activeMobileTile === name ? null : name);
   };
-
+  
   return (
-    <section className="relative pt-6 sm:pt-8 pb-0 sm:pb-0 mb-0 bg-white">
+    <section className="relative pt-20 sm:pt-28 pb-0 sm:pb-0 mb-0 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-12">
         <AnimatedElement animation="slide-down" duration={800} className="block">
@@ -185,7 +246,7 @@ const ProgramsSection: React.FC = () => {
           className="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 relative"
         >
           {programsToShow.map((program, index) => (
-            <div style={{ borderRadius: '1rem', overflow: 'hidden' }} key={program.name}>
+            <div  key={program.name}>
               <ProgramTileDesktop
                 program={program}
                 index={index}
@@ -215,13 +276,13 @@ const ProgramsSection: React.FC = () => {
           ))}
         </div>
 
-        {selectedPageId && (
+        {/* {selectedPageId && (
           <>
             {/* Use a portal with a transparent backdrop */}
-            <div className="fixed inset-0 z-40 bg-black bg-opacity-50" onClick={() => setSelectedPageId(null)}></div>
+           {/* <div className="fixed inset-0 z-40 bg-black bg-opacity-50" onClick={() => setSelectedPageId(null)}></div>
             
             {/* Department Content */}
-            <div className="fixed inset-0 z-50 bg-white overflow-auto" style={{ top: 0, left: 0, right: 0, bottom: 0 }}>
+           {/*} <div className="fixed inset-0 z-50 bg-white overflow-auto" style={{ top: 0, left: 0, right: 0, bottom: 0 }}>
               {selectedPageId === 'cse' && (
                 <CsePage data={Assets.DepartmentData.cse} onBack={() => setSelectedPageId(null)} />
               )}
@@ -232,7 +293,7 @@ const ProgramsSection: React.FC = () => {
                 <CsePage data={Assets.DepartmentData.it} onBack={() => setSelectedPageId(null)} />
               )}
               {/* For departments that don't have data yet, show CSE data as placeholder */}
-              {['cses', 'civil', 'eee', 'ece', 'ecm', 'me', 'basic', 'aiml', 'digi', 'mba', 'mca'].includes(selectedPageId) && (
+              {/*{['cses', 'civil', 'eee', 'ece', 'ecm', 'me', 'basic', 'aiml', 'digi', 'mba', 'mca'].includes(selectedPageId) && (
                 <CsePage
                   data={{
                     ...Assets.DepartmentData.cse,
@@ -243,7 +304,22 @@ const ProgramsSection: React.FC = () => {
               )}
             </div>
           </>
-        )}
+        )} */}
+
+        {selectedPageId === 'cse' && <CsePage data={Assets.DepartmentData.cse} onBack={() => setSelectedPageId(null)} />}
+        {selectedPageId === 'aids' && <CsePage data={Assets.DepartmentData.aids} onBack={() => setSelectedPageId(null)} />}
+        {selectedPageId === 'cses' && <CsePage data={Assets.DepartmentData.cses} onBack={() => setSelectedPageId(null)} />}
+        {selectedPageId === 'civil' && <CsePage data={Assets.DepartmentData.civil} onBack={() => setSelectedPageId(null)} />}
+        {selectedPageId === 'eee' && <CsePage data={Assets.DepartmentData.eee} onBack={() => setSelectedPageId(null)} />}
+        {selectedPageId === 'ece' && <CsePage data={Assets.DepartmentData.ece} onBack={() => setSelectedPageId(null)} />}
+        {selectedPageId === 'ecm' && <CsePage data={Assets.DepartmentData.ecm} onBack={() => setSelectedPageId(null)} />}
+        {selectedPageId === 'it' && <CsePage data={Assets.DepartmentData.it} onBack={() => setSelectedPageId(null)} />}
+        {selectedPageId === 'me' && <CsePage data={Assets.DepartmentData.me} onBack={() => setSelectedPageId(null)} />}
+        {selectedPageId === 'basic' && <CsePage data={Assets.DepartmentData.basic} onBack={() => setSelectedPageId(null)} />}
+        {selectedPageId === 'aiml' && <CsePage data={Assets.DepartmentData.aiml} onBack={() => setSelectedPageId(null)} />}
+        {selectedPageId === 'pcse' && <CsePage data={Assets.DepartmentData.pcse} onBack={() => setSelectedPageId(null)} />}
+        {selectedPageId === 'mba' && <CsePage data={Assets.DepartmentData.mba} onBack={() => setSelectedPageId(null)} />}
+        {selectedPageId === 'mca' && <CsePage data={Assets.DepartmentData.mca} onBack={() => setSelectedPageId(null)} />}
       </div>
     </section>
   );

@@ -30,35 +30,42 @@ const pointsOfInterest = [
         name: "Ladies Hostel", 
         x: 63.9, y: 15.1,
         description: 'A secure and comfortable residential facility for female students, offering all necessary amenities for a conducive living and learning environment.',
-        imageUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEijHv_UdGT906oomvRnDXKz0ERc_fL4tAM9ppj9JimIXR2Bz6bsANb3_jHNiYqwTZJA0LnBYJg2rwNB6_tCc1W9w0aHQeWL_c2UFMwKIBzCYkiPQKoX5KBM0kdK1AvFXdb-lsnz9UIAViUiUHhvHSrPZLOkl7AKkI6lT3VFgoFaR6dhCcQAFbspk0TVvow/s4032/hostel.jpeg'
+        imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEj1ka9vhcFdxX1mOcEJ1xqZWc2bhnh212vijcxwYk9cYZ4OU8e0ztFfKfJNxLiB0dRtZpZJ6RfECcgwdirR9IpPEkqlg1UgxKHZkKXFfbLxziK8pUkCHuyNgUcH91MmriemDdk8Ga24Uhx9AWZ6fWfkU1HnWQG6snKB65fbJzHStadZFDKqMzGC4ks-zus'
     },
     { 
         id: 5,
         name: "Vignan's Solar Park", 
         x: 65.1, y: 41.5,
         description: 'A dedicated solar energy park showcasing the institution\'s commitment to renewable energy and sustainable campus practices.',
-        imageUrl: 'https://images.unsplash.com/photo-1508515053969-7b94594e62c4?q=80&w=2070&auto=format&fit=crop'
+        imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEifW7gpVbBtZbCOgQ_7zQCOItG54hgTiyRPECdk2t28dGNCRZyulMN-eLfoXsXfJRvdIGNFzxU8q7YN30R_lnqsT-ytUnYpWkmekC6_6Yu4xQ0V42Ee8WBngyv2Rhn1FH3xz2tR-3IJzK60IfDT6djGgwbmiYlIZeCSSFzr09aloGgVIdmPV0TQXEhHbAI'
     },
     { 
         id: 6,
         name: "Main Entrance", 
         x: 9.6, y: 99.7,
         description: 'The grand entrance to the campus, welcoming students, faculty, and visitors to our vibrant community of learning and excellence.',
-        imageUrl: 'https://images.unsplash.com/photo-1590650424388-77c6f3f07a27?q=80&w=2070&auto=format&fit=crop'
+        imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEjMgjj5xdMXI98h964GCZUeqfxXpsnxM7ADAhE6j69XcblDgHECIXN3DZwqGH2QstKvpHcSyEdZDAzrYdmYsaDhtZYzez7CjMZ1yQ1iCKeiI2Zts9vGAH4PD13gHEp685l0kCdUWT_Y2W4xoPfIoNlX3R67hE2EArf98lSNXexe756fTqAWGYwZzx_ZemU'
     },
     { 
         id: 7,
         name: "Ground 2", 
         x: 67.6, y: 82.8,
         description: 'An additional sports facility used for various outdoor games and practice sessions, ensuring ample space for all athletic activities.',
-        imageUrl: 'https://images.unsplash.com/photo-1540205257002-c996836d525b?q=80&w=2070&auto=format&fit=crop'
+        imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEgMd95qz0LOmFFZWkLWmJIwW4el54Sru47FPa5h5UuIJ05VcnFMannltQz6fwAiiW13HvGaM61c2cWIkLUJufRBMEwIn8Ccf4fWGy_UG67fQLI4DXOIEyg7Zf-KAoExbRRZirHqesSlgV-5EXjdii-S0WCFb0BIISah8o5tqezeqhGib_qzptLmQXkf7cw'
     },
     { 
         id: 8,
         name: "Ground 3", 
         x: 94.5, y: 72,
         description: 'A dedicated ground for specific sports like cricket, complete with practice nets and well-maintained pitches.',
-        imageUrl: 'https://images.unsplash.com/photo-1593341642345-5428a883933c?q=80&w=2070&auto=format&fit=crop'
+        imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEhqB-FOmFJf3_p3vVXTx_eG3knEcbDn5KImNSWiQdUz2UZwVte2t9p4Y10dJQ7lDeR1VkOSLVnlq4jYFG1sj2S_oP5TMLDsH_iqrevvY5KTTeQPEO9eBSivHHZ-IKyz2v2bPyFjCjvbszdhtECHOFNX0SuyubL5v3vzrXCWlnvx4v0M0cywRNAblji0bxE'
+    },
+    { 
+        id: 8,
+        name: "Ground 4", 
+        x: 11.6, y: 77.7,
+        description: 'A dedicated ground for specific sports like Basketball, Volleyball and a assembly area.',
+        imageUrl: 'https://blogger.googleusercontent.com/img/a/AVvXsEjsT0tGSqK4jg5OBlCBqQDrSxZFKb6MNJjsWXxYSEvAGGhqIfCQcB6UXUaHRh8h4c-h4rN4W_gJdDlVHqf6sWRgKgFg2PXOqsprkHa1JULVafvneepbB8RlDaXF0hccl9VQNLVHpx1TP0OWfO0MJag8VnM8uVoAPAFTMW-TKRoB1hzZFh0AaEVI_JVvh9s'
     },
 ];
 

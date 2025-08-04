@@ -1,4 +1,3 @@
-import React from 'react';
 
 // --- Data for the Policy Links (Exactly as provided, with placeholders) ---
 const policyLinksData = [
@@ -40,8 +39,7 @@ const PoliciesPage = () => {
                 
                 .policies-section-focused {
                     background-color: #f8fafc;
-                    /* KEY FIX: Ample top padding to create a safe zone below the header */
-                    padding: 120px 2rem 4rem;
+                    padding: 2rem 2rem 4rem;
                     font-family: 'Inter', 'Segoe UI', sans-serif;
                     display: flex;
                     justify-content: center;
@@ -49,17 +47,12 @@ const PoliciesPage = () => {
                     min-height: 100vh;
                 }
                 
-                /* Main wrapper to center and control layout */
                 .policies-main-wrapper {
+                    position: relative;
                     width: 100%;
                     max-width: 1200px;
-                }
-                
-                /* Container for the button to position it correctly */
-                .button-container-top {
-                    display: flex;
-                    justify-content: flex-end; /* Aligns button to the right */
-                    margin-bottom: 1.5rem;     /* Creates space below the button */
+                    /* --- FINAL FIX: Reduced padding to bring content closer to the header --- */
+                    padding-top: 20px;
                 }
 
                 .policies-container-focused {
@@ -69,6 +62,7 @@ const PoliciesPage = () => {
                     border-radius: 16px;
                     box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.08);
                     perspective: 1000px;
+                    margin-top: 2.5rem; /* Space below the button */
                 }
                 
                 .animated-item {
@@ -136,8 +130,11 @@ const PoliciesPage = () => {
                     color: #b91c1c;
                 }
 
-                /* --- ADDED BACK BUTTON STYLES --- */
+                /* --- FINAL Back Button Styles --- */
                 .back-button-exact {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
                     background-color: #0056b3;
                     color: white;
                     border: none;
@@ -161,25 +158,25 @@ const PoliciesPage = () => {
                 }
 
                 @media (max-width: 768px) {
-                    .policies-section-focused { padding: 100px 1rem 2.5rem; }
-                    .policies-container-focused { padding: 1.5rem; }
-                    .policies-title-focused { font-size: 1.5rem; }
-                    .intro-text-focused, .key-areas-focused p { font-size: 1rem; }
-                     .back-button-exact {
+                    .policies-section-focused { padding: 1rem; }
+                    .policies-main-wrapper { padding-top: 70px; }
+                    .policies-container-focused { padding: 1.5rem; margin-top: 0; }
+                    .back-button-exact {
+                        top: 10px;
+                        right: 10px;
                         padding: 12px 24px;
                         font-size: 15px;
                     }
+                    .policies-title-focused { font-size: 1.5rem; }
+                    .intro-text-focused, .key-areas-focused p { font-size: 1rem; }
                 }
             `}</style>
             <section className="policies-section-focused">
                 <div className="policies-main-wrapper">
 
-                    {/* Button is now in its own container, guaranteeing its position */}
-                    <div className="button-container-top">
-                        <a href="/" className="back-button-exact">
-                            Back
-                        </a>
-                    </div>
+                    <a href="/" className="back-button-exact">
+                        Back
+                    </a>
                     
                     <div className="policies-container-focused">
                         <h2 className="policies-title-focused animated-item" style={{ animationDelay: '0.1s' }}>POLICIES AND PERSPECTIVES</h2>
