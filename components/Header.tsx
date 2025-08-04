@@ -127,7 +127,7 @@ sub: [
 name: 'Governance',
 link: '/governance',
 isMegaWithImage: true,
-defaultImage: 'https://i.ibb.co/xqFZGJp7/image.png',
+defaultImage: 'https://i.ibb.co/DPd2b4n0/image.png',
 sub: [
 {
 name: "Core Structure",
