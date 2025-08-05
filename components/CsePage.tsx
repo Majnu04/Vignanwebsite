@@ -54,7 +54,7 @@ const CsePage: React.FC<{ data: any; onBack: () => void }> = ({ data, onBack}) =
 
         {/* ABOUT SECTION */}
         <section id="about" className="scroll-mt-24">
-          <h2 className="text-3xl font-bold text-blue-800 border-b-2 border-blue-200 pb-3 mb-4">About The Department</h2>
+          <h2 className="text-3xl font-bold text-blue-900 border-b-2 border-blue-200 pb-3 mb-4">About The Department</h2>
           <p className="text-gray-700 leading-relaxed text-lg">{data.about}</p>
         </section>
 
@@ -84,7 +84,7 @@ const CsePage: React.FC<{ data: any; onBack: () => void }> = ({ data, onBack}) =
         
         {/* HOD MESSAGE SECTION */}
         <section id="hod-message" className="scroll-mt-24">
-          <h2 className="text-3xl font-bold text-blue-800 border-b-2 border-blue-200 pb-3 mb-4">
+          <h2 className="text-3xl font-bold text-blue-900 border-b-2 border-blue-200 pb-3 mb-4">
             Message from the HOD
           </h2>
           <div className="flex flex-col items-center gap-8 bg-slate-50 p-8 rounded-2xl border border-gray-200">
@@ -118,7 +118,7 @@ const CsePage: React.FC<{ data: any; onBack: () => void }> = ({ data, onBack}) =
 
         {/* PROGRAM STRUCTURE & SYLLABUS SECTION */}
         <section id="syllabus" className="scroll-mt-24">
-            <h2 className="text-3xl font-bold text-blue-800 border-b-2 border-blue-200 pb-3 mb-6">Program Structure & Syllabus</h2>
+            <h2 className="text-3xl font-bold text-blue-900 border-b-2 border-blue-200 pb-3 mb-6">Program Structure & Syllabus</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                 {cseSidebarData.find(item => item.title.includes('Syllabus'))?.children?.map(s => <SyllabusCard key={s.title} title={s.title} href={s.href} />)}
             </div>
@@ -126,10 +126,10 @@ const CsePage: React.FC<{ data: any; onBack: () => void }> = ({ data, onBack}) =
 
         {/* FACULTY SECTION */}
         <section id="faculty" className="scroll-mt-24">
-            <h2 className="text-3xl font-bold text-blue-800 border-b-2 border-blue-200 pb-3 mb-6">Our Faculty</h2>
+            <h2 className="text-3xl font-bold text-blue-900 border-b-2 border-blue-200 pb-3 mb-6">Our Faculty</h2>
             <div className="space-y-2">
               {data.faculty?.map((member: any, index: number) => (
-                <div key={index} className="bg-blue-800 text-white rounded-lg p-4 flex items-center">
+                <div key={index} className="bg-blue-900 text-white rounded-lg p-4 flex items-center">
                   <span className="text-lg font-bold text-yellow-300 w-12 text-center">{member.sno}.</span>
                   <div className="flex-grow ml-4">
                     <p className="font-semibold text-white text-lg">{member.name}</p>
