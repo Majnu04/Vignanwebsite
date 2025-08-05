@@ -95,7 +95,7 @@ const ProgramTileDesktop: React.FC<{ program: any; onMouseEnter: () => void; isH
             ${isClickable ? 'cursor-pointer' : 'cursor-default'}
             px-4 sm:px-5 md:px-6 py-4`}
           style={{
-            boxShadow: isHovered ? '0 4px 15px rgba(39, 16, 211, 0.76)' : 'none',
+            boxShadow: isHovered ? '0 4px 15px rgba(58, 55, 75, 0.76)' : 'none',
           }}
         >
 
