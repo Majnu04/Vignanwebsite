@@ -1,0 +1,16 @@
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 80s linear infinite;
+}
+
+.group:hover .group-hover\:animate-pause {
+  animation-play-state: paused;
+}

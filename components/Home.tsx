@@ -10,6 +10,7 @@ import StatsCells from './StatsCells';
 import ProgramsSection from './ProgramsSection';
 import PlacementsSection from './PlacementsSection';
 import ExploreCampus from './ExploreCampus';
+import Testimonials from './testominals';
 import NewsAndEvents from './NewsAndEvents';
 import Footer from './Footer';
 
@@ -123,6 +124,7 @@ useEffect(() => {
         <section id="StatsCells"><StatsCells /></section>
         <section id="PlacementsSection"><PlacementsSection /></section>
         <section id="ExploreCampus"><ExploreCampus /></section>
+        <section id="Testimonials"><Testimonials /></section>
         <section id="NewsAndEvents"><NewsAndEvents /></section>
         <section id="Footer"><Footer /></section>
       </main>
