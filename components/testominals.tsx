@@ -55,7 +55,7 @@ const Testimonials: React.FC = () => {
           
           {/* Section Title using your website's text color */}
           <div className="text-left mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-[#212529]">
+            <h2 className="text-4xl mt-0 md:text-5xl font-bold text-[#212529]">
               What our Students say...
             </h2>
           </div>
