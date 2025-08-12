@@ -12,6 +12,13 @@ import StatutoryApprovalsPage from './components/StatutoryApprovalsPage';
 import CenterOfExcellencePage from './components/CenterOfExcellencePage';
 import RankingsPage from './components/RankingsPage';
 import AwardsAndAccoladesPage from './components/AwardsAndAccoladesPage';
+import TeachingMethodologiesPage from './components/TeachingMethodologiesPage';
+import StudentDiversityPage from './components/StudentDiversityPage';
+import MentorMenteeSystemPage from './components/MentorMenteeSystemPage';
+import CoursesOfferedPage from './components/CoursesOfferedPage';
+import AdmissionsProcedurePage from './components/AdmissionsProcedurePage';
+import AdmissionListsPage from './components/AdmissionListsPage';
+import CourseOutcomesPage from './components/CourseOutcomesPage';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
@@ -211,10 +218,72 @@ const App: React.FC = () => {
               <Footer />
             </div>
           } />
-          
-          
-          
-          {/* Placement related routes */}
+          <Route path="/teaching-methodologies" element={
+            <div className="pb-16">
+              <Header />
+              <div className="pt-16">
+                <TeachingMethodologiesPage />
+              </div>
+              <Footer />
+            </div>
+          } />
+          <Route path="/student-diversity" element={
+            <div className="pb-16">
+              <Header />
+              <div className="pt-16">
+                <StudentDiversityPage />
+              </div>
+              <Footer />
+            </div>
+          } />
+          <Route path="/mentor-mentee" element={
+            <div className="pb-16">
+              <Header />
+              <div className="pt-16">
+                <MentorMenteeSystemPage />
+              </div>
+              <Footer />
+            </div>
+          } />
+          <Route path="/courses-offered" element={
+            <div className="pb-16">
+              <Header />
+              <div className="pt-16">
+                <CoursesOfferedPage />
+              </div>
+              <Footer />
+            </div>
+          } />
+          <Route path="/admissionsprocedure" element={
+            <div className="pb-16">
+              <Header />
+              <div className="pt-16">
+                <AdmissionsProcedurePage />
+              </div>
+              <Footer />
+            </div>
+          } />
+          <Route path="/admissionslists" element={
+            <div className="pb-16">
+              <Header />
+              <div className="pt-16">
+                <AdmissionListsPage />
+              </div>
+              <Footer />
+            </div>
+          } />
+          <Route path="/admissionsoutcomes" element={
+            <div className="pb-16">
+              <Header />
+              <div className="pt-16">
+                <CourseOutcomesPage />
+              </div>
+              <Footer />
+            </div>
+          } />
+
+
+           {/* Placement related routes */}
           <Route path="/placements/PlacementDetails" element={<PlacementD />} />
           <Route path="/placements/TrainingProcess" element={<Training />} />
           <Route path="/placements/Contact" element={<ContactT />} />

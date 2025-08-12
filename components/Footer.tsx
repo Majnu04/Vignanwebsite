@@ -52,7 +52,7 @@ const Footer: React.FC = () => {
     // UPDATED: Replaced gradient with a solid dark blue background to match the image
     <footer className="bg-[#1a3b5d]" style={{ fontFamily: "'Inter', sans-serif" }}>
       {/* UPDATED: Reduced vertical padding for a tighter layout */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
+      <div className="container mx-auto mt-0 px-4 sm:px-6 lg:px-8 pt-16 pb-8">
         {/* UPDATED: Reduced gaps between columns */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-x-8">
           

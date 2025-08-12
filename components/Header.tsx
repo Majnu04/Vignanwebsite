@@ -70,10 +70,10 @@ name: 'Admissions',
 link: '#',
 opensDown: true,
 sub: [
-{ name: 'Courses Offered', link: '/admissions/courses' },
-{ name: 'Admissions Procedure', link: '/admissions/procedure' },
-{ name: 'Admission Lists', link: '/admissions/lists' },
-{ name: 'Course Outcomes', link: '/admissions/outcomes' }
+{ name: 'Courses Offered', link: '/courses-offered' },
+{ name: 'Admissions Procedure', link: '/admissionsprocedure' },
+{ name: 'Admission Lists', link: '/admissionslists' },
+{ name: 'Course Outcomes', link: '/admissionsoutcomes' }
 ]
 },
 { name: 'Academics Calendars', link: '/academics/calendars' },
@@ -82,10 +82,10 @@ name: 'Teaching Learning Process',
 link: '#',
 opensDown: true,
 sub: [
-{ name: 'Teaching Methodologies', link: '/tlp/methodologies' },
+{ name: 'Teaching Methodologies', link: '/teaching-methodologies' },
 { name: 'OBE Practices', link: '/tlp/obe' },
-{ name: 'Special Programs - Student Diversity', link: '/tlp/special-programs' },
-{ name: 'Mentor - Mentee System', link: '/tlp/mentor-mentee' }
+{ name: 'Special Programs - Student Diversity', link: '/student-diversity' },
+{ name: 'Mentor - Mentee System', link: '/mentor-mentee' }
 ]
 }
 ]
