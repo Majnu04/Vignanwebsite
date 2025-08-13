@@ -5,45 +5,47 @@ import Tilt from 'react-parallax-tilt';
 import { useInView } from '../hooks/useInView';
 import { useCounter } from '../hooks/useCounter';
 import { AnimatedElement } from './AnimatedElement';
+import { useContext } from 'react';
+import { StoreContext } from '../storeContext/StoreContext';
 
 // --- DATA ---
-const highlights = [
-  {
-    student: 'Vasu Surisetty',
-    company: 'Meesho',
-    package: '37 LPA',
-    image: '/images/02 copy.png',
-    companyLogo: '/images/meeshoLogo.svg'
-  },
-  {
-    student: 'Ankit Sharma',
-    company: 'LinkedIn',
-    package: '42 LPA',
-    image: '/images/07 copy.png',
-    companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo.svg'
-  },
-  {
-    student: 'Seshu',
-    company: 'Cisco',
-    package: '23 LPA',
-    image: '/images/04 copy.png',
-    companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/6/64/Cisco_logo.svg'
-  },
-  {
-    student: 'Umakanth ',
-    company: 'Amazon',
-    package: '26 LPA',
-    image: '/images/03 copy.png',
-    companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg'
-  },
-  {
-    student: 'Koushik',
-    company: 'SAP Labs',
-    package: '15 LPA',
-    image: '/images/06 copy.png',
-    companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/5/59/SAP_2011_logo.svg'
-  },
-];
+// const highlights = [
+//   {
+//     student: 'Vasu Surisetty',
+//     company: 'Meesho',
+//     package: '37 LPA',
+//     image: '/images/02 copy.png',
+//     companyLogo: '/images/meeshoLogo.svg'
+//   },
+//   {
+//     student: 'Ankit Sharma',
+//     company: 'LinkedIn',
+//     package: '42 LPA',
+//     image: '/images/07 copy.png',
+//     companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo.svg'
+//   },
+//   {
+//     student: 'Seshu',
+//     company: 'Cisco',
+//     package: '23 LPA',
+//     image: '/images/04 copy.png',
+//     companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/6/64/Cisco_logo.svg'
+//   },
+//   {
+//     student: 'Umakanth ',
+//     company: 'Amazon',
+//     package: '26 LPA',
+//     image: '/images/03 copy.png',
+//     companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg'
+//   },
+//   {
+//     student: 'Koushik',
+//     company: 'SAP Labs',
+//     package: '15 LPA',
+//     image: '/images/06 copy.png',
+//     companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/5/59/SAP_2011_logo.svg'
+//   },
+// ];
 
 // --- SUB-COMPONENTS ---
 const AnimatedStat: React.FC<{ value: number; decimals?: number; suffix: string; label: string }> = ({ value, decimals = 0, suffix, label }) => {
@@ -61,9 +63,11 @@ const AnimatedStat: React.FC<{ value: number; decimals?: number; suffix: string;
 
 // --- MAIN COMPONENT ---
 const PlacementsSection: React.FC = () => {
+  const { url,placementList } = useContext(StoreContext);
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
   const [currentIndex, setCurrentIndex] = useState(0);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const highlights= placementList;
   const totalHighlights = highlights.length;
 
   useEffect(() => {
@@ -144,7 +148,7 @@ const PlacementsSection: React.FC = () => {
                   >
                     <div className="relative w-full h-full">
                       <img 
-                        src={highlight.image} 
+                        src={`${url}/uploads/${highlight.image}`} 
                         alt={highlight.student} 
                         className="absolute inset-0 w-full h-full object-cover object-top transition-all duration-500 ease-out"
                         style={{
@@ -158,7 +162,7 @@ const PlacementsSection: React.FC = () => {
                       <div className="absolute inset-0">
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
                         <div className="absolute inset-x-0 bottom-0 p-5 md:p-6 text-white">
-                          <img src={highlight.companyLogo} alt={`${highlight.company} logo`} className="w-24 h-auto mb-3" style={{filter: 'drop-shadow(0 0 5px rgba(255, 255, 255, 0.5))'}} />
+                          <img src={`${url}/uploads/${highlight.companyLogo}`} alt={`${highlight.company} logo`} className="w-24 h-auto mb-3" style={{filter: 'drop-shadow(0 0 5px rgba(255, 255, 255, 0.5))'}} />
                           <p className="text-xl font-bold tracking-wide" style={{textShadow: '0 1px 3px rgba(0,0,0,0.4)'}}>{highlight.student}</p>
                           <p className="text-2xl font-extrabold text-cyan-400" style={{textShadow: '0 1px 3px rgba(0,0,0,0.4)'}}>{highlight.package}</p>
                         </div>

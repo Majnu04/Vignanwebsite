@@ -2,6 +2,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import DepartmentLayout from './DepartmentLayout';
+import { useContext } from 'react';
+import { StoreContext } from '../storeContext/StoreContext';
 
 // --- Data for the CSE Department ---
 const cseSidebarData = [
@@ -35,7 +37,16 @@ const SyllabusCard: React.FC<{ title: string; href: string }> = ({ title, href }
 );
 
 // --- Main Page Component ---
-const CsePage: React.FC<{ data: any; onBack: () => void }> = ({ data, onBack}) => {
+const CsePage: React.FC<{  onBack: () => void }> = ({ onBack}) => {
+   const { url, departmentList } = useContext(StoreContext);
+   const data = departmentList?.[0] || {};
+  console.log("=== CsePage Debug ===");
+  console.log("departmentList:", departmentList);
+  console.log("data:", data);
+  console.log("data.name:", data?.name);
+  console.log("typeof data:", typeof data);
+  console.log("===================");
+
   // React.useEffect(() => {
   //   window.scrollTo(0, 0);
   // }, []);
@@ -45,7 +56,7 @@ const CsePage: React.FC<{ data: any; onBack: () => void }> = ({ data, onBack}) =
   <div className="fixed inset-0 bg-white z-50 overflow-y-auto">
     <DepartmentLayout
       departmentName={data.name}
-      heroImage={data.heroImage}
+      heroImage={`${url}/uploads/${data.heroImage}`}
       sidebarNavItems={cseSidebarData}
       onBack={onBack}
       sidebarClassName="bg-blue-800 text-white border-blue-700"
@@ -89,7 +100,7 @@ const CsePage: React.FC<{ data: any; onBack: () => void }> = ({ data, onBack}) =
           </h2>
           <div className="flex flex-col items-center gap-8 bg-slate-50 p-8 rounded-2xl border border-gray-200">
             <img
-              src={data.hodImage}
+              src={`${url}/uploads/${data.hodImage}`}
               alt={`HOD ${data.hodName}`}
               className="w-full h-80 rounded-lg object-contain shadow-lg shrink-0 border-4 border-white"
               // className="w-full max-w-sm h-auto rounded-lg object-contain shadow-lg border-4 border-white"
@@ -147,3 +158,7 @@ const CsePage: React.FC<{ data: any; onBack: () => void }> = ({ data, onBack}) =
 };
 
 export default CsePage;
+
+
+
+

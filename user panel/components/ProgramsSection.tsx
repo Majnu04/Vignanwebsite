@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import CsePage from './CsePage';
+import axios from "axios";
+import { useContext } from 'react';
+import { StoreContext } from '../storeContext/StoreContext';
 
 // Import the Assets with proper path
-import { Assets } from '../assets/Assets';
+// import { Assets } from '../assets/Assets';
 import { AnimatedElement } from './AnimatedElement';
 
 // --- DATA ---
@@ -159,14 +162,50 @@ const ProgramTileMobile: React.FC<{ program: any; isActive: boolean; onClick: ()
 // --- MAIN COMPONENT ---
 
 const ProgramsSection: React.FC = () => {
+  const { url, setDepartmentList, departmentList} = useContext(StoreContext);
+  // const [departmentList, setDepartmentList] = useState([]);
+  const [isLoadingDepartment, setIsLoadingDepartment] = useState(false);
   const [activeFilter, setActiveFilter] = useState<'UG' | 'PG'>('UG');
   const [hoveredTile, setHoveredTile] = useState<string | null>(null);
   const [activeMobileTile, setActiveMobileTile] = useState<string | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
+  // const Assets = departmentList;
+//   const departmentData =  async (code?:any) => {
+//     try {
+//         // const res = await axios.get(url + "/api/department/list"+);
+//         const res = await axios.get(`${url}/api/department/list/${code}`)
+//         console.log("API Response:", res.data); // Add this
+//         setDepartmentList((prevData) => {
+//             if (JSON.stringify(prevData) !== JSON.stringify(res.data)) {
+//                 return res.data;
+//             }
+//             return prevData;
+//         });
+//     } catch (err) {
+//         console.error("Error fetching departments data:", err);
+//     }
+// };
+
+
+
+
 
   const programsToShow = activeFilter === 'UG' ? programsData.UG : programsData.PG;
 
   const [selectedPageId, setSelectedPageId] = useState<string | null>(null);
+
+const departmentData = async (code: string) => {
+  setIsLoadingDepartment(true); // Start loading
+  try {
+    const res = await axios.get(`${url}/api/department/list/${code}`);
+    console.log("API Response:", res.data);
+    setDepartmentList(res.data);
+  } catch (err) {
+    console.error("Error fetching departments data:", err);
+  } finally {
+    setIsLoadingDepartment(false); // Stop loading
+  }
+};
 
   // const handleProgramClick = (pageId: string) => {
   //   // Check which department data is available
@@ -183,10 +222,15 @@ const ProgramsSection: React.FC = () => {
   //   }
   // };
 
-  const handleProgramClick = (pageId: string) => {
-  setSelectedPageId(pageId);
-  console.log(pageId);
-};
+//   const handleProgramClick = (pageId: string) => {
+//   // setSelectedPageId(pageId);
+//   // console.log(pageId);
+//   return(
+//     <>
+//     <CsePage/>
+//     </>
+//   );
+// };
 
   useEffect(() => {
     const grid = gridRef.current;
@@ -252,7 +296,16 @@ const ProgramsSection: React.FC = () => {
                 index={index}
                 isHovered={hoveredTile === program.name}
                 onMouseEnter={() => setHoveredTile(program.name)}
-                onClick={() => program.pageId && handleProgramClick(program.pageId)}
+                onClick={async () => {
+                  if (program.pageId) {
+                    setSelectedPageId(program.pageId);
+                    await departmentData(program.pageId);
+                  }
+                }}
+                // onClick={() => {
+                //   program.pageId && setSelectedPageId(program.pageId) && departmentData(program.pageId);
+                // }
+                // }
               />
             </div>
           ))}
@@ -266,63 +319,78 @@ const ProgramsSection: React.FC = () => {
               program={program}
               index={index}
               isActive={activeMobileTile === program.name}
-              onClick={() => {
-                handleMobileTileClick(program.name);
-                if (program.pageId && activeMobileTile === program.name) {
-                  handleProgramClick(program.pageId);
-                }
-              }}
+              onClick={async () => {
+                  // For clickable programs (with pageId), go directly to department page
+                  if (program.pageId) {
+                    setSelectedPageId(program.pageId);
+                    await departmentData(program.pageId);
+                  } else {
+                    // For non-clickable programs, just toggle the accordion
+                    handleMobileTileClick(program.name);
+                  }
+                }}
+              // onClick={async () => {
+              //     handleMobileTileClick(program.name);
+              //     if (program.pageId && activeMobileTile === program.name) {
+              //       setSelectedPageId(program.pageId);
+              //       await departmentData(program.pageId);
+              //     }
+              //   }}
+              // onClick={() => {
+              //   handleMobileTileClick(program.name);
+              //   if (program.pageId && activeMobileTile === program.name) {
+              //     setSelectedPageId(program.pageId);
+              //     departmentData(program.pageId);
+              //   }
+              // }}
             />
           ))}
         </div>
 
-        {/* {selectedPageId && (
-          <>
-            {/* Use a portal with a transparent backdrop */}
-           {/* <div className="fixed inset-0 z-40 bg-black bg-opacity-50" onClick={() => setSelectedPageId(null)}></div>
-            
-            {/* Department Content */}
-           {/*} <div className="fixed inset-0 z-50 bg-white overflow-auto" style={{ top: 0, left: 0, right: 0, bottom: 0 }}>
-              {selectedPageId === 'cse' && (
-                <CsePage data={Assets.DepartmentData.cse} onBack={() => setSelectedPageId(null)} />
-              )}
-              {selectedPageId === 'aids' && (
-                <CsePage data={Assets.DepartmentData.aids} onBack={() => setSelectedPageId(null)} />
-              )}
-              {selectedPageId === 'it' && (
-                <CsePage data={Assets.DepartmentData.it} onBack={() => setSelectedPageId(null)} />
-              )}
-              {/* For departments that don't have data yet, show CSE data as placeholder */}
-              {/*{['cses', 'civil', 'eee', 'ece', 'ecm', 'me', 'basic', 'aiml', 'digi', 'mba', 'mca'].includes(selectedPageId) && (
-                <CsePage
-                  data={{
-                    ...Assets.DepartmentData.cse,
-                    name: `${programsToShow.find(p => p.pageId === selectedPageId)?.name || 'Department'} (Preview)`,
-                  }}
-                  onBack={() => setSelectedPageId(null)}
-                />
-              )}
-            </div>
-          </>
-        )} */}
 
-        {selectedPageId === 'cse' && <CsePage data={Assets.DepartmentData.cse} onBack={() => setSelectedPageId(null)} />}
-        {selectedPageId === 'aids' && <CsePage data={Assets.DepartmentData.aids} onBack={() => setSelectedPageId(null)} />}
-        {selectedPageId === 'cses' && <CsePage data={Assets.DepartmentData.cses} onBack={() => setSelectedPageId(null)} />}
-        {selectedPageId === 'civil' && <CsePage data={Assets.DepartmentData.civil} onBack={() => setSelectedPageId(null)} />}
-        {selectedPageId === 'eee' && <CsePage data={Assets.DepartmentData.eee} onBack={() => setSelectedPageId(null)} />}
-        {selectedPageId === 'ece' && <CsePage data={Assets.DepartmentData.ece} onBack={() => setSelectedPageId(null)} />}
-        {selectedPageId === 'ecm' && <CsePage data={Assets.DepartmentData.ecm} onBack={() => setSelectedPageId(null)} />}
-        {selectedPageId === 'it' && <CsePage data={Assets.DepartmentData.it} onBack={() => setSelectedPageId(null)} />}
-        {selectedPageId === 'me' && <CsePage data={Assets.DepartmentData.me} onBack={() => setSelectedPageId(null)} />}
-        {selectedPageId === 'basic' && <CsePage data={Assets.DepartmentData.basic} onBack={() => setSelectedPageId(null)} />}
-        {selectedPageId === 'aiml' && <CsePage data={Assets.DepartmentData.aiml} onBack={() => setSelectedPageId(null)} />}
-        {selectedPageId === 'pcse' && <CsePage data={Assets.DepartmentData.pcse} onBack={() => setSelectedPageId(null)} />}
-        {selectedPageId === 'mba' && <CsePage data={Assets.DepartmentData.mba} onBack={() => setSelectedPageId(null)} />}
-        {selectedPageId === 'mca' && <CsePage data={Assets.DepartmentData.mca} onBack={() => setSelectedPageId(null)} />}
-      </div>
+        {selectedPageId && (
+        <>
+          {/* Backdrop */}
+          <div 
+            className="fixed inset-0 z-40 bg-black bg-opacity-50"
+            onClick={() => setSelectedPageId(null)}
+          />
+          
+          {/* Department Content */}
+          <div className="fixed inset-0 z-50 bg-white overflow-auto">
+            {isLoadingDepartment ? (
+              // Show loader while data is being fetched
+              <div className="flex items-center justify-center min-h-screen">
+                <div className="text-center">
+                  <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                  <p className="text-lg text-gray-600">Loading department information...</p>
+                </div>
+              </div>
+            ) : (
+              // Show CsePage only after data is loaded
+              <CsePage onBack={() => setSelectedPageId(null)} />
+            )}
+          </div>
+        </>
+      )}
+        
+       </div>
     </section>
   );
 };
 
 export default ProgramsSection;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
