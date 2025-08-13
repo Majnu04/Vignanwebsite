@@ -1,0 +1,6 @@
+{
+  "rootDirectory": "user panel",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
+  ]
+}
