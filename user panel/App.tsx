@@ -38,26 +38,29 @@ import CsePage from './components/CsePage';
 import { Assets } from './assets/Assets';
 
 const App: React.FC = () => {
-  const [initialLoad, setInitialLoad] = useState(true);
+  const [initialLoad, setInitialLoad] = useState(false); // Changed default to false
 
-  // Track if this is the first time loading the site in this session
-  // Track if this is the first time loading the site in this session
+  // Only show video on the very first load of the homepage
   useEffect(() => {
-    // Check sessionStorage to see if we've loaded before
-    const hasVisited = sessionStorage.getItem('hasVisitedBefore');
-    if (hasVisited) {
-      setInitialLoad(false);
-    } else {
-      // Set flag that user has visited
-      sessionStorage.setItem('hasVisitedBefore', 'true');
+    // Check if we're on the homepage and if this is truly the first visit
+    const currentPath = window.location.pathname;
+    const hasEverVisited = localStorage.getItem('hasEverVisitedSite');
+    
+    // Only set initialLoad to true if:
+    // 1. We're on the homepage (/ or empty path)
+    // 2. User has never visited the site before (using localStorage for persistence)
+    if ((currentPath === '/' || currentPath === '') && !hasEverVisited) {
+      setInitialLoad(true);
+      // Mark that user has visited the site (persists across browser sessions)
+      localStorage.setItem('hasEverVisitedSite', 'true');
     }
-  }, []);
+  }, []); // Empty dependency array means this only runs once on mount
 
   return (
     <Router>
       <VideoProvider>
       <div className="App bg-white">
-        {/* Video Overlay with useVideo hook - only shows on logo click or first visit */}
+        {/* Video Overlay - only shows on first ever visit to homepage */}
         <VideoOverlayWithContext initialLoad={initialLoad} setInitialLoad={setInitialLoad} />
         
 

@@ -3,7 +3,6 @@ import React, { useState, useEffect, useRef } from 'react';
 // Import components
 import AnimatedLogo from './AnimatedLogo';
 import MobileMenuItem from './MobileMenuItem';
-import { useVideo } from '../contexts/VideoContext';
 
 // Import type definitions
 import { NavItem, NavSubItem } from '../types/navigation';
@@ -286,7 +285,6 @@ const [activeImage, setActiveImage] = useState<string | null>(null);
 const [prevImage, setPrevImage] = useState<string | null>(null);
 const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 const menuTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-const { playVideo } = useVideo(); // Get playVideo function from context
 
 const [isAdminPanelOpen, setIsAdminPanelOpen] = useState(false);
 const [isMobileAdminPanelOpen, setIsMobileAdminPanelOpen] = useState(false);
@@ -380,12 +378,12 @@ return (
                     {/* --- KEY FIX: Left Group (Logo + Main Nav) --- */}
                     <div className="flex items-center gap-x-6">
                         <div className="flex-shrink-0">
-                            {/* Make logo clickable to play video */}
+                            {/* Logo navigates to home page */}
                             <AnimatedLogo 
                               isScrolled={isScrolled} 
                               logoSize={isScrolled ? 96 : 128} 
                               onClick={() => {
-                                playVideo(); // Play the video when logo is clicked
+                                window.location.href = '/';
                                 if (onLogoClick) onLogoClick(); // Still call the original onLogoClick if provided
                               }} 
                             />
@@ -501,7 +499,10 @@ return (
                         <AnimatedLogo 
                           isScrolled={true} 
                           logoSize={64} 
-                          onClick={() => playVideo()} // Play video on mobile logo click too
+                          onClick={() => {
+                            // Navigate to home instead of playing video
+                            window.location.href = '/';
+                          }}
                         />
                       </div>
                     </div>
