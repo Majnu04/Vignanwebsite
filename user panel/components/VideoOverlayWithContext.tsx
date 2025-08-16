@@ -11,17 +11,15 @@ const VideoOverlayWithContext: React.FC<VideoOverlayWithContextProps> = ({
   initialLoad, 
   setInitialLoad 
 }) => {
-  const { stopVideo } = useVideo();
+  const { isVideoPlaying, stopVideo } = useVideo();
   const [showOverlay, setShowOverlay] = useState(false);
   
-  // Only handle initial load case - remove logo click functionality completely
+  // Handle both initial load case and logo click case
   useEffect(() => {
-    // Only show video overlay on initial load, never on logo clicks or other interactions
-    if (initialLoad) {
+    if (initialLoad || isVideoPlaying) {
       setShowOverlay(true);
     }
-    // Remove isVideoPlaying from dependencies to prevent video from playing on other interactions
-  }, [initialLoad]);
+  }, [initialLoad, isVideoPlaying]);
   
   // Handle closing the video
   const handleClose = () => {

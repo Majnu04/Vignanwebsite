@@ -60,7 +60,7 @@ const App: React.FC = () => {
     <Router>
       <VideoProvider>
       <div className="App bg-white">
-        {/* Video Overlay - only shows on first ever visit to homepage */}
+        {/* Video Overlay - shows on first visit to homepage and when logo is clicked */}
         <VideoOverlayWithContext initialLoad={initialLoad} setInitialLoad={setInitialLoad} />
         
 

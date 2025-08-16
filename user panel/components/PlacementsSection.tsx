@@ -5,76 +5,9 @@ import Tilt from 'react-parallax-tilt';
 import { useInView } from '../hooks/useInView';
 import { useCounter } from '../hooks/useCounter';
 import { AnimatedElement } from './AnimatedElement';
+import { useContext } from 'react';
+import { StoreContext } from '../storeContext/StoreContext';
 
-// --- DATA ---
-const highlights = [
-  {
-    student: 'Vasu Surisetty',
-    company: 'Meesho',
-    package: '37 LPA',
-    image: '/images/02 copy.png',
-    companyLogo: '/images/companies/Meesho_logo.png' 
-  },
-  {
-    student: 'Ankit Sharma',
-    company: 'LinkedIn',
-    package: '42 LPA',
-    image: '/images/07 copy.png',
-    companyLogo: 'https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo.svg' 
-  },
-  {
-    student: 'Seshu',
-    company: 'Cisco',
-    package: '23 LPA',
-    image: '/images/04 copy.png',
-    companyLogo: '/images/companies/Cisco_logo.png' 
-  },
-  {
-    student: 'Umakanth ',
-    company: 'Amazon',
-    package: '26 LPA',
-    image: '/images/03 copy.png',
-    companyLogo: '/images/companies/Amazon_logo.webp' 
-  },
-  {
-    student: 'Koushik',
-    company: 'SAP Labs',
-    package: '15 LPA',
-    image: '/images/06 copy.png',
-    companyLogo: '/images/companies/SAP_Labs_logo.png' 
-  },
-];
-
-// List of recruiters with their local logo URLs
-const newRecruiters = [
-  { name: 'Infosys', logoSrc: '/images/companies/Infosys_logo.png' },
-  { name: 'Accenture', logoSrc: '/images/companies/Accenture_logo.png' },
-  { name: 'Cognizant', logoSrc: '/images/companies/Cognizant_logo.png' },
-  { name: 'Wipro', logoSrc: '/images/companies/Wipro_logo.jpg' },
-  { name: 'Amazon', logoSrc: '/images/companies/Amazon_logo.webp' },
-  { name: 'Cisco', logoSrc: '/images/companies/Cisco_logo.png' },
-  { name: 'SAP Labs', logoSrc: '/images/companies/SAP_logo.png' },
-  { name: 'Deloitte', logoSrc: '/images/companies/Deloitte_logo.png' }, 
-  { name: 'Inncircles', logoSrc: '/images/companies/Inncircles_logo.png' },
-  { name: 'Meesho', logoSrc: '/images/companies/Meesho_logo.png' },
-  { name: 'TCS', logoSrc: '/images/companies/TCS_logo.png' },
-  { name: 'M2P', logoSrc: '/images/companies/M2P_logo.webp' },
-  { name: 'Distacart', logoSrc: '/images/companies/Distacart_logo.jpg' },
-  { name: 'Intellipaat', logoSrc: '/images/companies/R.png' }, 
-  { name: 'HDFC Life', logoSrc: '/images/companies/HDFC-Life_logo.png' },
-  { name: 'D-mart', logoSrc: '/images/companies/DMart_logo.jpg' },
-  { name: 'Akrivia HCM', logoSrc: '/images/companies/AkriviaHCM_logo.png' },
-  { name: 'CRED', logoSrc: '/images/companies/CRED_logo.webp'},
-  { name: 'Mercari', logoSrc: '/images/companies/Mercari_logo.png'},
-  { name: 'Moschip', logoSrc: '/images/companies/Moschip_logo.png'},
-  { name: 'Infinite', logoSrc: '/images/companies/Infinite_logo.jpg'},
-  { name: 'TAS', logoSrc: '/images/companies/TAS_logo.jpg'},
-  { name: 'Teejay', logoSrc: '/images/companies/Teejay_logo.png'},
-  { name: 'Imeg', logoSrc: '/images/companies/Imeg_logo.png'},
-  { name: 'Teachnook', logoSrc: '/images/companies/Teachnook_logo.png'},
-  { name: 'Pfizer', logoSrc: '/images/companies/Pfizer_logo.png'},
-  { name: 'Pavision', logoSrc: '/images/companies/Pavision_logo.jpeg'},
-];
 
 // --- SUB-COMPONENTS ---
 const AnimatedStat: React.FC<{ value: number; decimals?: number; suffix: string; label: string }> = ({ value, decimals = 0, suffix, label }) => {
@@ -92,9 +25,11 @@ const AnimatedStat: React.FC<{ value: number; decimals?: number; suffix: string;
 
 // --- MAIN COMPONENT ---
 const PlacementsSection: React.FC = () => {
+  const { url,placementList } = useContext(StoreContext);
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
   const [currentIndex, setCurrentIndex] = useState(0);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const highlights= placementList;
   const totalHighlights = highlights.length;
 
   useEffect(() => {
@@ -175,7 +110,7 @@ const PlacementsSection: React.FC = () => {
                   >
                     <div className="relative w-full h-full">
                       <img 
-                        src={highlight.image} 
+                        src={`${url}/uploads/${highlight.image}`} 
                         alt={highlight.student} 
                         className="absolute inset-0 w-full h-full object-cover object-top transition-all duration-500 ease-out"
                         style={{
@@ -189,13 +124,7 @@ const PlacementsSection: React.FC = () => {
                       <div className="absolute inset-0">
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
                         <div className="absolute inset-x-0 bottom-0 p-5 md:p-6 text-white">
-                          {/* Display company logo from highlight */}
-                          <img 
-                            src={highlight.companyLogo} 
-                            alt={`${highlight.company} logo`} 
-                            className="w-24 h-auto mb-3 object-contain" 
-                            style={{filter: 'drop-shadow(0 0 5px rgba(255, 255, 255, 0.5))'}} 
-                          />
+                          <img src={`${url}/uploads/${highlight.companyLogo}`} alt={`${highlight.company} logo`} className="w-24 h-auto mb-3" style={{filter: 'drop-shadow(0 0 5px rgba(255, 255, 255, 0.5))'}} />
                           <p className="text-xl font-bold tracking-wide" style={{textShadow: '0 1px 3px rgba(0,0,0,0.4)'}}>{highlight.student}</p>
                           <p className="text-2xl font-extrabold text-cyan-400" style={{textShadow: '0 1px 3px rgba(0,0,0,0.4)'}}>{highlight.package}</p>
                         </div>
@@ -250,7 +179,7 @@ const PlacementsSection: React.FC = () => {
             }
             .logos-slide {
               display: inline-block;
-              animation: scroll 20s linear infinite;
+              animation: scroll 25s linear infinite;
             }
             .logos:hover .logos-slide {
               animation-play-state: paused;
@@ -259,39 +188,76 @@ const PlacementsSection: React.FC = () => {
               display: inline-flex;
               align-items: center;
               justify-content: center;
-              height: 70px; /* Reverted to original height */
-              width: 140px; /* Reverted to original width */
+              height: 70px;
+              width: 140px;
               margin: 0 12px;
               background: white;
               box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
               border-radius: 10px;
               padding: 12px;
               transition: all 0.3s ease;
+              vertical-align: middle;
             }
             .logo:hover {
               transform: translateY(-5px);
               box-shadow: 0 10px 25px rgba(66, 153, 225, 0.3);
             }
+            .logo img {
+              max-height: 45px;
+              max-width: 120px;
+              object-fit: contain;
+              object-position: center;
+              display: block;
+              margin: auto;
+            }
           `}</style>
           <div className="logos">
             <div className="logos-slide">
-              {[...Array(2)].map((_, i) => ( // Duplicates the list for continuous scroll effect
-                <React.Fragment key={i}>
-                  {newRecruiters.map((company, idx) => (
-                    <div className="logo" key={`${company.name}-${idx}`}>
-                      {company.logoSrc ? (
-                        // Removed p-2 here to allow image to fill more space
-                        <img src={company.logoSrc} alt={company.name} className="h-full w-full object-contain" />
-                      ) : (
-                        // Fallback to text if no logo source is provided
-                        <div className="h-full w-full flex items-center justify-center p-2">
-                          <span className="text-xs sm:text-sm md:text-base font-semibold text-slate-700 text-center leading-tight">{company.name}</span>
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </React.Fragment>
-              ))}
+              {(() => {
+                const companies = [
+                  { name: 'Infosys', logoSrc: '/images/companies/Infosys_logo.png' },
+                  { name: 'Accenture', logoSrc: '/images/companies/Accenture_logo.png' },
+                  { name: 'Cognizant', logoSrc: '/images/companies/Cognizant_logo.png' },
+                  { name: 'Wipro', logoSrc: '/images/companies/Wipro_logo.jpg' },
+                  { name: 'Amazon', logoSrc: '/images/companies/Amazon_logo.webp' },
+                  { name: 'Cisco', logoSrc: '/images/companies/Cisco_logo.png' },
+                  { name: 'SAP Labs', logoSrc: '/images/companies/SAP_logo.png' },
+                  { name: 'Deloitte', logoSrc: '/images/companies/Deloitte_logo.png' }, 
+                  { name: 'Inncircles', logoSrc: '/images/companies/Inncircles_logo.png' },
+                  { name: 'Meesho', logoSrc: '/images/companies/Meesho_logo.png' },
+                  { name: 'TCS', logoSrc: '/images/companies/TCS_logo.png' },
+                  { name: 'M2P', logoSrc: '/images/companies/M2P_logo.webp' },
+                  { name: 'Distacart', logoSrc: '/images/companies/Distacart_logo.jpg' },
+                  { name: 'Intellipaat', logoSrc: '/images/companies/R.png' }, 
+                  { name: 'HDFC Life', logoSrc: '/images/companies/HDFC-Life_logo.png' },
+                  { name: 'D-mart', logoSrc: '/images/companies/DMart_logo.jpg' },
+                  { name: 'Akrivia HCM', logoSrc: '/images/companies/AkriviaHCM_logo.png' },
+                  { name: 'CRED', logoSrc: '/images/companies/CRED_logo.webp'},
+                  { name: 'Mercari', logoSrc: '/images/companies/Mercari_logo.png'},
+                  { name: 'Moschip', logoSrc: '/images/companies/Moschip_logo.png'},
+                  { name: 'Infinite', logoSrc: '/images/companies/Infinite_logo.jpg'},
+                  { name: 'TAS', logoSrc: '/images/companies/TAS_logo.jpg'},
+                  { name: 'Teejay', logoSrc: '/images/companies/Teejay_logo.png'},
+                  { name: 'Imeg', logoSrc: '/images/companies/Imeg_logo.png'},
+                  { name: 'Teachnook', logoSrc: '/images/companies/Teachnook_logo.png'},
+                  { name: 'Pfizer', logoSrc: '/images/companies/Pfizer_logo.png'},
+                  { name: 'Pavision', logoSrc: '/images/companies/Pavision_logo.jpeg'},
+                ];
+                
+                return [...Array(2)].map((_, i) => (
+                  <React.Fragment key={i}>
+                    {companies.map((company, index) => (
+                      <div key={`${i}-${index}`} className="logo">
+                        <img 
+                          src={company.logoSrc} 
+                          alt={company.name} 
+                          title={company.name}
+                        />
+                      </div>
+                    ))}
+                  </React.Fragment>
+                ));
+              })()}
             </div>
           </div>
         </div>
@@ -300,4 +266,4 @@ const PlacementsSection: React.FC = () => {
   );
 };
 
-export default PlacementsSection;   
+export default PlacementsSection;
