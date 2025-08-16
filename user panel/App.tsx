@@ -48,27 +48,18 @@ const App: React.FC = () => {
     
     // Check if user is on mobile or has slow connection
     const isMobile = window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    const connection = (navigator as any).connection || (navigator as any).mozConnection || (navigator as any).webkitConnection;
-    
-    let isSlowConnection = false;
-    if (connection) {
-      isSlowConnection = connection.effectiveType === 'slow-2g' || 
-                        connection.effectiveType === '2g' ||
-                        connection.downlink < 1.5; // Less than 1.5 Mbps
-    }
+    const isSlowConnection = (navigator as any).connection?.effectiveType === 'slow-2g' || (navigator as any).connection?.effectiveType === '2g';
     
     // Only set initialLoad to true if:
     // 1. We're on the homepage (/ or empty path)
-    // 2. User has never visited the site before
-    // 3. Connection is good enough for video (not slow on mobile)
-    if ((currentPath === '/' || currentPath === '') && !hasEverVisited) {
-      // Always show video for desktop, but be smart about mobile
-      if (!isMobile || (isMobile && !isSlowConnection)) {
-        setTimeout(() => {
-          setInitialLoad(true);
-        }, 500);
-      }
-      // Mark that user has visited the site
+    // 2. User has never visited the site before (using localStorage for persistence)
+    // 3. NOT on mobile with slow connection (to prevent loading issues)
+    if ((currentPath === '/' || currentPath === '') && !hasEverVisited && !(isMobile && isSlowConnection)) {
+      // Add a small delay to ensure page has loaded
+      setTimeout(() => {
+        setInitialLoad(true);
+      }, 500);
+      // Mark that user has visited the site (persists across browser sessions)
       localStorage.setItem('hasEverVisitedSite', 'true');
     }
   }, []); // Empty dependency array means this only runs once on mount
