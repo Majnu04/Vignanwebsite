@@ -134,3 +134,39 @@
     opacity: 0; 
   }
 }
+
+/* Pulse animation for fallback logo */
+@keyframes pulse {
+  0%, 100% { 
+    transform: scale(1); 
+  }
+  50% { 
+    transform: scale(1.05); 
+  }
+}
+
+/* Spin animation for loading indicator */
+@keyframes spin {
+  0% { 
+    transform: rotate(0deg); 
+  }
+  100% { 
+    transform: rotate(360deg); 
+  }
+}
+
+/* Fallback container animations */
+.fallback-container {
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+/* Loading indicator styles */
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-top: 3px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 15px;
+}
