@@ -19,7 +19,7 @@ const VideoOverlay: React.FC<VideoOverlayProps> = ({ isOpen, onClose, autoplay =
     height: 100 
   }); // Default position and size for logo animation target
   
-  // Detect mobile device only - no logo detection
+  // Detect mobile device and connection speed
   useEffect(() => {
     const checkMobile = () => {
       const isMobileDevice = window.innerWidth <= 768 || 
@@ -258,7 +258,7 @@ const VideoOverlay: React.FC<VideoOverlayProps> = ({ isOpen, onClose, autoplay =
           autoPlay={autoplay}
           muted
           playsInline
-          preload="auto"
+          preload={isMobile ? "metadata" : "auto"} // Use metadata preload for mobile to save bandwidth
           onEnded={handleVideoEnd}
           style={{ 
             width: '100%', 

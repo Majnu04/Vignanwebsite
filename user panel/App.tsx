@@ -40,17 +40,25 @@ import { Assets } from './assets/Assets';
 const App: React.FC = () => {
   const [initialLoad, setInitialLoad] = useState(false); // Changed default to false
 
-  // Only show video on the very first load of the homepage
+  // Only show video on the very first load of the homepage, but be mobile-friendly
   useEffect(() => {
     // Check if we're on the homepage and if this is truly the first visit
     const currentPath = window.location.pathname;
     const hasEverVisited = localStorage.getItem('hasEverVisitedSite');
     
+    // Check if user is on mobile or has slow connection
+    const isMobile = window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const isSlowConnection = (navigator as any).connection?.effectiveType === 'slow-2g' || (navigator as any).connection?.effectiveType === '2g';
+    
     // Only set initialLoad to true if:
     // 1. We're on the homepage (/ or empty path)
     // 2. User has never visited the site before (using localStorage for persistence)
-    if ((currentPath === '/' || currentPath === '') && !hasEverVisited) {
-      setInitialLoad(true);
+    // 3. NOT on mobile with slow connection (to prevent loading issues)
+    if ((currentPath === '/' || currentPath === '') && !hasEverVisited && !(isMobile && isSlowConnection)) {
+      // Add a small delay to ensure page has loaded
+      setTimeout(() => {
+        setInitialLoad(true);
+      }, 500);
       // Mark that user has visited the site (persists across browser sessions)
       localStorage.setItem('hasEverVisitedSite', 'true');
     }

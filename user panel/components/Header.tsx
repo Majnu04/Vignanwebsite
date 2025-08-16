@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // Import components
 import AnimatedLogo from './AnimatedLogo';
@@ -287,6 +288,7 @@ const [prevImage, setPrevImage] = useState<string | null>(null);
 const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 const menuTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 const { playVideo } = useVideo(); // Get playVideo function from context
+const navigate = useNavigate(); // For navigation without page refresh
 
 const [isAdminPanelOpen, setIsAdminPanelOpen] = useState(false);
 const [isMobileAdminPanelOpen, setIsMobileAdminPanelOpen] = useState(false);
@@ -386,7 +388,7 @@ return (
                               logoSize={isScrolled ? 96 : 128} 
                               onClick={() => {
                                 playVideo(); // Play the video when logo is clicked
-                                window.location.href = '/';
+                                navigate('/'); // Navigate without page refresh
                                 if (onLogoClick) onLogoClick(); // Still call the original onLogoClick if provided
                               }} 
                             />
@@ -504,7 +506,8 @@ return (
                           logoSize={64} 
                           onClick={() => {
                             playVideo(); // Play video on mobile logo click
-                            window.location.href = '/';
+                            navigate('/'); // Navigate without page refresh
+                            setIsMobileMenuOpen(false); // Close mobile menu
                           }}
                         />
                       </div>
