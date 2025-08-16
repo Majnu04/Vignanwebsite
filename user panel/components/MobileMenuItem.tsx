@@ -1,21 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { NavItem, NavSubItem, NavColumn } from '../types/navigation';
+import { NavItem, NavSubItem } from '../types/navigation';
 import { ChevronDown } from 'lucide-react';
 
 interface MobileMenuItemProps {
   item: NavItem | NavSubItem;
   depth?: number;
-  isLast?: boolean;
 }
 
 const MobileMenuItem: React.FC<MobileMenuItemProps> = ({ 
   item, 
-  depth = 0,
-  isLast = false
+  depth = 0
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [height, setHeight] = useState<number | undefined>(undefined);
-  const contentRef = useRef<HTMLUListElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   
   // Check if item has sub-items (could be NavItem or NavSubItem)
   const hasSubItems = 'sub' in item && item.sub && item.sub.length > 0;
@@ -61,10 +59,6 @@ const MobileMenuItem: React.FC<MobileMenuItemProps> = ({
             </div>
           )}
           <span className={`${isOpen ? 'text-blue-700' : ''} transition-colors duration-200`}>{item.name}</span>
-          
-          {'isMegaWithImage' in item && (
-            <span className="ml-2 px-1.5 py-0.5 bg-blue-100 text-blue-700 text-xs rounded-full">Menu</span>
-          )}
         </a>
         
         {hasSubItems && (
@@ -90,18 +84,17 @@ const MobileMenuItem: React.FC<MobileMenuItemProps> = ({
           `}
         >
           {/* For NavItem with columns */}
-          {'isMegaWithImage' in item && item.sub?.map((column, columnIndex) => (
+          {'isMegaWithImage' in item && item.sub?.map((column) => (
             <div key={column.name} className="p-2">
               <div className="px-3 py-2 text-xs font-semibold text-blue-600 uppercase tracking-wider">
                 {column.name}
               </div>
               <div className="space-y-1">
-                {column.sub.map((subItem, subItemIndex) => (
+                {column.sub.map((subItem) => (
                   <MobileMenuItem 
                     key={subItem.name}
                     item={subItem}
                     depth={depth + 1}
-                    isLast={subItemIndex === column.sub.length - 1}
                   />
                 ))}
               </div>
@@ -111,12 +104,11 @@ const MobileMenuItem: React.FC<MobileMenuItemProps> = ({
           {/* For NavSubItem with direct sub items */}
           {'sub' in item && !('isMegaWithImage' in item) && (
             <div className="py-1">
-              {(item.sub as NavSubItem[]).map((subItem, subItemIndex) => (
+              {(item.sub as NavSubItem[]).map((subItem) => (
                 <MobileMenuItem 
                   key={subItem.name}
                   item={subItem}
                   depth={depth + 1}
-                  isLast={subItemIndex === (item.sub as NavSubItem[]).length - 1}
                 />
               ))}
             </div>
